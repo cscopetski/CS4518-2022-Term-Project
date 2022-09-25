@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.rnsmfitness">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
@@ -15,10 +17,13 @@
         android:theme="@style/Theme.RNSMFitness"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.HomeActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activities.MyFoodList"
             android:exported="false" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -12,6 +12,6 @@ interface AuthorizationService {
     fun login(@Body loginCredentials: LoginCredentials): Call<User>
 
     @POST("auth/logout")
-    fun logout(@Body loginCredentials: LoginCredentials): Call<ResponseBody>
+    fun logout(): Call<ResponseBody>
 
 }

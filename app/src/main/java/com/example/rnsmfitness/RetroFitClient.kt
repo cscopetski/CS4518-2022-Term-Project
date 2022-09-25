@@ -4,6 +4,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.rnsmfitness.services.AuthorizationService
+import com.example.rnsmfitness.services.UserService
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.Cookie
@@ -103,7 +104,7 @@ object RetroFitClient {
         .cookieJar(cookieJar)
         .build()
 
-    fun checkCookie():Boolean{
+    fun checkCookie():Boolean {
 
         val prefsKey = PREFS_KEY_PREFIX + HOST_NAME
 
@@ -124,6 +125,14 @@ object RetroFitClient {
         }
     }
 
+    fun deleteCookie() {
+        val prefsKey = PREFS_KEY_PREFIX + HOST_NAME
+
+        if(prefs.contains(prefsKey)){
+            prefsEditor.remove(prefsKey).commit()
+        }
+    }
+
     private fun retrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -134,6 +143,10 @@ object RetroFitClient {
 
     val authorizationService: AuthorizationService by lazy {
         retrofit().create(AuthorizationService::class.java)
+    }
+
+    val userService: UserService by lazy {
+        retrofit().create(UserService::class.java)
     }
 
 }
