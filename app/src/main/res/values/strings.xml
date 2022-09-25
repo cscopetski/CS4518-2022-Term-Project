@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">RNSM Fitness</string>
     <string name="app_title_text">RNSM Fitness</string>
+    <string name="email_address_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button_text">Login</string>
 </resources>
