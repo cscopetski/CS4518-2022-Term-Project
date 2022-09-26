@@ -1,15 +1,20 @@
 <resources>
     <string name="app_name">RNSM Fitness</string>
-
     <string name="food_description_edit_text">Grocery Description</string>
     <string name="food_quantity_edit_text">Grocery Quantity</string>
     <string name="food_unit_edit_text">Grocery Unit</string>
     <string name="done_button_text">Done</string>
     <string name="fab_content_description">fab</string>
     <string name="add_food">Add Food</string>
-
     <string name="title">Food %d</string>
     <string name="description">Quantity %d</string>
     <string name="unit">Unit %d</string>
-
+    <string name="app_title_text">RNSM Fitness</string>
+    <string name="email_address_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button_text">Login</string>
+    <string name="logout_button_text">Logout</string>
+    <string name="name_text">FirstName LastName</string>
+    <string name="welcome_text">Welcome</string>
 </resources>
+

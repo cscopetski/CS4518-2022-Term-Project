@@ -3,11 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/cckwp/OneDrive/Documents/GitHub/CS4518-2022-Term-Project/app/src/main/res/drawable/ic_baseline_fastfood_24.xml" value="0.247" />
-        <entry key="..\:/Users/cckwp/OneDrive/Documents/GitHub/CS4518-2022-Term-Project/app/src/main/res/drawable/plus_sign.xml" value="0.247" />
-        <entry key="..\:/Users/cckwp/OneDrive/Documents/GitHub/CS4518-2022-Term-Project/app/src/main/res/layout/activity_my_food_list.xml" value="0.25052083333333336" />
-        <entry key="..\:/Users/cckwp/OneDrive/Documents/GitHub/CS4518-2022-Term-Project/app/src/main/res/layout/add_my_food_item.xml" value="0.2047008547008547" />
-        <entry key="..\:/Users/cckwp/OneDrive/Documents/GitHub/CS4518-2022-Term-Project/app/src/main/res/layout/my_food_item.xml" value="0.24947916666666667" />
+        <entry key="..\:/Programming/WPI/CS4518-Term-Project/CS4518-2022-Term-Project/app/src/main/res/layout/activity_home.xml" value="0.33" />
+        <entry key="..\:/Programming/WPI/CS4518-Term-Project/CS4518-2022-Term-Project/app/src/main/res/layout/activity_main.xml" value="0.348731884057971" />
       </map>
     </option>
   </component>
