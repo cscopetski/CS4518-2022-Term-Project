@@ -16,5 +16,6 @@
     <string name="logout_button_text">Logout</string>
     <string name="name_text">FirstName LastName</string>
     <string name="welcome_text">Welcome</string>
+    <string name="myfoodpage_button_text">MyFood Page</string>
 </resources>
 
