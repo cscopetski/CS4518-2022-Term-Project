@@ -7,6 +7,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rnsmfitness.Entities.DataSource
+import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.R
 import com.google.android.material.textfield.TextInputEditText
 
@@ -21,7 +23,7 @@ class CreateFoodActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.creat_food_page) //I don't know how to fix this typo, refactoring isn't working
+        setContentView(R.layout.activity_create_food)
 
         addFoodName = findViewById(R.id.add_food_name)
         addFoodProtein = findViewById(R.id.add_food_protein)

@@ -38,7 +38,7 @@
 
 
         <Button
-            android:layout_margin="150dp"
+            android:layout_margin="100dp"
             android:id="@+id/myfood_page_button"
             android:text="@string/myfoodpage_button_text"
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
             tools:layout_editor_absoluteY="275dp" />
 
         <Button
-            android:layout_margin="100dp"
+            android:layout_margin="50dp"
             android:id="@+id/logout_button"
             android:text="@string/logout_button_text"
             android:layout_width="wrap_content"
@@ -56,10 +56,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
-
 
     </LinearLayout>
 

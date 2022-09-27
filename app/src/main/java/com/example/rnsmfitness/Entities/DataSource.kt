@@ -9,7 +9,7 @@ private const val TAG = "DataSource"
 
 class DataSource {
 
-    private var id_counter = 100
+    var id_counter = 100
     private val initList = getFoods()
     private val liveList = MutableLiveData(initList)
 
@@ -47,7 +47,7 @@ class DataSource {
 
     }
 
-    fun getFoodList(): LiveData<List<FoodItem>> {
+    public fun getFoodList(): LiveData<List<FoodItem>> {
         return liveList
     }
 

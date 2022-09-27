@@ -19,6 +19,7 @@ import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
 
+    lateinit var myFoodButton: Button
     lateinit var logoutButton: Button
     lateinit var nameTextView: TextView
 
@@ -26,10 +27,16 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        myFoodButton = findViewById(R.id.myfood_page_button)
         logoutButton = findViewById(R.id.logout_button)
         nameTextView = findViewById(R.id.name_text)
 
         nameTextView.text = intent.getStringExtra("Name")
+
+        myFoodButton.setOnClickListener {
+            //set current view to myFoodPage
+            switchToMyFoodPage()
+        }
 
         logoutButton.setOnClickListener{
             logout(this)
@@ -67,6 +74,10 @@ class HomeActivity : AppCompatActivity() {
     private fun switchActivity(){
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+    }
 
+    private fun switchToMyFoodPage(){
+        val intent = Intent(this, MyFoodList::class.java)
+        startActivity(intent)
     }
 }

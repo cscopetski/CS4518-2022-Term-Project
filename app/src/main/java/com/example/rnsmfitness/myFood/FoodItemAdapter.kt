@@ -34,6 +34,7 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
         private val proteinText: TextView
         private val carbText: TextView
         private val fatText: TextView
+        private val calText: TextView
         private val cardView: CardView
 
         fun bind(food: FoodItem) {
@@ -41,6 +42,7 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
             proteinText.text = food.protein.toString()
             carbText.text = food.carbs.toString()
             fatText.text = food.fat.toString()
+            calText.text = food.calories.toString()
 
             cardView.setOnClickListener {
                 Toast.makeText(activity,food.name + ": \nTotal Calories: " + (food.protein*4 + food.carbs*4 + food.fat*9), Toast.LENGTH_SHORT).show()
@@ -54,6 +56,7 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
             proteinText = itemView.findViewById(R.id.item_protein)
             carbText = itemView.findViewById(R.id.item_carbs)
             fatText = itemView.findViewById(R.id.item_fat)
+            calText = itemView.findViewById(R.id.item_calories)
             cardView = itemView.findViewById(R.id.card)
         }
     }

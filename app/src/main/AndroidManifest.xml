@@ -23,6 +23,9 @@
             android:name=".Activities.MyFoodList"
             android:exported="true" />
         <activity
+            android:name=".Activities.CreateFoodActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activities.LoginActivity"
             android:exported="true">
             <intent-filter>
