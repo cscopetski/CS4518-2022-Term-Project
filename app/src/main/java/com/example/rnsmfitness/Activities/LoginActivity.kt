@@ -48,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+
         if(RetroFitClient.checkCookie()){
             Toast.makeText(this, "COOKIE FOUND, LOGGING IN", Toast.LENGTH_LONG).show()
             getUser()
@@ -55,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
                 switchActivity(users.value)
             }
         }
+
 
 
 
@@ -90,7 +92,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun getUser(){
+    fun getUser(){
         val call: Call<User> = RetroFitClient.userService.getUser()
         call.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {

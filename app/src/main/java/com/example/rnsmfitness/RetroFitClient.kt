@@ -4,6 +4,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.rnsmfitness.services.AuthorizationService
+import com.example.rnsmfitness.services.FoodService
 import com.example.rnsmfitness.services.UserService
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -147,6 +148,10 @@ object RetroFitClient {
 
     val userService: UserService by lazy {
         retrofit().create(UserService::class.java)
+    }
+
+    val foodService: FoodService by lazy {
+        retrofit().create(FoodService::class.java)
     }
 
 }

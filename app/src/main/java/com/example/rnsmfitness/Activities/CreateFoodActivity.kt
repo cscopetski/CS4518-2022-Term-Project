@@ -8,21 +8,30 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rnsmfitness.Entities.FoodItem
+import com.example.rnsmfitness.Entities.FoodItemBody
 import com.example.rnsmfitness.R
+import com.example.rnsmfitness.RetroFitClient
 import com.google.android.material.textfield.TextInputEditText
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 private const val TAG2 = "CreateFoodActivity"
 
 
 class CreateFoodActivity: AppCompatActivity() {
+
     private lateinit var addFoodName: TextInputEditText
     private lateinit var addFoodProtein: TextInputEditText
     private lateinit var addFoodCarbs: TextInputEditText
     private lateinit var addFoodFat: TextInputEditText
     private lateinit var addFoodServingSize: TextInputEditText
     private lateinit var foodCalories: TextInputEditText
-
     private lateinit var createButton: Button
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,17 +56,35 @@ class CreateFoodActivity: AppCompatActivity() {
                 setResult(Activity.RESULT_CANCELED, Intent())
             } else {
                 Log.d(TAG2, "There were no null values, now sending intent")
-                val res = Intent()
-                res.putExtra("name", addFoodName.text.toString())
-                res.putExtra("protein", addFoodProtein.text.toString().toInt())
-                res.putExtra("carbs", addFoodCarbs.text.toString().toInt())
-                res.putExtra("fat", addFoodFat.text.toString().toInt())
-                res.putExtra("serving_size",addFoodServingSize.text.toString().toDouble())
-                setResult(Activity.RESULT_OK, res)
+                insertFood(FoodItemBody(addFoodName.text.toString(), addFoodProtein.text.toString().toInt(), addFoodCarbs.text.toString().toInt(), addFoodFat.text.toString().toInt(), foodCalories.text.toString().toInt(), addFoodServingSize.text.toString().toDouble()))
             }
             finish()
 
         }
+    }
+
+    private fun insertFood(food: FoodItemBody){
+        val call: Call<ResponseBody> =
+            RetroFitClient.foodService.insertFood(food)
+
+
+        call.enqueue(object : Callback<ResponseBody> {
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if(response.isSuccessful){
+                    setResult(Activity.RESULT_OK, Intent())
+                    finish()
+                }else{
+                    setResult(Activity.RESULT_CANCELED, Intent())
+                    finish()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                setResult(Activity.RESULT_CANCELED, Intent())
+                finish()
+            }
+        })
     }
 
     private val calorieWatcherP = object : TextWatcher{

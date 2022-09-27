@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,51 +13,25 @@ import com.example.rnsmfitness.Entities.DataSource
 import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.FoodItemAdapter
 import com.example.rnsmfitness.R
+import com.example.rnsmfitness.RetroFitClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 private const val TAG1 = "MyFoodList"
 
-
-fun getFoods(): List<FoodItem> {
-
-    var id: Int
-    var user_id: Int
-    var title: String
-    var protein: Int
-    var carbs: Int
-    var fat: Int
-    var calories: Int
-    var serving_size: Double
-    val foods = ArrayList<FoodItem>()
-
-    for (i in 1..20){
-        id = i
-        user_id = 100
-        title = "Food $i"
-        protein = i
-        carbs = i
-        fat = i
-        calories = 4 * protein + 4 * carbs + 9 * fat
-        serving_size = i.toDouble()
-
-
-        foods.add(
-            FoodItem(id, user_id, title, true,protein, fat, carbs, calories, serving_size)
-        )
-    }
-
-    return foods
-}
-
 class MyFoodList : AppCompatActivity() {
 
+    private var foods: MutableLiveData<List<FoodItem>> = MutableLiveData(listOf<FoodItem>())
     lateinit var createFoodButton: FloatingActionButton
     lateinit var homeButton: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
     private val createFoodActivityRequestCode = 1
 
     private var adapter: FoodItemAdapter = FoodItemAdapter(this,
-        getFoods()
+
+        foods.value!!
     )
 
     private lateinit var dataSource: DataSource
@@ -70,6 +45,8 @@ class MyFoodList : AppCompatActivity() {
         createFoodButton = findViewById(R.id.add_food_fab)
         homeButton = findViewById(R.id.home_buton)
         recyclerView = findViewById(R.id.foodRecycler)
+
+        getDBFoods()
 
 
         homeButton.setOnClickListener {
@@ -133,17 +110,9 @@ class MyFoodList : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, intentData)
 
         Log.d(TAG1, "adding new food")
-        if (requestCode == createFoodActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            intentData?.let { data ->
-                val foodName = data.getStringExtra("name")
-                val foodProtein = data.getIntExtra("protein", 0)
-                val foodCarbs = data.getIntExtra("carbs",0)
-                val foodFat = data.getIntExtra("fat",0)
-                val servingSize = data.getDoubleExtra("serving_size", 0.0)
-
-
-                dataSource.insertFood(foodName,foodProtein,foodCarbs,foodFat, servingSize)
-            }
+        if (resultCode == Activity.RESULT_OK) {
+            Log.v(TAG1, "Right before calling getDBFoods")
+            getDBFoods()
         }
     }
 
@@ -157,6 +126,37 @@ class MyFoodList : AppCompatActivity() {
         val intent = Intent(this, CreateFoodActivity::class.java)
         startActivityForResult(intent,createFoodActivityRequestCode)
     }
+
+    private fun getDBFoods(){
+        val call: Call<List<FoodItem>> =
+            RetroFitClient.foodService.getAllUserFoods()
+
+
+        call.enqueue(object : Callback<List<FoodItem>> {
+
+            override fun onResponse(call: Call<List<FoodItem>>, response: Response<List<FoodItem>>) {
+
+                if (response.isSuccessful) {
+                    Log.v(TAG1, response.body().toString())
+                    val foodList: List<FoodItem> = response.body()!!
+                    dataSource.setFoodList(foodList)
+                } else {
+                    dataSource.setFoodList(null)
+                    Log.d(TAG, response.code().toString())
+
+                }
+            }
+
+            override fun onFailure(call: Call<List<FoodItem>>, t: Throwable) {
+                dataSource.setFoodList(null)
+                Log.d(TAG1, t.message!!)
+
+            }
+        })
+    }
+
+
+
 
 
 }

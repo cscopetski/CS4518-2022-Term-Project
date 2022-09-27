@@ -3,15 +3,13 @@ package com.example.rnsmfitness.Entities
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.rnsmfitness.Activities.getFoods
 
 private const val TAG = "DataSource"
 
 class DataSource {
 
     var id_counter = 1000
-    private val initList = getFoods()
-    private val liveList = MutableLiveData(initList)
+    private val liveList: MutableLiveData<List<FoodItem>> = MutableLiveData()
 
     fun insertFood(name: String?, protein: Int?,carbs: Int?,fat: Int?, serving_size: Double?){
         if (name == null || protein == null || carbs == null || fat == null || serving_size == null) {
@@ -19,10 +17,9 @@ class DataSource {
         }
         //get the id and user ID to insert into this statement
         val calories = protein * 4 + carbs * 4 + fat * 9
-        addFood(FoodItem(id_counter, 100, name, true, protein, carbs, fat, calories, serving_size))
+        addFood(FoodItem(id_counter, 100, name, 1, protein, carbs, fat, calories, serving_size))
         id_counter++
         Log.d(TAG, "Food not adding to recycler view")
-
     }
 
     private fun addFood(food: FoodItem){
@@ -48,8 +45,18 @@ class DataSource {
 
     }
 
-    public fun getFoodList(): LiveData<List<FoodItem>> {
+    fun getFoodList(): LiveData<List<FoodItem>> {
         return liveList
+    }
+
+    fun setFoodList(list: List<FoodItem>?){
+        if (list.isNullOrEmpty()){
+            val eList: List<FoodItem> = listOf()
+            liveList.postValue(eList)
+        }else {
+            liveList.postValue(list)
+        }
+
     }
 
     companion object {
