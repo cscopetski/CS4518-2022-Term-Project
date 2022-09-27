@@ -9,18 +9,19 @@ private const val TAG = "DataSource"
 
 class DataSource {
 
-    var id_counter = 100
+    var id_counter = 1000
     private val initList = getFoods()
     private val liveList = MutableLiveData(initList)
 
-    fun insertFood(name: String?, protein: Int?,carbs: Int?,fat: Int?, serving_size: Double){
-        if (name == null || protein == null || carbs == null || fat == null) {
+    fun insertFood(name: String?, protein: Int?,carbs: Int?,fat: Int?, serving_size: Double?){
+        if (name == null || protein == null || carbs == null || fat == null || serving_size == null) {
             return
         }
         //get the id and user ID to insert into this statement
-        var calories = protein * 4 + carbs * 4 + fat * 9
+        val calories = protein * 4 + carbs * 4 + fat * 9
         addFood(FoodItem(id_counter, 100, name, true, protein, carbs, fat, calories, serving_size))
         id_counter++
+        Log.d(TAG, "Food not adding to recycler view")
 
     }
 

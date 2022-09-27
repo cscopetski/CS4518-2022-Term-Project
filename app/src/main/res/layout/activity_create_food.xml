@@ -90,7 +90,7 @@
         android:paddingBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/food_calories"
+            android:id="@+id/add_food_serving_size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />
@@ -107,7 +107,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:background="@color/purple_200"
-            android:id="@+id/add_food_serving_size"
+            android:id="@+id/food_calories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"

@@ -14,9 +14,10 @@ import com.example.rnsmfitness.FoodItemAdapter
 import com.example.rnsmfitness.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+private const val TAG1 = "MyFoodList"
 
 
-public fun getFoods(): List<FoodItem> {
+fun getFoods(): List<FoodItem> {
 
     var id: Int
     var user_id: Int
@@ -115,7 +116,7 @@ class MyFoodList : AppCompatActivity() {
 
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                val curFood: FoodItem? =  dataSource.getFoodList().value?.get(viewHolder.adapterPosition)//should be binding adapter position???
+                val curFood: FoodItem? =  dataSource.getFoodList().value?.get(viewHolder.bindingAdapterPosition)
                 if (curFood != null){
                     dataSource.deleteFood(curFood)
                 }
@@ -131,16 +132,17 @@ class MyFoodList : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
 
+        Log.d(TAG1, "adding new food")
         if (requestCode == createFoodActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.let { data ->
                 val foodName = data.getStringExtra("name")
                 val foodProtein = data.getIntExtra("protein", 0)
                 val foodCarbs = data.getIntExtra("carbs",0)
                 val foodFat = data.getIntExtra("fat",0)
-                val serving_size = data.getDoubleExtra("serving_size", 0.0)
+                val servingSize = data.getDoubleExtra("serving_size", 0.0)
 
-                Log.d(TAG, "adding new food")
-                dataSource.insertFood(foodName,foodProtein,foodCarbs,foodFat, serving_size)
+
+                dataSource.insertFood(foodName,foodProtein,foodCarbs,foodFat, servingSize)
             }
         }
     }
@@ -153,7 +155,7 @@ class MyFoodList : AppCompatActivity() {
 
     private fun switchToCreateFood(){
         val intent = Intent(this, CreateFoodActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent,createFoodActivityRequestCode)
     }
 
 

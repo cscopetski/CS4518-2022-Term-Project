@@ -5,18 +5,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rnsmfitness.Entities.DataSource
-import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.R
 import com.google.android.material.textfield.TextInputEditText
+
+private const val TAG2 = "CreateFoodActivity"
+
 
 class CreateFoodActivity: AppCompatActivity() {
     private lateinit var addFoodName: TextInputEditText
     private lateinit var addFoodProtein: TextInputEditText
     private lateinit var addFoodCarbs: TextInputEditText
     private lateinit var addFoodFat: TextInputEditText
+    private lateinit var addFoodServingSize: TextInputEditText
     private lateinit var foodCalories: TextInputEditText
 
     private lateinit var createButton: Button
@@ -29,8 +32,9 @@ class CreateFoodActivity: AppCompatActivity() {
         addFoodProtein = findViewById(R.id.add_food_protein)
         addFoodCarbs = findViewById(R.id.add_food_carbs)
         addFoodFat = findViewById(R.id.add_food_fat)
-        foodCalories = findViewById(R.id.add_food_serving_size)
+        addFoodServingSize = findViewById(R.id.add_food_serving_size)
         createButton = findViewById(R.id.done_button)
+        foodCalories = findViewById(R.id.food_calories)
 
         addFoodProtein.addTextChangedListener(calorieWatcherP)
         addFoodCarbs.addTextChangedListener(calorieWatcherP)
@@ -38,14 +42,17 @@ class CreateFoodActivity: AppCompatActivity() {
 
         createButton.setOnClickListener {
 
-            if (addFoodName.text.isNullOrEmpty() || addFoodProtein.text.isNullOrEmpty() || addFoodCarbs.text.isNullOrEmpty() || addFoodFat.text.isNullOrEmpty()) {
+            if (addFoodName.text.isNullOrEmpty() || addFoodProtein.text.isNullOrEmpty() || addFoodCarbs.text.isNullOrEmpty() || addFoodFat.text.isNullOrEmpty() || addFoodServingSize.text.isNullOrEmpty()) {
+                Log.d(TAG2, "There was a null value")
                 setResult(Activity.RESULT_CANCELED, Intent())
             } else {
+                Log.d(TAG2, "There were no null values, now sending intent")
                 val res = Intent()
                 res.putExtra("name", addFoodName.text.toString())
                 res.putExtra("protein", addFoodProtein.text.toString().toInt())
                 res.putExtra("carbs", addFoodCarbs.text.toString().toInt())
                 res.putExtra("fat", addFoodFat.text.toString().toInt())
+                res.putExtra("serving_size",addFoodServingSize.text.toString().toDouble())
                 setResult(Activity.RESULT_OK, res)
             }
             finish()
