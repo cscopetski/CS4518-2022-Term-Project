@@ -59,6 +59,7 @@ class CreateFoodActivity: AppCompatActivity() {
                 insertFood(FoodItemBody(addFoodName.text.toString(), addFoodProtein.text.toString().toInt(), addFoodCarbs.text.toString().toInt(), addFoodFat.text.toString().toInt(), foodCalories.text.toString().toInt(), addFoodServingSize.text.toString().toDouble()))
             }
             finish()
+            switchToMyFoodPage()
 
         }
     }
@@ -85,6 +86,11 @@ class CreateFoodActivity: AppCompatActivity() {
                 finish()
             }
         })
+    }
+
+    private fun switchToMyFoodPage(){
+        val intent = Intent(this, MyFoodList::class.java)
+        startActivity(intent)
     }
 
     private val calorieWatcherP = object : TextWatcher{
