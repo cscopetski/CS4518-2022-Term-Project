@@ -97,7 +97,7 @@ class MyFoodList : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val curFood: FoodItem? =  dataSource.getFoodList().value?.get(viewHolder.bindingAdapterPosition)
                 if (curFood != null){
-                    deleteFood(curFood.id)
+                    deleteFood(curFood)
                     Log.v(TAG1, "Food has been swiped")
 
                 }
@@ -160,10 +160,12 @@ class MyFoodList : AppCompatActivity() {
         })
     }
 
-    private fun deleteFood(id: Int){
-        val call: Call<ResponseBody> =
-            RetroFitClient.foodService.deleteFood(id, 0)
+    private fun deleteFood(food:FoodItem){
+        //set food visibility to 0 aka delete it
+        food.is_visible=0
 
+        val call: Call<ResponseBody> =
+            RetroFitClient.foodService.deleteFood(food)
 
         call.enqueue(object : Callback<ResponseBody> {
 
@@ -172,21 +174,15 @@ class MyFoodList : AppCompatActivity() {
                 if(response.isSuccessful){
                     Log.v(TAG1, "in if")
 
-                    setResult(Activity.RESULT_OK, Intent())
-                    finish()
                 }else{
                     Log.v(TAG1, "in else")
                     Log.v(TAG1, response.code().toString())
-                    setResult(Activity.RESULT_CANCELED, Intent())
-                    finish()
+
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.v(TAG1, "In delete on failure")
-
-                setResult(Activity.RESULT_CANCELED, Intent())
-                finish()
             }
         })
     }
