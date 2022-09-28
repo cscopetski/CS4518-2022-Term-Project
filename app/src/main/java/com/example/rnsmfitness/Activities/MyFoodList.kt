@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Entities.DataSource
 import com.example.rnsmfitness.Entities.FoodItem
+import com.example.rnsmfitness.Entities.FoodItemBody
 import com.example.rnsmfitness.FoodItemAdapter
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -95,7 +97,9 @@ class MyFoodList : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val curFood: FoodItem? =  dataSource.getFoodList().value?.get(viewHolder.bindingAdapterPosition)
                 if (curFood != null){
-                    dataSource.deleteFood(curFood)
+                    deleteFood(curFood.id)
+                    Log.v(TAG1, "Food has been swiped")
+
                 }
 
             }
@@ -148,9 +152,41 @@ class MyFoodList : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<FoodItem>>, t: Throwable) {
+
                 dataSource.setFoodList(null)
                 Log.d(TAG1, t.message!!)
 
+            }
+        })
+    }
+
+    private fun deleteFood(id: Int){
+        val call: Call<ResponseBody> =
+            RetroFitClient.foodService.deleteFood(id, 0)
+
+
+        call.enqueue(object : Callback<ResponseBody> {
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.v(TAG1, "in Delete on Response")
+                if(response.isSuccessful){
+                    Log.v(TAG1, "in if")
+
+                    setResult(Activity.RESULT_OK, Intent())
+                    finish()
+                }else{
+                    Log.v(TAG1, "in else")
+                    Log.v(TAG1, response.code().toString())
+                    setResult(Activity.RESULT_CANCELED, Intent())
+                    finish()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.v(TAG1, "In delete on failure")
+
+                setResult(Activity.RESULT_CANCELED, Intent())
+                finish()
             }
         })
     }

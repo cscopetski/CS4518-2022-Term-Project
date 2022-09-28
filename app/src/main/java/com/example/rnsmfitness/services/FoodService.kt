@@ -29,7 +29,11 @@ interface FoodService {
     @POST("$URL_PREFIX/update")
     fun updateFood(@Body food: FoodItemBody): Call<ResponseBody>
 
-    @POST("$URL_PREFIX/delete")
-    fun deleteFood(@Body foodId: Int): Call<ResponseBody>
+    @POST("$URL_PREFIX/edit")
+    fun deleteFood(@Body id: Int, @Body is_visible: Int): Call<ResponseBody>
+    //I added a second @body because it said I needed an annotation for second arg of this method, and then i got error for have two @Body
+    //this function is here and then called from My food list line 165, which is where I'm defining the local version of delete food
+    //local version of delete food called in onSwiped MyFoodList line 101
+    //using logs, know it get into the else statement
 
 }
