@@ -1,6 +1,7 @@
 package com.example.rnsmfitness
 
 import android.app.Activity
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,12 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rnsmfitness.Activities.FoodDetailsActivity
 import com.example.rnsmfitness.Entities.FoodItem
+
+private const val TAG1 = "FoodItemAdapter"
 
 
 class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>) : RecyclerView.Adapter<FoodItemAdapter.ViewHolder>() {
@@ -30,36 +35,49 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val launchButton: Button
         private val nameText: TextView
-        private val proteinText: TextView
-        private val carbText: TextView
-        private val fatText: TextView
         private val calText: TextView
         private val cardView: CardView
 
         fun bind(food: FoodItem) {
             nameText.text = food.name
-            proteinText.text = food.protein.toString()
-            carbText.text = food.carbs.toString()
-            fatText.text = food.fat.toString()
             calText.text = food.calories.toString()
 
             cardView.setOnClickListener {
                 Toast.makeText(activity,food.name + ": \nTotal Calories: " + (food.protein*4 + food.carbs*4 + food.fat*9), Toast.LENGTH_SHORT).show()
-                true
+
+                Log.d(TAG1, "button pressed")
+
+                val valueList = ArrayList<Int>()
+
+                valueList.add(food.protein)
+                valueList.add(food.fat)
+                valueList.add(food.carbs)
+
+                val intent = Intent(activity, FoodDetailsActivity::class.java)
+
+                intent.putIntegerArrayListExtra("valueList", valueList)
+                activity.startActivity(intent)
+
             }
+
+
 
         }
 
         init {
             nameText = itemView.findViewById(R.id.item_title)
-            proteinText = itemView.findViewById(R.id.item_protein)
-            carbText = itemView.findViewById(R.id.item_carbs)
-            fatText = itemView.findViewById(R.id.item_fat)
             calText = itemView.findViewById(R.id.item_calories)
             cardView = itemView.findViewById(R.id.card)
+            launchButton = itemView.findViewById(R.id.item_launch_button)
         }
+
+
+
     }
+
+
 
 }
 

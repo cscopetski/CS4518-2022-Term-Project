@@ -20,6 +20,9 @@
             android:name=".Activities.HomeActivity"
             android:exported="true" />
         <activity
+            android:name=".Activities.FoodDetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activities.MyFoodList"
             android:exported="true" />
         <activity
