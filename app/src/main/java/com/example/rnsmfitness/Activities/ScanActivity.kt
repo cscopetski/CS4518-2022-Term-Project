@@ -1,4 +1,4 @@
-package com.example.qrcodescanner
+package com.example.rnsmfitness.Activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.qrcodescanner.MainActivity.Companion.RESULT
+import com.example.rnsmfitness.Activities.HomeActivity.Companion.RESULT
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
@@ -24,7 +24,7 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     }
 
     override fun handleResult(p0: Result?) {
-        val intent = Intent(applicationContext, MainActivity::class.java)
+        val intent = Intent(applicationContext, HomeActivity::class.java)
         intent.putExtra(RESULT, p0.toString())
         startActivity(intent)
     }

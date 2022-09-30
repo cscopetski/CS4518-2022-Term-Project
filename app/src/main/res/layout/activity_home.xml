@@ -37,14 +37,30 @@
         </LinearLayout>
 
 
+
+
         <Button
-            android:layout_margin="100dp"
+            android:layout_margin="50dp"
             android:id="@+id/myfood_page_button"
             android:text="@string/myfoodpage_button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="161dp"
             tools:layout_editor_absoluteY="275dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnScan"
+            android:text="Scan"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Barcode"
+            android:id="@+id/resultText"/>
 
         <Button
             android:layout_margin="50dp"

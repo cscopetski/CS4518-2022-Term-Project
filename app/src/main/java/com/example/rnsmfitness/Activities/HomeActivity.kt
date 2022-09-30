@@ -18,6 +18,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
+
+
 class HomeActivity : AppCompatActivity() {
 
     lateinit var myFoodButton: Button
@@ -26,6 +29,13 @@ class HomeActivity : AppCompatActivity() {
 
     lateinit var testUPCButton: Button
     lateinit var testSearchButton: Button
+
+    lateinit var btnScan: Button
+    lateinit var resultText: TextView
+
+    companion object{
+        const val RESULT = "RESULT"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +47,9 @@ class HomeActivity : AppCompatActivity() {
 
         testUPCButton = findViewById(R.id.test_upc)
         testSearchButton = findViewById(R.id.test_search)
+
+        btnScan = findViewById(R.id.btnScan)
+        resultText = findViewById(R.id.resultText)
 
         nameTextView.text = intent.getStringExtra("Name")
 
@@ -57,6 +70,17 @@ class HomeActivity : AppCompatActivity() {
         testSearchButton.setOnClickListener{
             testSearch("Burger")
         }
+
+
+        btnScan.setOnClickListener {
+            val intent = Intent(applicationContext, ScanActivity::class.java)
+            startActivity(intent)
+        }
+
+        val result = intent.getStringExtra(RESULT)
+
+        if(result != null)
+            resultText.text = result.toString()
 
     }
 

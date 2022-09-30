@@ -4,7 +4,7 @@
     package="com.example.rnsmfitness">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
@@ -28,6 +28,9 @@
         <activity
             android:name=".Activities.CreateFoodActivity"
             android:exported="true" />
+        <activity
+            android:name=".Activities.ScanActivity"
+            android:exported="false"/>
         <activity
             android:name=".Activities.LoginActivity"
             android:exported="true">
