@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.rnsmfitness.Entities.LoginCredentials
+import com.example.rnsmfitness.Entities.USDAFoodItem
 import com.example.rnsmfitness.Entities.User
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
@@ -23,6 +24,9 @@ class HomeActivity : AppCompatActivity() {
     lateinit var logoutButton: Button
     lateinit var nameTextView: TextView
 
+    lateinit var testUPCButton: Button
+    lateinit var testSearchButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -30,6 +34,9 @@ class HomeActivity : AppCompatActivity() {
         myFoodButton = findViewById(R.id.myfood_page_button)
         logoutButton = findViewById(R.id.logout_button)
         nameTextView = findViewById(R.id.name_text)
+
+        testUPCButton = findViewById(R.id.test_upc)
+        testSearchButton = findViewById(R.id.test_search)
 
         nameTextView.text = intent.getStringExtra("Name")
 
@@ -41,6 +48,62 @@ class HomeActivity : AppCompatActivity() {
         logoutButton.setOnClickListener{
             logout(this)
         }
+
+        testUPCButton.setOnClickListener{
+
+            testUPC("863812000022")
+        }
+
+        testSearchButton.setOnClickListener{
+            testSearch("Burger")
+        }
+
+    }
+
+    private fun testUPC(upcId : String){
+
+        val call: Call<USDAFoodItem> =
+            RetroFitClient.usdaFoodService.getFoodByUPCId(upcId);
+
+        call.enqueue(object : Callback<USDAFoodItem?> {
+            override fun onResponse(call: Call<USDAFoodItem?>, response: Response<USDAFoodItem?>) {
+                if(response.isSuccessful){
+                    Log.d(TAG,response.body().toString())
+                }else{
+                    Log.d(TAG,response.code().toString())
+                    Log.d(TAG,response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<USDAFoodItem?>, t: Throwable) {
+                Log.d(TAG,t.toString())
+            }
+        })
+    }
+
+    private fun testSearch(query : String){
+
+        val call: Call<List<USDAFoodItem>> =
+            RetroFitClient.usdaFoodService.searchFood(query);
+
+        call.enqueue(object : Callback<List<USDAFoodItem>> {
+
+            override fun onResponse(
+                call: Call<List<USDAFoodItem>>,
+                response: Response<List<USDAFoodItem>>
+            ) {
+                if(response.isSuccessful){
+                    Log.d(TAG,response.body().toString())
+                }else{
+                    Log.d(TAG,response.code().toString())
+                    Log.d(TAG,response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<List<USDAFoodItem>>, t: Throwable) {
+                Log.d(TAG,t.toString())
+            }
+        })
     }
 
     private fun logout(activity: Context){

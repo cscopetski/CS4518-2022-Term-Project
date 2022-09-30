@@ -1,15 +1,9 @@
 package com.example.rnsmfitness.services
 
-import android.telecom.CallScreeningService
-import android.util.Log
-import com.example.rnsmfitness.Activities.TAG
 import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.Entities.FoodItemBody
-import com.example.rnsmfitness.Entities.LoginCredentials
-import com.example.rnsmfitness.Entities.User
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 private const val URL_PREFIX = "/api/food"
