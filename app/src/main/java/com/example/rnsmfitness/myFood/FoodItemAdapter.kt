@@ -35,14 +35,15 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val launchButton: Button
-        private val nameText: TextView
-        private val calText: TextView
-        private val cardView: CardView
+       private val nameText: TextView
+       private val calText: TextView
+       private val cardView: CardView
+       private val servText: TextView
 
         fun bind(food: FoodItem) {
             nameText.text = food.name
-            calText.text = food.calories.toString()
+            calText.text = food.calories.toString() + " cal"
+            servText.text = food.serving_size.toString() + " g"
 
             cardView.setOnClickListener {
                 Toast.makeText(activity,food.name + ": \nTotal Calories: " + (food.protein*4 + food.carbs*4 + food.fat*9), Toast.LENGTH_SHORT).show()
@@ -70,7 +71,8 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
             nameText = itemView.findViewById(R.id.item_title)
             calText = itemView.findViewById(R.id.item_calories)
             cardView = itemView.findViewById(R.id.card)
-            launchButton = itemView.findViewById(R.id.item_launch_button)
+            servText = itemView.findViewById(R.id.serving_text)
+
         }
 
 

@@ -20,38 +20,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal">
         <TextView
-            android:layout_weight=".6"
-            android:layout_marginStart="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-
-            android:text="Food Name" />
-
-        <TextView
             android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textStyle="bold"
+            android:textSize="16sp"
             android:textColor="@color/white"
             android:textAlignment="center"
 
-            android:textSize="16sp"
-            android:text="Calories"/>
+            android:text="My Foods" />
 
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textAlignment="center"
-            android:text="More Info"/>
 
     </LinearLayout>
 
