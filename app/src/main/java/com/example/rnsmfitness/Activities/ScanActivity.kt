@@ -2,16 +2,21 @@ package com.example.rnsmfitness.Activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.rnsmfitness.Activities.HomeActivity.Companion.RESULT
 import com.google.zxing.Result
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
+
 class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
+
+    companion object{
+        const val CAMERARESULT = 123
+    }
 
     var scannerView: ZXingScannerView? = null
 
@@ -24,11 +29,13 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     }
 
     override fun handleResult(p0: Result?) {
-        val intent = Intent(applicationContext, HomeActivity::class.java)
+        /*val intent = Intent(applicationContext, HomeActivity::class.java)
         intent.putExtra(RESULT, p0.toString())
-        startActivity(intent)
+        startActivity(intent)*/
+        val intent = Intent()
+        setResult(CAMERARESULT, intent)
+        finish()
     }
-
 
     override fun onResume(){
         super.onResume()

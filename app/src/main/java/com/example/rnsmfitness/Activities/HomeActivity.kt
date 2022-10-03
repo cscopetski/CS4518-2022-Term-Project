@@ -1,5 +1,6 @@
 package com.example.rnsmfitness.Activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.rnsmfitness.Activities.ScanActivity.Companion.CAMERARESULT
 import com.example.rnsmfitness.Entities.LoginCredentials
 import com.example.rnsmfitness.Entities.USDAFoodItem
 import com.example.rnsmfitness.Entities.User
@@ -32,6 +35,8 @@ class HomeActivity : AppCompatActivity() {
 
     lateinit var btnScan: Button
     lateinit var resultText: TextView
+
+    var data: Intent? = null
 
     companion object{
         const val RESULT = "RESULT"
@@ -73,11 +78,12 @@ class HomeActivity : AppCompatActivity() {
 
 
         btnScan.setOnClickListener {
-            val intent = Intent(applicationContext, ScanActivity::class.java)
-            startActivity(intent)
+            /*val intent = Intent(applicationContext, ScanActivity::class.java)
+            startActivity(intent)*/
+            openCameraActivityForResult()
         }
 
-        val result = intent.getStringExtra(RESULT)
+        val result = data?.getStringExtra(RESULT)
 
         if(result != null)
             resultText.text = result.toString()
@@ -167,4 +173,17 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this, MyFoodList::class.java)
         startActivity(intent)
     }
+
+    fun openCameraActivityForResult() {
+        val intent = Intent(this, ScanActivity::class.java)
+        resultLauncher.launch(intent)
+    }
+
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == CAMERARESULT) {
+            // There are no request codes
+            data = result.data
+        }
+    }
+
 }
