@@ -3,10 +3,7 @@ package com.example.rnsmfitness
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.util.Log
-import com.example.rnsmfitness.services.AuthorizationService
-import com.example.rnsmfitness.services.FoodService
-import com.example.rnsmfitness.services.USDAFoodService
-import com.example.rnsmfitness.services.UserService
+import com.example.rnsmfitness.services.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.Cookie
@@ -157,6 +154,10 @@ object RetroFitClient {
 
     val usdaFoodService: USDAFoodService by lazy {
         retrofit().create(USDAFoodService::class.java)
+    }
+
+    val dailyFoodLogService: DailyFoodLogService by lazy {
+        retrofit().create(DailyFoodLogService::class.java)
     }
 
 }

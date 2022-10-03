@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-const val TAG = "LoginActivity"
+private const val TAG = "LoginActivity"
 
 class LoginActivity : AppCompatActivity() {
 
