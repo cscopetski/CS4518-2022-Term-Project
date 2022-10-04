@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/cardview_dark_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,56 +16,165 @@
         android:text="Food Details"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:textSize="32sp"
+        android:textSize="40sp"
+
         android:textColor="@color/white"/>
 
-    <TextView
-        android:id="@+id/food_detail_calories"
+
+    <LinearLayout
+        android:padding="14dp"
+        android:id="@+id/headers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:text="TextView" />
 
-    <TextView
-        android:id="@+id/food_detail_protein"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:id="@+id/food_detail_name"
+            android:text="Food Name"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:id="@+id/food_detail_calories"
+
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+
+            android:text="Calories" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:padding="14dp"
+        android:id="@+id/macros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:weightSum="3"
 
-        android:text="TextView" />
+        android:orientation="horizontal">
+        <LinearLayout
+            android:padding="14dp"
+            android:id="@+id/protein"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/food_detail_protein_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="Protein:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/food_detail_carbs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+            <TextView
+                android:id="@+id/food_detail_protein"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="TextView"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
 
-        android:text="TextView" />
+        <LinearLayout
+            android:padding="14dp"
+            android:id="@+id/carbs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/food_detail_carbs_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="Carbs:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/food_detail_carbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="TextView"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/food_detail_fats"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        </LinearLayout>
 
-        android:text="TextView" />
+        <LinearLayout
+            android:padding="14dp"
+            android:id="@+id/fats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/food_detail_fats_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Fats:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/food_detail_fats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="TextView"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
 
 
-<!--    <com.androidplot.pie.PieChart-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="370dp"-->
-<!--        style="@style/APDefacto.Light"-->
-<!--        android:id="@+id/macro_pie_chart"-->
 
-<!--        />-->
-<!--    -->
+         />
+    </LinearLayout>
 
     <Button
-        android:id="@+id/done_button"
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:text="Edit Food" />
+
+    <Button
+        android:id="@+id/close_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-
         android:text="Close" />
 
 </LinearLayout>
+

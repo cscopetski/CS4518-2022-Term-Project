@@ -46,21 +46,21 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
             servText.text = food.serving_size.toString() + " g"
 
             cardView.setOnClickListener {
-                Toast.makeText(activity,food.name + ": \nTotal Calories: " + (food.protein*4 + food.carbs*4 + food.fat*9), Toast.LENGTH_SHORT).show()
 
                 Log.d(TAG1, "button pressed")
 
-                val valueList = ArrayList<Int>()
+                val valueList = ArrayList<String>()
 
-                valueList.add(food.protein)
-                valueList.add(food.fat)
-                valueList.add(food.carbs)
+                valueList.add(food.protein.toString())
+                valueList.add(food.fat.toString())
+                valueList.add(food.carbs.toString())
+                valueList.add(food.name)
+                valueList.add(food.serving_size.toString())
 
                 val intent = Intent(activity, FoodDetailsActivity::class.java)
 
-                intent.putIntegerArrayListExtra("valueList", valueList)
+                intent.putStringArrayListExtra("valueList", valueList)
                 activity.startActivity(intent)
-
             }
 
 

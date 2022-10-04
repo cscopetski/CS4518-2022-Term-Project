@@ -1,8 +1,11 @@
 package com.example.rnsmfitness.Activities
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -12,13 +15,17 @@ import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class FoodDetailsActivity : AppCompatActivity() {
+class FoodDetailsActivity() : AppCompatActivity() {
 
     lateinit var detailsCalories: TextView
     lateinit var detailsProtein: TextView
     lateinit var detailsCarbs: TextView
     lateinit var detailsFat: TextView
+    lateinit var detailsName: TextView
+    lateinit var closeButton: Button
+    lateinit var editButton: Button
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.food_item_details)
@@ -27,37 +34,52 @@ class FoodDetailsActivity : AppCompatActivity() {
         detailsProtein = findViewById(R.id.food_detail_protein)
         detailsCarbs = findViewById(R.id.food_detail_carbs)
         detailsFat = findViewById(R.id.food_detail_fats)
-
-        val protein: Int = intent.getIntegerArrayListExtra("valueList")!![0]
-        val fat: Int = intent.getIntegerArrayListExtra("valueList")!![1]
-        val carbs: Int = intent.getIntegerArrayListExtra("valueList")!![2]
-        val calories: Int = (protein * 4) + (carbs * 4) + (fat * 9)
-
-        detailsProtein.text = protein.toString()
-        detailsCarbs.text = carbs.toString()
-        detailsFat.text = fat.toString()
-        detailsCalories.text = calories.toString()
+        detailsName = findViewById(R.id.food_detail_name)
+        closeButton = findViewById(R.id.close_button)
+        editButton = findViewById(R.id.edit_button)
 
 
+        val protein: String = intent.getStringArrayListExtra("valueList")!![0]
+        val fat: String = intent.getStringArrayListExtra("valueList")!![1]
+        val carbs: String = intent.getStringArrayListExtra("valueList")!![2]
+        val calories: Int = (protein.toInt() * 4) + (carbs.toInt() * 4) + (fat.toInt() * 9)
+        val name: String = intent.getStringArrayListExtra("valueList")!![3]
+        val servingSize: String = intent.getStringArrayListExtra("valueList")!![4].toString()
+
+        detailsProtein.text = protein + "g"
+        detailsCarbs.text = carbs + "g"
+        detailsFat.text = fat + "g"
+        detailsCalories.text = calories.toString() + " cal"
+        detailsName.text = name
+
+        //val detailsList = intent.getStringArrayListExtra("valueList")
+        val detailsList = ArrayList<String>()
+        detailsList.add(protein)
+        detailsList.add(fat)
+        detailsList.add(carbs)
+        detailsList.add(name)
+        detailsList.add(servingSize)
 
 
 
 
-        /*
-        val proteinSegment = Segment("Protein", valueList.get(0))
-        val carbSegment = Segment("Carb", valueList.get(1))
-        val fatSegment = Segment("Fat", valueList.get(2))
+        closeButton.setOnClickListener {
+            switchToMyFoodPage()
+        }
 
-        val pf = SegmentFormatter(Color.BLUE)
-        val cf = SegmentFormatter(Color.BLUE)
-        val ff = SegmentFormatter(Color.BLUE)
-
-        FoodDetailsActivity.addSegment(proteinSegment, pf)
-        FoodDetailsActivity.addSegment(carbSegment, cf)
-        FoodDetailsActivity.addSegment(fatSegment, ff)
-         */
-
+        editButton.setOnClickListener {
+            val intent = Intent(this, EditFoodActivity::class.java)
+            intent.putStringArrayListExtra("foodDetailsList", detailsList)
+            startActivity(intent)
+        }
     }
+
+    private fun switchToMyFoodPage(){
+        val intent = Intent(this, MyFoodList::class.java)
+        startActivity(intent)
+    }
+
+
 
 
 
