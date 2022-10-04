@@ -36,7 +36,6 @@ class DailyFoodItemAdapter (val activity: Activity, private val foods: List<Dail
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val launchButton: Button
         private val nameText: TextView
         private val calText: TextView
         private val cardView: CardView
@@ -72,7 +71,6 @@ class DailyFoodItemAdapter (val activity: Activity, private val foods: List<Dail
             nameText = itemView.findViewById(R.id.item_title)
             calText = itemView.findViewById(R.id.item_calories)
             cardView = itemView.findViewById(R.id.card)
-            launchButton = itemView.findViewById(R.id.item_launch_button)
         }
 
 
