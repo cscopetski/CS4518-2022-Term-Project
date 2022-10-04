@@ -22,6 +22,7 @@ const val TAG = "LoginActivity"
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginButton: Button
+    private lateinit var signUpButton: Button
     private lateinit var emailText: EditText
     private lateinit var passwordText: EditText
     private var users: MutableLiveData<User> = MutableLiveData()
@@ -31,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         loginButton = findViewById(R.id.login_button)
+        signUpButton = findViewById(R.id.signup)
         emailText = findViewById(R.id.email_editText)
         passwordText = findViewById(R.id.password_editText)
 
@@ -55,6 +57,10 @@ class LoginActivity : AppCompatActivity() {
             this.users.observe(this) {
                 switchActivity(users.value)
             }
+        }
+
+        signUpButton.setOnClickListener{
+            signUp()
         }
 
 
@@ -127,4 +133,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun signUp(){
+        val intent = Intent(this, MyFoodList::class.java)
+        startActivity(intent)
+    }
+
 }
