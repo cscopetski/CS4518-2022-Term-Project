@@ -6,6 +6,7 @@ import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Integer.parseInt
 import java.sql.Date
+import java.time.Year
 import java.util.*
 import javax.xml.datatype.DatatypeConstants.MONTHS
 
@@ -29,8 +31,8 @@ private const val TAG = "HomeActivity"
 
 class HomeActivity : AppCompatActivity() {
 
-    lateinit var editDate: EditText
-    private val date: Date = Date(System.currentTimeMillis())
+    private lateinit var editDate: Button
+    private var date: Date = Date(System.currentTimeMillis())
 
     private lateinit var breakfastRecyclerView: RecyclerView
     private lateinit var lunchRecyclerView: RecyclerView
@@ -77,7 +79,7 @@ class HomeActivity : AppCompatActivity() {
                 breakfastView.visibility = (View.GONE);
 //                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
             }else {
-                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
+//                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
                 breakfastView.visibility = (View.VISIBLE);
 //                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
             }
@@ -87,7 +89,7 @@ class HomeActivity : AppCompatActivity() {
             if (lunchView.visibility == View.VISIBLE) {
                 lunchView.visibility = (View.GONE);
             }else {
-                TransitionManager.beginDelayedTransition(lunchCardView, AutoTransition());
+//                TransitionManager.beginDelayedTransition(lunchCardView, AutoTransition());
                 lunchView.visibility = (View.VISIBLE);
             }
         }
@@ -96,7 +98,7 @@ class HomeActivity : AppCompatActivity() {
             if (dinnerView.visibility == View.VISIBLE) {
                 dinnerView.visibility = (View.GONE);
             }else {
-                TransitionManager.beginDelayedTransition(dinnerCardView, AutoTransition());
+//                TransitionManager.beginDelayedTransition(dinnerCardView, AutoTransition());
                 dinnerView.visibility = (View.VISIBLE);
             }
         }
@@ -105,27 +107,25 @@ class HomeActivity : AppCompatActivity() {
             if (snackView.visibility == View.VISIBLE) {
                 snackView.visibility = (View.GONE);
             }else {
-                TransitionManager.beginDelayedTransition(snackCardView, AutoTransition());
+//                TransitionManager.beginDelayedTransition(snackCardView, AutoTransition());
                 snackView.visibility = (View.VISIBLE);
             }
         }
-
+        editDate.setText(date.toString())
         editDate.setOnClickListener {
             val c = Calendar.getInstance()
-
-            var year: Int = c.get(Calendar.YEAR)
+            c.time = date
+            val year: Int = c.get(Calendar.YEAR)
             val month: Int = c.get(Calendar.MONTH)
             val day: Int = c.get(Calendar.DAY_OF_MONTH)
-            if(editDate.text.isNotEmpty()){
-                year = parseInt(editDate.text.toString().substring(0,1))
-            }
             val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
 
                 // Display Selected date in textbox
-                val dateString = "$monthOfYear/$dayOfMonth/$year"
-                editDate.setText(dateString)
+//                val dateString = "$monthOfYear/$dayOfMonth/$year"
                 c.set(year,monthOfYear,dayOfMonth)
-                dataSource.getDBFoods(Date(c.timeInMillis))
+                date = Date(c.timeInMillis)
+                editDate.setText(date.toString())
+                dataSource.getDBFoods(date)
             }, year, month, day)
 
             dpd.show()
