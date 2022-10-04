@@ -20,6 +20,7 @@ import com.example.rnsmfitness.myFood.DailyFoodItemAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Integer.parseInt
 import java.sql.Date
 import java.util.*
 import javax.xml.datatype.DatatypeConstants.MONTHS
@@ -28,8 +29,9 @@ private const val TAG = "HomeActivity"
 
 class HomeActivity : AppCompatActivity() {
 
-    private var foods: MutableLiveData<List<DailyFoodItem>> = MutableLiveData(listOf())
     lateinit var editDate: EditText
+    private val date: Date = Date(System.currentTimeMillis())
+
     private lateinit var breakfastRecyclerView: RecyclerView
     private lateinit var lunchRecyclerView: RecyclerView
     private lateinit var dinnerRecyclerView: RecyclerView
@@ -111,15 +113,19 @@ class HomeActivity : AppCompatActivity() {
         editDate.setOnClickListener {
             val c = Calendar.getInstance()
 
-            val year: Int = c.get(Calendar.YEAR)
+            var year: Int = c.get(Calendar.YEAR)
             val month: Int = c.get(Calendar.MONTH)
             val day: Int = c.get(Calendar.DAY_OF_MONTH)
-
+            if(editDate.text.isNotEmpty()){
+                year = parseInt(editDate.text.toString().substring(0,1))
+            }
             val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
 
                 // Display Selected date in textbox
-                editDate.setText("" + monthOfYear + "/" + dayOfMonth + "/" + year)
-
+                val dateString = "$monthOfYear/$dayOfMonth/$year"
+                editDate.setText(dateString)
+                c.set(year,monthOfYear,dayOfMonth)
+                dataSource.getDBFoods(Date(c.timeInMillis))
             }, year, month, day)
 
             dpd.show()
@@ -136,7 +142,7 @@ class HomeActivity : AppCompatActivity() {
         snackRecyclerView.layoutManager = LinearLayoutManager(this)
 
         dataSource = DailyFoodLogDataSource.getDataSource()
-        dataSource.getDBFoods()
+        dataSource.getDBFoods(date)
         val liveList = dataSource.getFoodList()
 
         liveList.observe(this) { it ->
@@ -155,35 +161,5 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-    }
-
-    fun getDBFoods() {
-        val call: Call<List<DailyFoodItem>> =
-            RetroFitClient.dailyFoodLogService.getDailyFoodLogByDate(Date(System.currentTimeMillis()))
-
-
-        call.enqueue(object : Callback<List<DailyFoodItem>> {
-
-            override fun onResponse(call: Call<List<DailyFoodItem>>, response: Response<List<DailyFoodItem>>) {
-
-                if (response.isSuccessful) {
-                    Log.v(TAG, response.body().toString())
-                    val foodList: List<DailyFoodItem> = response.body()!!
-                    dataSource.setFoodList(foodList)
-                } else {
-                    dataSource.setFoodList(null)
-                    Log.d(TAG, response.code().toString())
-
-                }
-            }
-
-            override fun onFailure(call: Call<List<DailyFoodItem>>, t: Throwable) {
-
-                dataSource.setFoodList(null)
-                Log.d(TAG, t.message!!)
-
-            }
-
-        })
     }
 }

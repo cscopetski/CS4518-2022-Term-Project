@@ -63,10 +63,9 @@ class DailyFoodLogDataSource {
 //        return listOf()
 //    }
 
-    fun getDBFoods() {
+    fun getDBFoods(date: Date) {
         val call: Call<List<DailyFoodItem>> =
-            RetroFitClient.dailyFoodLogService.getDailyFoodLogByDate(Date(System.currentTimeMillis()))
-
+            RetroFitClient.dailyFoodLogService.getDailyFoodLogByDate(date)
 
         call.enqueue(object : Callback<List<DailyFoodItem>> {
 
