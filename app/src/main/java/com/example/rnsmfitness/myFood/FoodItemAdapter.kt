@@ -56,6 +56,7 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
                 valueList.add(food.carbs.toString())
                 valueList.add(food.name)
                 valueList.add(food.serving_size.toString())
+                valueList.add(food.id.toString())
 
                 val intent = Intent(activity, FoodDetailsActivity::class.java)
 

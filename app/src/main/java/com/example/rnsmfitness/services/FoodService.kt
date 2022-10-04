@@ -27,7 +27,7 @@ interface FoodService {
     fun insertFood(@Body food: FoodItemBody): Call<ResponseBody>
 
     @POST("$URL_PREFIX/update")
-    fun updateFood(@Body food: FoodItemBody): Call<ResponseBody>
+    fun updateFood(@Body food: FoodItem): Call<ResponseBody>
 
     @POST("$URL_PREFIX/update")
     fun deleteFood(@Body food: FoodItem): Call<ResponseBody>

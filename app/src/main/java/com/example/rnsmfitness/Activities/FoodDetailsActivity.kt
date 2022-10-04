@@ -45,6 +45,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
         val calories: Int = (protein.toInt() * 4) + (carbs.toInt() * 4) + (fat.toInt() * 9)
         val name: String = intent.getStringArrayListExtra("valueList")!![3]
         val servingSize: String = intent.getStringArrayListExtra("valueList")!![4].toString()
+        val foodID: String = intent.getStringArrayListExtra("valueList")!![5]
 
         detailsProtein.text = protein + "g"
         detailsCarbs.text = carbs + "g"
@@ -59,6 +60,8 @@ class FoodDetailsActivity() : AppCompatActivity() {
         detailsList.add(carbs)
         detailsList.add(name)
         detailsList.add(servingSize)
+        detailsList.add(foodID)
+
 
 
 

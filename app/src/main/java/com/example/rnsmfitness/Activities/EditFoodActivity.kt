@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.Entities.FoodItemBody
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
@@ -54,6 +55,7 @@ class EditFoodActivity: AppCompatActivity()  {
         val carbs: String = intent.getStringArrayListExtra("foodDetailsList")!![2]
         val name: String = intent.getStringArrayListExtra("foodDetailsList")!![3]
         val servingSize: Double = intent.getStringArrayListExtra("foodDetailsList")!![4].toDouble()
+        val foodID: Int = intent.getStringArrayListExtra("foodDetailsList")!![5].toInt()
         //val calories: Int = (protein.toInt() * 4) + (carbs.toInt() * 4) + (fat.toInt() * 9)
 
         editFoodName.setText(name)
@@ -74,7 +76,7 @@ class EditFoodActivity: AppCompatActivity()  {
                 setResult(Activity.RESULT_CANCELED, Intent())
             } else {
                 Log.d(TAG2, "There were no null values, now sending intent")
-                updateFood(FoodItemBody(editFoodName.text.toString(), editFoodProtein.text.toString().toInt(), editFoodCarbs.text.toString().toInt(), editFoodFat.text.toString().toInt(), editFoodCalories.text.toString().toInt(), editFoodServingSize.text.toString().toDouble()))
+                updateFood(FoodItem(foodID, editFoodName.text.toString(), 1, editFoodProtein.text.toString().toInt(), editFoodCarbs.text.toString().toInt(), editFoodFat.text.toString().toInt(), editFoodCalories.text.toString().toInt(), editFoodServingSize.text.toString().toDouble()))
             }
             finish()
             switchToMyFoodPage()
@@ -82,7 +84,7 @@ class EditFoodActivity: AppCompatActivity()  {
         }
     }
 
-    private fun updateFood(food: FoodItemBody){
+    private fun updateFood(food: FoodItem){
         val call: Call<ResponseBody> =
             RetroFitClient.foodService.updateFood(food)
 
@@ -92,15 +94,18 @@ class EditFoodActivity: AppCompatActivity()  {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if(response.isSuccessful){
                     setResult(Activity.RESULT_OK, Intent())
+                    Log.d(TAG2,"On Response IF")
                     finish()
                 }else{
                     setResult(Activity.RESULT_CANCELED, Intent())
+                    Log.d(TAG2,"On Response else")
                     finish()
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 setResult(Activity.RESULT_CANCELED, Intent())
+                Log.d(TAG2,"On test")
                 finish()
             }
         })

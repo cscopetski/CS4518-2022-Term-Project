@@ -11,6 +11,7 @@ class DataSource {
     var id_counter = 1000
     private val liveList: MutableLiveData<List<FoodItem>> = MutableLiveData()
 
+    /*
     fun insertFood(name: String?, protein: Int?,carbs: Int?,fat: Int?, serving_size: Double?){
         if (name == null || protein == null || carbs == null || fat == null || serving_size == null) {
             return
@@ -21,6 +22,7 @@ class DataSource {
         id_counter++
         Log.d(TAG, "Food not adding to recycler view")
     }
+
 
     private fun addFood(food: FoodItem){
 
@@ -44,6 +46,7 @@ class DataSource {
         }
 
     }
+     */
 
     fun getFoodList(): LiveData<List<FoodItem>> {
         return liveList
