@@ -183,7 +183,10 @@ class HomeActivity : AppCompatActivity() {
         if (result.resultCode == CAMERARESULT) {
             // There are no request codes
             data = result.data
+            val result = data?.getStringExtra(RESULT)
 
+            if(result != null)
+                resultText.text = result.toString()
         }
     }
 
