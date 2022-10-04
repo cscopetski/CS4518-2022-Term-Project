@@ -183,6 +183,7 @@ class HomeActivity : AppCompatActivity() {
         if (result.resultCode == CAMERARESULT) {
             // There are no request codes
             data = result.data
+
         }
     }
 

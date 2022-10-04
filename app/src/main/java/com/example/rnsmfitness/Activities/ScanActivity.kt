@@ -33,6 +33,7 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         intent.putExtra(RESULT, p0.toString())
         startActivity(intent)*/
         val intent = Intent()
+        intent.putExtra(RESULT, p0.toString())
         setResult(CAMERARESULT, intent)
         finish()
     }
