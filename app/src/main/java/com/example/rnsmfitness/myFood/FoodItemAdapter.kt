@@ -64,8 +64,6 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
                 activity.startActivity(intent)
             }
 
-
-
         }
 
         init {
@@ -76,11 +74,7 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
 
         }
 
-
-
     }
-
-
 
 }
 

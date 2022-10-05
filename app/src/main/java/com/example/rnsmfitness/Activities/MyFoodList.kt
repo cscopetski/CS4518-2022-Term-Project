@@ -2,16 +2,21 @@ package com.example.rnsmfitness.Activities
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.Menu
+import android.widget.ArrayAdapter
+import android.widget.SearchView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Entities.DataSource
 import com.example.rnsmfitness.Entities.FoodItem
-import com.example.rnsmfitness.Entities.FoodItemBody
 import com.example.rnsmfitness.FoodItemAdapter
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
@@ -20,6 +25,12 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
+
+
+
+
 
 private const val TAG1 = "MyFoodList"
 
@@ -29,10 +40,11 @@ class MyFoodList : AppCompatActivity() {
     lateinit var createFoodButton: FloatingActionButton
     lateinit var homeButton: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
+    lateinit var searchView: SearchView
+    lateinit var adapter1: ArrayAdapter<*>
     private val createFoodActivityRequestCode = 1
 
     private var adapter: FoodItemAdapter = FoodItemAdapter(this,
-
         foods.value!!
     )
 
@@ -47,6 +59,8 @@ class MyFoodList : AppCompatActivity() {
         createFoodButton = findViewById(R.id.add_food_fab)
         homeButton = findViewById(R.id.home_buton)
         recyclerView = findViewById(R.id.foodRecycler)
+        searchView = findViewById(R.id.my_food_search)
+
 
         getDBFoods()
 
@@ -64,6 +78,28 @@ class MyFoodList : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         recyclerView.adapter = adapter
+        var list = ArrayList<String>()
+        for (i in 0..(dataSource.getFoodList().value?.size!!)){
+            list.add(dataSource.getFoodList().value!!.get(i).name)
+        }
+
+        adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list)
+        listView.adapter = adapter1
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if (list.contains(query)) {
+                    adapter.filter.filter(query)
+                } else {
+                    Toast.makeText(this@MyFoodList, "No Match found", Toast.LENGTH_LONG).show()
+                }
+                return false
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+        })
 
         dataSource = DataSource.getDataSource()
 
@@ -189,6 +225,38 @@ class MyFoodList : AppCompatActivity() {
 
 
 
+    private fun filter(text: String) {
+        // creating a new array list to filter our data.
+        val currentList = dataSource.getFoodList().value
+        val filteredlist: ArrayList<FoodItem> = ArrayList<FoodItem>()
 
+        // running a for loop to compare elements.
+        for (i in 0..(dataSource.getFoodList().value?.size!!)) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (currentList != null) {
+                if (currentList.get(i).name.toLowerCase().contains(text.lowercase(Locale.getDefault()))) {
+                    // if the item is matched we are
+                    // adding it to our filtered list.
+                    filteredlist.add(currentList.get(i))
+                }
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(this, "No Foods Found..", Toast.LENGTH_SHORT).show()
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+
+            //adapter.filterList(filteredlist)
+            dataSource.setFoodList(filteredlist)
+        }
+    }
 
 }
+
+
+
+
+

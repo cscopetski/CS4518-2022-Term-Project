@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <TextView
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -31,14 +31,37 @@
             android:text="My Foods" />
 
 
+
+
     </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/my_food_search_parent"
+        app:layout_constraintTop_toBottomOf="@+id/headers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Search"
+        app:hintTextColor="@color/white"
+        android:layout_marginHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <SearchView
+            android:id="@+id/my_food_search"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:textColorHint="@color/white"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/foodRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/headers"
+        app:layout_constraintTop_toBottomOf="@id/my_food_search_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_food" />
