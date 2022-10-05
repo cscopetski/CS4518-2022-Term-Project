@@ -6,19 +6,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Activities.FoodDetailsActivity
 import com.example.rnsmfitness.Entities.FoodItem
+import java.util.*
+import kotlin.collections.ArrayList
 
 private const val TAG1 = "FoodItemAdapter"
 
 
+
 class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>) : RecyclerView.Adapter<FoodItemAdapter.ViewHolder>() {
+
+    var foodsCopy: ArrayList<FoodItem> = ArrayList(foods)
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -27,11 +31,29 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(foods[position])
+        holder.bind(foodsCopy[position])
     }
 
     override fun getItemCount(): Int {
-        return foods.size
+        return foodsCopy.size
+    }
+
+
+
+    fun filter(text: String) {
+        var text = text
+        foodsCopy.clear()
+        if (text.isEmpty()) {
+            foodsCopy.addAll(foods)
+        } else {
+            text = text.lowercase(Locale.getDefault())
+            for (item in foods) {
+                if (item.name.toLowerCase().contains(text)) {
+                    foodsCopy.add(item)
+                }
+            }
+        }
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
