@@ -51,6 +51,7 @@
             android:id="@+id/my_food_search"
             android:layout_width="match_parent"
             android:textSize="15sp"
+            android:background="@color/white"
             android:textColorHint="@color/white"
             android:layout_height="wrap_content" />
 
