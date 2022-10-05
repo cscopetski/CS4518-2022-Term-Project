@@ -3,10 +3,7 @@ package com.example.rnsmfitness.Activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.Menu
 import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.Toast
@@ -26,10 +23,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import kotlin.collections.ArrayList
-
-
-
 
 
 private const val TAG1 = "MyFoodList"
@@ -79,11 +72,11 @@ class MyFoodList : AppCompatActivity() {
 
         recyclerView.adapter = adapter
         var list = ArrayList<String>()
-        for (i in 0..(dataSource.getFoodList().value?.size!!)){
-            list.add(dataSource.getFoodList().value!!.get(i).name)
-        }
 
-        adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list)
+
+        //adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list)
+
+        /*
         listView.adapter = adapter1
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -100,9 +93,9 @@ class MyFoodList : AppCompatActivity() {
                 return false
             }
         })
+         */
 
         dataSource = DataSource.getDataSource()
-
 
 
         val liveList = dataSource.getFoodList()
@@ -114,7 +107,25 @@ class MyFoodList : AppCompatActivity() {
             }
         }
 
+
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                adapter = FoodItemAdapter(this@MyFoodList, liveList.value!!.filter { it.name.contains(query)})
+                recyclerView.adapter = adapter
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter = FoodItemAdapter(this@MyFoodList, liveList.value!!.filter { it.name.contains(newText)})
+                recyclerView.adapter = adapter
+                return true
+            }
+        })
+
         setRecyclerViewItemTouchListener()
+
+
 
 
     }
