@@ -60,4 +60,5 @@ dependencies {
 
     //Card View
     implementation 'androidx.cardView:cardView:1.0.0'
+
 }
