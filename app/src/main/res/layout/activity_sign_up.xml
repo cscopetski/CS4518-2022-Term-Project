@@ -794,7 +794,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:hint="Password..."
+                        android:hint="Confirm Password..."
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/black"
                         android:scrollbarSize="10dp"
