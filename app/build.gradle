@@ -63,6 +63,6 @@ dependencies {
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
 
     //Card View
-    implementation 'androidx.cardView:cardView:1.0.0'
+    //implementation 'androidx.cardView:cardView:1.0.0'
 
 }

@@ -7,7 +7,7 @@
     tools:context=".Activities.SignUp">
 
     <!-- Activity Level -->
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:id="@+id/ActivityLevel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -157,12 +157,12 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
 
     <!-- Weight Goal -->
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:id="@+id/WeightGoal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -282,14 +282,14 @@
                     android:layout_gravity="right"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
 
 
 
     <!-- Measurements -->
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:id="@+id/Measurement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -542,12 +542,11 @@
                     android:layout_gravity="right"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
+    </LinearLayout>
 
 
     <!-- Sex/DOB -->
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:id="@+id/SexDOB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -614,7 +613,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -646,12 +645,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="When were you born?"/>
-                <DatePicker
-                    android:id="@+id/DOB"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/date"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:datePickerMode="spinner"
-                    android:calendarViewShown="false"/>
+                    android:layout_centerHorizontal="true"
+                    android:background="#d4d4d4"
+                    android:hint="Select Date..."
+                    android:padding="15dp"
+                    android:textColor="#897"
+                    android:textColorHint="#090"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
                 <Button
                     android:id="@+id/SexDOBNextButton"
                     android:layout_width="wrap_content"
@@ -660,12 +665,12 @@
                     android:layout_gravity="right"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
 
     <!-- Sign Up -->
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:id="@+id/SignUpSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -821,7 +826,7 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

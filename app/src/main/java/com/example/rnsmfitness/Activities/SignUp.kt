@@ -1,16 +1,14 @@
 package com.example.rnsmfitness.Activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.databinding.ActivitySignUpBinding
 import java.util.*
+
 
 class SignUp : AppCompatActivity() {
 
@@ -50,6 +48,8 @@ class SignUp : AppCompatActivity() {
     var sex: String? = null
 
     var dob: Date? = null
+
+    var datePickerDialog: DatePickerDialog? = null
 
 
     //Sign Up
@@ -96,11 +96,25 @@ class SignUp : AppCompatActivity() {
         binding.goalWeightkg.doOnTextChanged { text, start, before, count ->
             goalWeightkg = text.toString().toDouble()
         }
-        val today = Calendar.getInstance()
-        binding.DOB.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)){
-            view, year, month, day ->
-            dob = Date(year,month,day)
-        }
+        var date = binding.date
+        // perform click event on edit text
+        // perform click event on edit text
+        date.setOnClickListener(View.OnClickListener { // calender class's instance and get current date , month and year from calender
+            val c = Calendar.getInstance()
+            val mYear = c[Calendar.YEAR] // current year
+            val mMonth = c[Calendar.MONTH] // current month
+            val mDay = c[Calendar.DAY_OF_MONTH] // current day
+            // date picker dialog
+            datePickerDialog = DatePickerDialog(this@SignUp,
+                { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
+                    date.setText(
+                        dayOfMonth.toString() + "/"
+                                + (monthOfYear + 1) + "/" + year
+                    )
+                }, mYear, mMonth, mDay
+            )
+            datePickerDialog!!.show()
+        })
 
     }
 

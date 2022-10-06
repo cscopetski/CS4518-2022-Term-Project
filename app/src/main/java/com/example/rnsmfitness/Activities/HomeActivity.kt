@@ -36,6 +36,8 @@ class HomeActivity : AppCompatActivity() {
     lateinit var btnScan: Button
     lateinit var resultText: TextView
 
+    lateinit var signUpButton:Button
+
     var data: Intent? = null
 
     companion object{
@@ -55,6 +57,8 @@ class HomeActivity : AppCompatActivity() {
 
         btnScan = findViewById(R.id.btnScan)
         resultText = findViewById(R.id.resultText)
+
+
 
         nameTextView.text = intent.getStringExtra("Name")
 
@@ -76,6 +80,10 @@ class HomeActivity : AppCompatActivity() {
             testSearch("Burger")
         }
 
+        signUpButton.setOnClickListener{
+            switchToSignUpPage()
+            Log.v(TAG, "Switching to Sign Up")
+        }
 
         btnScan.setOnClickListener {
             /*val intent = Intent(applicationContext, ScanActivity::class.java)
@@ -174,7 +182,13 @@ class HomeActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun openCameraActivityForResult() {
+    private fun switchToSignUpPage(){
+        Log.v(TAG, "switchToSignUp")
+        val intent = Intent(this, SignUp::class.java)
+        startActivity(intent)
+    }
+
+    private fun openCameraActivityForResult() {
         val intent = Intent(this, ScanActivity::class.java)
         resultLauncher.launch(intent)
     }
