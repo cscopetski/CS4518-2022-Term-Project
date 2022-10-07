@@ -33,6 +33,9 @@
             android:name=".Activities.EditFoodActivity"
             android:exported="true" />
         <activity
+            android:name=".Activities.USDAFoodDetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activities.USDAFoodList"
             android:exported="true" />
         <activity
