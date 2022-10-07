@@ -25,17 +25,14 @@ import retrofit2.Response
 import java.util.*
 
 
-private const val TAG1 = "MyFoodList"
+private const val TAG1 = "USDAFoodList"
 
-class MyFoodList : AppCompatActivity() {
+class USDAFoodList : AppCompatActivity() {
 
     private var foods: MutableLiveData<List<FoodItem>> = MutableLiveData(listOf<FoodItem>())
-    lateinit var createFoodButton: FloatingActionButton
     lateinit var homeButton: FloatingActionButton
-    lateinit var usdaButton: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
     lateinit var searchView: SearchView
-    lateinit var adapter1: ArrayAdapter<*>
     private val createFoodActivityRequestCode = 1
 
     private var adapter: FoodItemAdapter = FoodItemAdapter(this,
@@ -48,32 +45,17 @@ class MyFoodList : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_food_list)
+        setContentView(R.layout.usda_food_list)
 
-        createFoodButton = findViewById(R.id.add_food_fab)
         homeButton = findViewById(R.id.home_buton)
-        usdaButton = findViewById(R.id.USDA_DB_button)
-        recyclerView = findViewById(R.id.foodRecycler)
+        recyclerView = findViewById(R.id.usda_foodRecycler)
         searchView = findViewById(R.id.my_food_search)
 
-
-
-        getDBFoods()
-
+        //getDBFoods()
 
         homeButton.setOnClickListener {
-            //set current view to home page
-            switchToHomePage()
-        }
-
-        createFoodButton.setOnClickListener {
             //set current view to myFoodPage
-            switchToCreateFood()
-        }
-
-        usdaButton.setOnClickListener {
-            //set current view to USDA Page
-            switchToUSDAPage()
+            switchToHomePage()
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -81,7 +63,6 @@ class MyFoodList : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         dataSource = DataSource.getDataSource()
-
 
         val liveList = dataSource.getFoodList()
 
@@ -129,15 +110,7 @@ class MyFoodList : AppCompatActivity() {
                 return false
             }
 
-
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                val curFood: FoodItem? =  dataSource.getFoodList().value?.get(viewHolder.bindingAdapterPosition)
-                if (curFood != null){
-                    deleteFood(curFood)
-                    Log.v(TAG1, "Food has been swiped")
-
-                }
-
             }
         }
 
@@ -151,8 +124,7 @@ class MyFoodList : AppCompatActivity() {
 
         Log.d(TAG1, "adding new food")
         if (resultCode == Activity.RESULT_OK) {
-            Log.v(TAG1, "Right before calling getDBFoods")
-            getDBFoods()
+            getUSDAFoods()
         }
     }
 
@@ -162,17 +134,7 @@ class MyFoodList : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun switchToUSDAPage(){
-        val intent = Intent(this, USDAFoodList::class.java)
-        startActivity(intent)
-    }
-
-    private fun switchToCreateFood(){
-        val intent = Intent(this, CreateFoodActivity::class.java)
-        startActivityForResult(intent,createFoodActivityRequestCode)
-    }
-
-    private fun getDBFoods(){
+    private fun getUSDAFoods(){
         val call: Call<List<FoodItem>> =
             RetroFitClient.foodService.getAllUserFoods()
 
@@ -200,35 +162,6 @@ class MyFoodList : AppCompatActivity() {
             }
         })
     }
-
-    private fun deleteFood(food:FoodItem){
-        //set food visibility to 0 aka delete it
-        food.is_visible=0
-
-        val call: Call<ResponseBody> =
-            RetroFitClient.foodService.deleteFood(food)
-
-        call.enqueue(object : Callback<ResponseBody> {
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                Log.v(TAG1, "in Delete on Response")
-                if(response.isSuccessful){
-                    Log.v(TAG1, "in if")
-
-                }else{
-                    Log.v(TAG1, "in else")
-                    Log.v(TAG1, response.code().toString())
-
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.v(TAG1, "In delete on failure")
-            }
-        })
-    }
-
-
 
     private fun filter(text: String) {
         // creating a new array list to filter our data.
