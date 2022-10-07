@@ -7,15 +7,22 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Entities.FoodItem
+import com.example.rnsmfitness.Entities.FoodItemBody
 
 import com.example.rnsmfitness.R
+import com.example.rnsmfitness.RetroFitClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class FoodDetailsActivity() : AppCompatActivity() {
+class USDAFoodDetailsActivity() : AppCompatActivity() {
 
     lateinit var detailsCalories: TextView
     lateinit var detailsProtein: TextView
@@ -23,20 +30,20 @@ class FoodDetailsActivity() : AppCompatActivity() {
     lateinit var detailsFat: TextView
     lateinit var detailsName: TextView
     lateinit var closeButton: Button
-    lateinit var editButton: Button
+    lateinit var addToMyFoodsButton: Button
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.food_item_details)
+        setContentView(R.layout.usda_food_details)
 
-        detailsCalories = findViewById(R.id.food_detail_calories)
-        detailsProtein = findViewById(R.id.food_detail_protein)
-        detailsCarbs = findViewById(R.id.food_detail_carbs)
-        detailsFat = findViewById(R.id.food_detail_fats)
-        detailsName = findViewById(R.id.food_detail_name)
-        closeButton = findViewById(R.id.close_button)
-        editButton = findViewById(R.id.edit_button)
+        detailsCalories = findViewById(R.id.usda_food_detail_calories)
+        detailsProtein = findViewById(R.id.usda_food_detail_protein)
+        detailsCarbs = findViewById(R.id.usda_food_detail_carbs)
+        detailsFat = findViewById(R.id.usda_food_detail_fats)
+        detailsName = findViewById(R.id.usda_food_detail_name)
+        closeButton = findViewById(R.id.usda_close_button)
+        addToMyFoodsButton = findViewById(R.id.add_to_my_foods_button)
 
 
         val protein: String = intent.getStringArrayListExtra("valueList")!![0]
@@ -45,7 +52,6 @@ class FoodDetailsActivity() : AppCompatActivity() {
         val calories: Int = (protein.toInt() * 4) + (carbs.toInt() * 4) + (fat.toInt() * 9)
         val name: String = intent.getStringArrayListExtra("valueList")!![3]
         val servingSize: String = intent.getStringArrayListExtra("valueList")!![4].toString()
-        val foodID: String = intent.getStringArrayListExtra("valueList")!![5]
 
         detailsProtein.text = protein + "g"
         detailsCarbs.text = carbs + "g"
@@ -60,23 +66,46 @@ class FoodDetailsActivity() : AppCompatActivity() {
         detailsList.add(carbs)
         detailsList.add(name)
         detailsList.add(servingSize)
-        detailsList.add(foodID)
+
 
         closeButton.setOnClickListener {
-            switchToMyFoodPage()
+            finish()
         }
 
-        editButton.setOnClickListener {
-            val intent = Intent(this, EditFoodActivity::class.java)
-            intent.putStringArrayListExtra("foodDetailsList", detailsList)
-            startActivity(intent)
+        addToMyFoodsButton.setOnClickListener {
+            insertFood(FoodItemBody(name, protein.toInt(), carbs.toInt(), fat.toInt(), calories, servingSize.toDouble()))
+            Toast.makeText(this, "Food has been added to MyFoods list", Toast.LENGTH_SHORT).show()
         }
+
+
     }
 
-    private fun switchToMyFoodPage(){
-        val intent = Intent(this, MyFoodList::class.java)
-        startActivity(intent)
+    private fun insertFood(food: FoodItemBody){
+        val call: Call<ResponseBody> =
+            RetroFitClient.foodService.insertFood(food)
+
+
+        call.enqueue(object : Callback<ResponseBody> {
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if(response.isSuccessful){
+                    setResult(Activity.RESULT_OK, Intent())
+                    finish()
+                }else{
+                    setResult(Activity.RESULT_CANCELED, Intent())
+                    finish()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                setResult(Activity.RESULT_CANCELED, Intent())
+                finish()
+            }
+        })
     }
+
+
+
 
 
 

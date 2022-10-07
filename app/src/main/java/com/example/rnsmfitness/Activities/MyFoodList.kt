@@ -35,7 +35,6 @@ class MyFoodList : AppCompatActivity() {
     lateinit var usdaButton: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
     lateinit var searchView: SearchView
-    lateinit var adapter1: ArrayAdapter<*>
     private val createFoodActivityRequestCode = 1
 
     private var adapter: FoodItemAdapter = FoodItemAdapter(this,
@@ -43,8 +42,6 @@ class MyFoodList : AppCompatActivity() {
     )
 
     private lateinit var dataSource: DataSource
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,7 +172,6 @@ class MyFoodList : AppCompatActivity() {
     private fun getDBFoods(){
         val call: Call<List<FoodItem>> =
             RetroFitClient.foodService.getAllUserFoods()
-
 
         call.enqueue(object : Callback<List<FoodItem>> {
 
