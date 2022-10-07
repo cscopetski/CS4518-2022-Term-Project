@@ -26,6 +26,8 @@ import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
 
+
+
     lateinit var myFoodButton: Button
     lateinit var logoutButton: Button
     lateinit var nameTextView: TextView

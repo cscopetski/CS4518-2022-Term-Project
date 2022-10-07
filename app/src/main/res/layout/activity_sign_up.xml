@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -273,13 +273,39 @@
                             android:onClick="WeightGoalClick"/>
                     </RadioGroup>
                 </LinearLayout>
-                <Button
-                    android:id="@+id/WeightGoalNextButton"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="next"
-                    android:layout_marginTop="20dp"
-                    android:layout_gravity="right"/>
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="left">
+                        <Button
+                            android:id="@+id/WeightGoalBackButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Back"
+                            android:layout_gravity="right"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:gravity="right">
+                        <Button
+                            android:id="@+id/WeightGoalNextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="next"
+                            android:layout_gravity="right"/>
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -521,27 +547,58 @@
                 android:gravity="center_horizontal"
                 app:layout_constraintTop_toBottomOf="@id/MeasurementMetricHiddenView">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="80dp">
                 <Button
-                    android:layout_width="105dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/ImperialButton"
-                    android:text="Imperial"/>
+                    android:text="Imperial"
+                    android:layout_weight="1"/>
                 <Button
-                    android:layout_width="105dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/MetricButton"
+                    android:layout_weight="1"
                     android:text="Metric"/>
                 </LinearLayout>
-                <Button
-                    android:id="@+id/MeasurementNextButton"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="next"
-                    android:layout_marginTop="20dp"
-                    android:layout_gravity="right"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="left">
+                        <Button
+                            android:id="@+id/MeasurementBackButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Back"
+                            android:layout_gravity="right"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:gravity="right">
+                        <Button
+                            android:id="@+id/MeasurementNextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="next"
+                            android:layout_gravity="right"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -647,24 +704,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="When were you born?"/>
-                <EditText
-                    android:id="@+id/date"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="#d4d4d4"
-                    android:hint="Select Date..."
-                    android:padding="15dp"
-                    android:textColor="#897"
-                    android:textColorHint="#090"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
                 <Button
-                    android:id="@+id/SexDOBNextButton"
+                    android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="next"
-                    android:layout_gravity="right"/>
+                    android:layout_centerHorizontal="true"
+                    android:hint="Select Date..."
+                    android:padding="15dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="left">
+                        <Button
+                            android:id="@+id/SexDOBBackButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Back"
+                            android:layout_gravity="right"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:gravity="right">
+                        <Button
+                            android:id="@+id/SexDOBNextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="next"
+                            android:layout_gravity="right"/>
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -738,7 +822,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:visibility="visible"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -753,19 +838,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_margin="0dp">
+                        android:layout_marginBottom="10dp">
                         <EditText
                             android:id="@+id/FirstName"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_width="0dp"
-                            android:text="First Name*"
+                            android:hint="First Name*"
                             android:inputType="text"
                             android:layout_gravity="left"/>
                         <EditText
                             android:id="@+id/LastName"
                             android:layout_height="wrap_content"
-                            android:text="Last Name*"
+                            android:hint="Last Name*"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:inputType="text"
@@ -776,23 +861,25 @@
                         android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Email*"
-                        android:inputType="number" />
+                        android:hint="Email*"
+                        android:inputType="text"
+                        android:layout_marginBottom="10dp"/>
                     <!--TextInput layout which acts as a wrapper to the edit text-->
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:hint="Password..."
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/black"
                         android:scrollbarSize="10dp"
-                        android:backgroundTint="@color/white">
+                        android:backgroundTint="@color/white"
+                        android:layout_marginBottom="10dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:hint="Password..."
                         android:textSize="15dp"
                         android:inputType="textPassword"
                         android:ems="15"
@@ -803,32 +890,67 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:hint="Confirm Password..."
                         app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/black"
                         android:scrollbarSize="10dp"
-                        android:backgroundTint="@color/white">
+                        android:backgroundTint="@color/white"
+                        android:layout_marginBottom="10dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/confirmPassword"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="15dp"
+                            android:hint="Confirm Password..."
                             android:inputType="textPassword"
                             android:ems="15"
                             android:backgroundTint="@color/white"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-                <Button
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sign Up"
-                    android:id="@+id/signUpButton"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="left">
+                        <Button
+                            android:id="@+id/SignUpBackButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Back"
+                            android:layout_gravity="right"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:gravity="right">
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sign Up"
+                            android:id="@+id/signUpButton"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="20dp"
+        android:text="Login Page"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
