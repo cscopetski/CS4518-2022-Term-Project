@@ -27,7 +27,7 @@
             android:textSize="16sp"
             android:textColor="@color/white"
             android:textAlignment="center"
-            android:text="My Foods" />
+            android:text="USDA Food Database" />
 
     </LinearLayout>
 
@@ -40,39 +40,49 @@
         android:hint="Search"
         app:hintTextColor="@color/white"
         android:layout_marginHorizontal="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:paddingTop="8dp">
 
-        <SearchView
-            android:id="@+id/my_food_search"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:textSize="15sp"
-            android:background="@color/white"
-            android:textColorHint="@color/white"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <SearchView
+                android:id="@+id/my_food_search"
+                android:layout_width="0dp"
+                android:textSize="15sp"
+                android:layout_weight="2"
+                android:background="@color/white"
+                android:textColorHint="@color/white"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/usda_search_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:text="Search" />
+        </LinearLayout>
+
+
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
 
-        android:id="@+id/foodRecycler"
+        android:id="@+id/usda_foodRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/my_food_search_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_food" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_food_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="80dp"
-        android:src="@drawable/ic_baseline_fastfood_24_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/home_buton"
@@ -83,17 +93,6 @@
         android:layout_marginBottom="8dp"
         android:baselineAlignBottom="true"
         android:src="@drawable/ic_baseline_house_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/USDA_DB_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="156dp"
-        android:baselineAlignBottom="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

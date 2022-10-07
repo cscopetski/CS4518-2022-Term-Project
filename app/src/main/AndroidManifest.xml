@@ -29,6 +29,9 @@
             android:name=".Activities.EditFoodActivity"
             android:exported="true" />
         <activity
+            android:name=".Activities.USDAFoodList"
+            android:exported="true" />
+        <activity
             android:name=".Activities.MyFoodList"
             android:exported="true" />
         <activity
