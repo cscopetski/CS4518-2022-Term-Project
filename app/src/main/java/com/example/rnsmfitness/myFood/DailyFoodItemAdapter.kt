@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rnsmfitness.Activities.DailyFoodDetailsActivity
 import com.example.rnsmfitness.Activities.FoodDetailsActivity
 import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.Entities.DailyFoodItem
@@ -46,19 +47,21 @@ class DailyFoodItemAdapter (val activity: Activity, private val foods: List<Dail
             calText.text = updatedCalories.toString()
 
             cardView.setOnClickListener {
-                Toast.makeText(activity,food.name + ": \nTotal Calories: " + (food.protein*4 + food.carbs*4 + food.fat*9), Toast.LENGTH_SHORT).show()
 
-                Log.d(TAG1, "button pressed")
+                val intent = Intent(activity, DailyFoodDetailsActivity::class.java)
 
-                val valueList = ArrayList<Int>()
+                val valueList = ArrayList<String>()
 
-                valueList.add(food.protein)
-                valueList.add(food.fat)
-                valueList.add(food.carbs)
+                valueList.add(food.protein.toString())
+                valueList.add(food.fat.toString())
+                valueList.add(food.carbs.toString())
+                valueList.add(food.name)
+                valueList.add(food.serving_size.toString())
+                valueList.add(food.id.toString())
+                valueList.add(food.quantity.toString())
+                valueList.add(food.meal)
 
-                val intent = Intent(activity, FoodDetailsActivity::class.java)
-
-                intent.putIntegerArrayListExtra("valueList", valueList)
+                intent.putExtra("valueList", valueList)
                 activity.startActivity(intent)
 
             }

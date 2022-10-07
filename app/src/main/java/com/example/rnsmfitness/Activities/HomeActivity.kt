@@ -12,12 +12,14 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Entities.*
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.myFood.DailyFoodItemAdapter
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -161,5 +163,59 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        setRecyclerViewItemTouchListener()
+    }
+
+    private fun setRecyclerViewItemTouchListener() {
+
+
+        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, viewHolder1: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                val curFood: DailyFoodItem? =  dataSource.getFoodList().value?.get(viewHolder.bindingAdapterPosition)
+                if (curFood != null){
+                    deleteFood(curFood.id)
+                    Log.v(TAG, "Food has been swiped")
+
+                }
+
+            }
+        }
+
+        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(breakfastRecyclerView)
+        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(lunchRecyclerView)
+        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(dinnerRecyclerView)
+        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(snackRecyclerView)
+
+    }
+
+    private fun deleteFood(id: Int){
+
+        val call: Call<ResponseBody> =
+            RetroFitClient.dailyFoodLogService.deleteDailyFoodLogItem(id)
+
+        call.enqueue(object : Callback<ResponseBody> {
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.v(TAG, "in Delete on Response")
+                if(response.isSuccessful){
+                    Log.v(TAG, "in if")
+
+                }else{
+                    Log.v(TAG, "in else")
+                    Log.v(TAG, response.code().toString())
+
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.v(TAG, "In delete on failure")
+            }
+        })
     }
 }

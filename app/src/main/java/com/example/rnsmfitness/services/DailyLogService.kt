@@ -19,6 +19,14 @@ interface DailyFoodLogService {
     fun getDailyFoodLogByDate(@Path("date") date: Date): Call<List<DailyFoodItem>>
 
     @POST("$URL_PREFIX/update")
-    fun insertFood(@Body food: FoodItemBody): Call<ResponseBody>
+    fun updateDailyFoodLogItem(@Body update: DailyFoodBody): Call<ResponseBody>
+
+    @POST("$URL_PREFIX/delete")
+    fun deleteDailyFoodLogItem(@Body id:Int): Call<ResponseBody>
+
+    @POST("$URL_PREFIX/add")
+    fun insertDailyFoodLogItem(@Body foodId: Int, quantity: Double, date: Date, meal: String): Call<ResponseBody>
 
 }
+
+data class DailyFoodBody(val id: Int,val quantity: Double,val meal: String)
