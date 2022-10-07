@@ -13,7 +13,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -184,7 +183,7 @@ class HomeActivity : AppCompatActivity() {
         if(result != null)
             resultText.text = result.toString()
 
-    }
+
 
 
         breakfastRecyclerView.layoutManager = LinearLayoutManager(this)

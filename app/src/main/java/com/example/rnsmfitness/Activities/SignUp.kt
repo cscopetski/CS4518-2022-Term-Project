@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.example.rnsmfitness.ModelViews.SignUpModelView
@@ -50,7 +51,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.HeightInch.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.HeightInch.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.heightIn = null
                 }else
                     signUpFields.heightIn = s.toString().toDouble()
@@ -65,7 +66,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.HeightFeet.text.isNullOrEmpty()||s.toString() == "" || s== null){
+                if(binding.HeightFeet.text.isNullOrEmpty()||s.toString() == ""){
                     signUpFields.heightFt = null
                 }else
                     signUpFields.heightFt = s.toString().toDouble()
@@ -80,7 +81,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.HeightCm.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.HeightCm.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.heightCm = null
                 }else
                     signUpFields.heightCm = s.toString().toDouble()
@@ -95,7 +96,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.currentWeightlb.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.currentWeightlb.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.weightlb = null
                 }else
                     signUpFields.weightlb = s.toString().toDouble()
@@ -110,7 +111,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.currentWeightKg.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.currentWeightKg.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.weightkg = null
                 }else
                     signUpFields.weightkg = s.toString().toDouble()
@@ -125,7 +126,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.goalWeightlb.text.isNullOrEmpty() ||s.toString() == "" || s== null){
+                if(binding.goalWeightlb.text.isNullOrEmpty() ||s.toString() == ""){
                     signUpFields.goalWeightlb = null
                 }else
                     signUpFields.goalWeightlb = s.toString().toDouble()
@@ -140,7 +141,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.goalWeightkg.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.goalWeightkg.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.goalWeightkg = null
                 }else
                     signUpFields.goalWeightkg = s.toString().toDouble()
@@ -155,7 +156,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.FirstName.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.FirstName.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.firstName = null
                 }else
                     signUpFields.firstName = s.toString()
@@ -170,7 +171,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.LastName.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.LastName.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.lastName = null
                 }else
                     signUpFields.lastName = s.toString()
@@ -185,7 +186,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.email.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.email.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.email = null
                 }else
                     signUpFields.email = s.toString()
@@ -200,7 +201,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.password.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.password.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.password = null
                 }else
                     signUpFields.password = s.toString()
@@ -215,7 +216,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.confirmPassword.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.confirmPassword.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.confirmPassword = null
                 }else
                     signUpFields.confirmPassword = s.toString()
@@ -231,10 +232,7 @@ class SignUp : AppCompatActivity() {
             // date picker dialog
             datePickerDialog = DatePickerDialog(this@SignUp,
                 { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
-                    binding.date.setText(
-                        dayOfMonth.toString() + "/"
-                                + (monthOfYear + 1) + "/" + year
-                    )
+                    binding.date.text = dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year
                     c.set(Calendar.YEAR, year)
                     c.set(Calendar.MONTH, monthOfYear)
                     c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -378,6 +376,17 @@ class SignUp : AppCompatActivity() {
         binding.currentWeightKg.setText(signUpFields.weightkg.toString())
         binding.goalWeightkg.setText(signUpFields.goalWeightkg.toString())
 
+        //SexDOB
+        if(signUpFields.sex == "male"){
+            binding.Male.isSelected = true
+        } else if(signUpFields.sex == "female"){
+            binding.Female.isSelected = true
+        }
+
+        if(signUpFields.dob != null){
+            var dateText  = signUpFields.dob!!.day.toString() + "/" + (signUpFields.dob!!.month + 1) + "/" + signUpFields.dob!!.year.toString()
+            binding.date.text =dateText
+        }
     }
 
     //On Click Functions
@@ -397,7 +406,7 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    fun WeightGoalClick(view: View) {
+    fun weightGoalClick(view: View) {
         Log.d(SIGNUP, view.id.toString())
         if(view.id == R.id.loseWeight){
             signUpFields.weightGoal = 0
@@ -413,10 +422,10 @@ class SignUp : AppCompatActivity() {
     fun onSexClick(view: View) {
         Log.d(SIGNUP, view.id.toString())
         if(view.id == R.id.Male){
-            signUpFields.sex = "Male"
+            signUpFields.sex = "male"
             binding.Male.setBackgroundColor(Color.parseColor("#ffffff"))
         } else if(view.id == R.id.Female){
-            signUpFields.sex = "Female"
+            signUpFields.sex = "female"
             binding.Female.setBackgroundColor(Color.parseColor("#ffffff"))
         } else{
             signUpFields.sex = null
@@ -425,42 +434,42 @@ class SignUp : AppCompatActivity() {
 
     //Switching Sections
 
-    fun activityLevelPage(){
+    private fun activityLevelPage(){
         if(signUpFields.section != 0) {
             signUpFields.section = 0
             updateSection()
         }
     }
 
-    fun weightGoalPage(){
+    private fun weightGoalPage(){
         if(signUpFields.section != 1) {
             signUpFields.section = 1
             updateSection()
         }
     }
 
-    fun measurementPage(){
+    private fun measurementPage(){
         if(signUpFields.section != 2) {
             signUpFields.section = 2
             updateSection()
         }
     }
 
-    fun sexDOBPage(){
+    private fun sexDOBPage(){
         if(signUpFields.section != 3) {
             signUpFields.section = 3
             updateSection()
         }
     }
 
-    fun signUpPage(){
+    private fun signUpPage(){
         if(signUpFields.section != 4) {
             signUpFields.section = 4
             updateSection()
         }
     }
 
-    fun updateSection(){
+    private fun updateSection(){
         Log.d(SIGNUP, signUpFields.section.toString())
         if(signUpFields.section == 0){
             binding.ActivityLevelHiddenView.visibility = (View.VISIBLE)
@@ -510,10 +519,43 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    fun loginPage(){
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+    private fun loginPage(){
+        finish()
     }
 
+    //Checkers
+    private fun activityLevelChecker(): Boolean {
+        if(binding.sedentary.isSelected || binding.lightlyActive.isSelected ||binding.active.isSelected || binding.veryActive.isSelected){
+            binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+            return true
+        } else
+            return false
+    }
+
+    private fun weightGoalChecker(): Boolean {
+        if(binding.loseWeight.isSelected || binding.maintainWeight.isSelected ||binding.gainWeight.isSelected){
+            binding.WeightGoalIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+            return true
+        } else
+            return false
+    }
+
+    private fun measurementChecker(): Boolean {
+        if(signUpFields.measurement == 0){
+            if(binding.HeightFeet.text.isNullOrEmpty() || binding.HeightInch.text.isNullOrEmpty() || binding.currentWeightlb.text.isNullOrEmpty() || binding.goalWeightlb.text.isNullOrEmpty()){
+                binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+                return true
+            } else
+                return false
+        } else if(signUpFields.measurement == 1){
+            if(binding.HeightCm.text.isNullOrEmpty() || binding.currentWeightKg.text.isNullOrEmpty() || binding.goalWeightkg.text.isNullOrEmpty()){
+                binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+                return true
+            } else
+                return false
+        }
+        else
+            return false
+    }
 
 }

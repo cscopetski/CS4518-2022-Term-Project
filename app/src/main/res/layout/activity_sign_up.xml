@@ -256,21 +256,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Lose Weight"
-                            android:onClick="WeightGoalClick"/>
+                            android:onClick="weightGoalClick"/>
 
                         <RadioButton
                             android:id="@+id/maintainWeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Maintain Weight"
-                            android:onClick="WeightGoalClick"/>
+                            android:onClick="weightGoalClick"/>
 
                         <RadioButton
                             android:id="@+id/gainWeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Gain Weight"
-                            android:onClick="WeightGoalClick"/>
+                            android:onClick="weightGoalClick"/>
                     </RadioGroup>
                 </LinearLayout>
                 <LinearLayout

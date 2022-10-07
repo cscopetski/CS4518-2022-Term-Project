@@ -149,7 +149,7 @@ class USDAFoodList : AppCompatActivity() {
                     dataSource.setFoodList(foodList)
                 } else {
                     dataSource.setFoodList(null)
-                    Log.d(TAG, response.code().toString())
+                    Log.d(TAG1, response.code().toString())
 
                 }
             }
