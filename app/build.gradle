@@ -30,6 +30,10 @@ android {
         jvmTarget = '1.8'
     }
 
+    buildFeatures{
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -47,4 +51,18 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    //QR Scanner
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+    implementation "androidx.camera:camera-camera2:1.0.2"
+    implementation "androidx.camera:camera-lifecycle:1.0.2"
+    implementation "androidx.camera:camera-view:1.0.0-alpha31"
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+
+    //Card View
+    //implementation 'androidx.cardView:cardView:1.0.0'
+
 }

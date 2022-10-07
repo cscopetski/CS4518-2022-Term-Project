@@ -1,6 +1,10 @@
 package com.example.rnsmfitness.Activities
 
 import android.app.DatePickerDialog
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -15,6 +19,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Entities.*
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.rnsmfitness.Activities.ScanActivity.Companion.CAMERARESULT
+import com.example.rnsmfitness.Entities.LoginCredentials
+import com.example.rnsmfitness.Entities.USDAFoodItem
+import com.example.rnsmfitness.Entities.User
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.myFood.DailyFoodItemAdapter
@@ -28,6 +39,9 @@ import java.util.*
 import javax.xml.datatype.DatatypeConstants.MONTHS
 
 private const val TAG = "HomeActivity"
+
+
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -55,6 +69,22 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var snackView: LinearLayout
 
 
+    lateinit var myFoodButton: Button
+    lateinit var logoutButton: Button
+    lateinit var nameTextView: TextView
+
+
+    lateinit var btnScan: Button
+    lateinit var resultText: TextView
+
+    lateinit var signUpButton:Button
+
+    var data: Intent? = null
+
+    companion object{
+        const val RESULT = "RESULT"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_new)
@@ -66,6 +96,11 @@ class HomeActivity : AppCompatActivity() {
 
         lunchCardView = findViewById(R.id.lunch_card)
         lunchView = findViewById(R.id.lunch_view)
+        btnScan = findViewById(R.id.btnScan)
+        resultText = findViewById(R.id.resultText)
+
+
+        nameTextView.text = intent.getStringExtra("Name")
 
         dinnerCardView = findViewById(R.id.dinner_card)
         dinnerView = findViewById(R.id.dinner_view)
@@ -131,10 +166,26 @@ class HomeActivity : AppCompatActivity() {
             dpd.show()
         }
 
+
         breakfastRecyclerView = findViewById(R.id.breakfast_recycler)
         lunchRecyclerView = findViewById(R.id.lunch_recycler)
         dinnerRecyclerView = findViewById(R.id.dinner_recycler)
         snackRecyclerView = findViewById(R.id.snack_recycler)
+
+
+        btnScan.setOnClickListener {
+            /*val intent = Intent(applicationContext, ScanActivity::class.java)
+            startActivity(intent)*/
+            openCameraActivityForResult()
+        }
+
+        val result = data?.getStringExtra(RESULT)
+
+        if(result != null)
+            resultText.text = result.toString()
+
+    }
+
 
         breakfastRecyclerView.layoutManager = LinearLayoutManager(this)
         lunchRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -162,4 +213,21 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun openCameraActivityForResult() {
+        val intent = Intent(this, ScanActivity::class.java)
+        resultLauncher.launch(intent)
+    }
+
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == CAMERARESULT) {
+            // There are no request codes
+            data = result.data
+            val result = data?.getStringExtra(RESULT)
+
+            if(result != null)
+                resultText.text = result.toString()
+        }
+    }
+
 }

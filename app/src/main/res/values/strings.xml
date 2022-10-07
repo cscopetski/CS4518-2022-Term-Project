@@ -17,5 +17,6 @@
     <string name="name_text">FirstName LastName</string>
     <string name="welcome_text">Welcome</string>
     <string name="myfoodpage_button_text">MyFood Page</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
 
