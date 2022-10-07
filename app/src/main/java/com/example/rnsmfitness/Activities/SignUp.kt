@@ -18,6 +18,7 @@ import com.example.rnsmfitness.ModelViews.SignUpModelView
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.databinding.ActivitySignUpBinding
 import java.util.*
+import kotlin.math.sign
 
 
 const val SIGNUP = "SIGNUP"
@@ -41,65 +42,170 @@ class SignUp : AppCompatActivity() {
         setContentView(view)
 
         //Set Listeners
-        binding.HeightInch.doOnTextChanged { text, start, before, count ->
-            signUpFields.heightIn = text.toString().toDouble()
-        }
+        binding.HeightInch.addTextChangedListener(object : TextWatcher {
 
-        binding.HeightFeet.doOnTextChanged { text, start, before, count ->
-            signUpFields.heightFt = text.toString().toDouble()
-        }
+            override fun afterTextChanged(s: Editable) {}
 
-        binding.HeightCm.doOnTextChanged { text, start, before, count ->
-            signUpFields.heightCm = text.toString().toDouble()
-        }
-
-        binding.currentWeightlb.doOnTextChanged { text, start, before, count ->
-            signUpFields.weightlb = text.toString().toDouble()
-        }
-
-        binding.currentWeightKg.doOnTextChanged { text, start, before, count ->
-            signUpFields.weightkg = text.toString().toDouble()
-        }
-
-        binding.goalWeightlb.doOnTextChanged { text, start, before, count ->
-            signUpFields.goalWeightlb = text.toString().toDouble()
-        }
-
-        binding.goalWeightkg.doOnTextChanged { text, start, before, count ->
-            signUpFields.goalWeightkg = text.toString().toDouble()
-        }
-
-        binding.FirstName.doOnTextChanged{text, start, before, count ->
-            signUpFields.firstName = text.toString()
-        }
-
-        binding.LastName.doOnTextChanged{text, start, before, count ->
-            signUpFields.lastName = text.toString()
-        }
-
-        binding.email.doOnTextChanged{text, start, before, count ->
-            signUpFields.email = text.toString()
-        }
-
-        binding.password.doOnTextChanged{text, start, before, count ->
-            signUpFields.password = text.toString()
-            if(signUpFields.password != null || signUpFields.password != ""){
-                binding.password.hint = ""
-            } else{
-                binding.password.hint = "Password..."
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
-        }
 
-        /*binding.confirmPassword.doOnTextChanged{text, start, before, count ->
-            if(signUpFields.confirmPassword != text) {
-                signUpFields.confirmPassword = text.toString()
-                if (signUpFields.confirmPassword != null || signUpFields.confirmPassword != "") {
-                    binding.confirmPassword.hint = ""
-                } else {
-                    binding.confirmPassword.hint = "Confirm Password..."
-                }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.HeightInch.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.heightIn = null
+                }else
+                    signUpFields.heightIn = s.toString().toDouble()
             }
-        }*/
+        })
+
+        binding.HeightFeet.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.HeightFeet.text.isNullOrEmpty()||s.toString() == "" || s== null){
+                    signUpFields.heightFt = null
+                }else
+                    signUpFields.heightFt = s.toString().toDouble()
+            }
+        })
+
+        binding.HeightCm.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.HeightCm.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.heightCm = null
+                }else
+                    signUpFields.heightCm = s.toString().toDouble()
+            }
+        })
+
+        binding.currentWeightlb.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.currentWeightlb.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.weightlb = null
+                }else
+                    signUpFields.weightlb = s.toString().toDouble()
+            }
+        })
+
+        binding.currentWeightKg.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.currentWeightKg.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.weightkg = null
+                }else
+                    signUpFields.weightkg = s.toString().toDouble()
+            }
+        })
+
+        binding.goalWeightlb.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.goalWeightlb.text.isNullOrEmpty() ||s.toString() == "" || s== null){
+                    signUpFields.goalWeightlb = null
+                }else
+                    signUpFields.goalWeightlb = s.toString().toDouble()
+            }
+        })
+
+        binding.goalWeightkg.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.goalWeightkg.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.goalWeightkg = null
+                }else
+                    signUpFields.goalWeightkg = s.toString().toDouble()
+            }
+        })
+
+        binding.FirstName.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.FirstName.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.firstName = null
+                }else
+                    signUpFields.firstName = s.toString()
+            }
+        })
+
+        binding.LastName.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.LastName.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.lastName = null
+                }else
+                    signUpFields.lastName = s.toString()
+            }
+        })
+
+        binding.email.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.email.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.email = null
+                }else
+                    signUpFields.email = s.toString()
+            }
+        })
+
+        binding.password.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(binding.password.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.password = null
+                }else
+                    signUpFields.password = s.toString()
+            }
+        })
 
         binding.confirmPassword.addTextChangedListener(object : TextWatcher {
 
@@ -109,19 +215,10 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                signUpFields.confirmPassword = s.toString()
-                var confirmPasswordLog:String
-                if (signUpFields.confirmPassword == null){
-                    confirmPasswordLog = "Is Null"
-                } else{
-                    confirmPasswordLog = s.toString()
-                }
-                Log.d(SIGNUP,confirmPasswordLog)
-                if (signUpFields.confirmPassword != null || signUpFields.confirmPassword != "") {
-                    binding.confirmPassword.hint = ""
-                } else {
-                    binding.confirmPassword.hint = "Confirm Password..."
-                }
+                if(binding.confirmPassword.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                    signUpFields.confirmPassword = null
+                }else
+                    signUpFields.confirmPassword = s.toString()
             }
         })
 
@@ -221,6 +318,10 @@ class SignUp : AppCompatActivity() {
                 binding.MeasurementImperialHiddenView.visibility = View.GONE
                 binding.MeasurementMetricHiddenView.visibility = View.VISIBLE
                 signUpFields.measurement = 1
+                binding.HeightFeet.text.clear()
+                binding.HeightInch.text.clear()
+                binding.currentWeightlb.text.clear()
+                binding.goalWeightlb.text.clear()
             }
         }
 
@@ -229,11 +330,16 @@ class SignUp : AppCompatActivity() {
                 binding.MeasurementMetricHiddenView.visibility = View.GONE
                 binding.MeasurementImperialHiddenView.visibility = View.VISIBLE
                 signUpFields.measurement = 0
+                binding.HeightCm.text.clear()
+                binding.currentWeightKg.text.clear()
+                binding.goalWeightkg.text.clear()
             }
         }
 
         //Initializing the page
         updateSection()
+
+        //insertData()
 
     }
 
@@ -241,9 +347,43 @@ class SignUp : AppCompatActivity() {
         TODO("Not yet implemented")
     }
 
+    private fun insertData(){
+        //Activity Level
+        if(signUpFields.activityLevel == 0){
+            binding.sedentary.isSelected = true
+        } else if(signUpFields.activityLevel == 1){
+            binding.lightlyActive.isSelected = true
+        } else if(signUpFields.activityLevel == 2){
+            binding.active.isSelected = true
+        } else if(signUpFields.activityLevel == 3){
+            binding.veryActive.isSelected = true
+        }
+
+        //Weight Goal
+        if(signUpFields.weightGoal == 0){
+            binding.loseWeight.isSelected = true
+        } else if(signUpFields.weightGoal == 1){
+            binding.maintainWeight.isSelected = true
+        } else if(signUpFields.weightGoal == 2){
+            binding.gainWeight.isSelected = true
+        }
+
+        //Measurement
+        binding.HeightFeet.setText(signUpFields.heightFt.toString())
+        binding.HeightInch.setText(signUpFields.heightIn.toString())
+        binding.currentWeightlb.setText(signUpFields.weightlb.toString())
+        binding.goalWeightlb.setText(signUpFields.goalWeightlb.toString())
+
+        binding.HeightCm.setText(signUpFields.heightCm.toString())
+        binding.currentWeightKg.setText(signUpFields.weightkg.toString())
+        binding.goalWeightkg.setText(signUpFields.goalWeightkg.toString())
+
+    }
+
     //On Click Functions
 
     fun onActiveLevelButtonClick(view: View) {
+        Log.d(SIGNUP, view.id.toString())
         if(view.id == R.id.sedentary){
             signUpFields.activityLevel = 0
         } else if(view.id == R.id.lightlyActive){
@@ -258,6 +398,7 @@ class SignUp : AppCompatActivity() {
     }
 
     fun WeightGoalClick(view: View) {
+        Log.d(SIGNUP, view.id.toString())
         if(view.id == R.id.loseWeight){
             signUpFields.weightGoal = 0
         } else if(view.id == R.id.maintainWeight){
@@ -270,6 +411,7 @@ class SignUp : AppCompatActivity() {
     }
 
     fun onSexClick(view: View) {
+        Log.d(SIGNUP, view.id.toString())
         if(view.id == R.id.Male){
             signUpFields.sex = "Male"
             binding.Male.setBackgroundColor(Color.parseColor("#ffffff"))
@@ -319,6 +461,7 @@ class SignUp : AppCompatActivity() {
     }
 
     fun updateSection(){
+        Log.d(SIGNUP, signUpFields.section.toString())
         if(signUpFields.section == 0){
             binding.ActivityLevelHiddenView.visibility = (View.VISIBLE)
             binding.WeightGoalHiddenView.visibility = (View.GONE)

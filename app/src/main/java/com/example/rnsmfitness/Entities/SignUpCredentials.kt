@@ -8,4 +8,4 @@ import java.sql.Date
 //activitylevel = 0,1,2,3
 //weightgoal = 0,1,2
 //gender = "male" || "female"
-data class SignUpCredentials(val activitylevel : Int, val weightgoal : Int, val height : Double, val weight : Double, val goalweight : Double, val firstname : String, val lastname : String, val email : String, val password : String, val gender : String, val dob : Date, val units: String = "imperial")
+data class SignUpCredentials(val activitylevel : Int, val weightgoal : Int, val height : Double, val weight : Double, val goalweight : Double, val firstname : String, val lastname : String, val email : String, val password : String, val gender : String, val dob : Date, val units: String = "metric")
