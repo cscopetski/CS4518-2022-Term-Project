@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -88,7 +90,7 @@ class SignUp : AppCompatActivity() {
             }
         }
 
-        binding.confirmPassword.doOnTextChanged{text, start, before, count ->
+        /*binding.confirmPassword.doOnTextChanged{text, start, before, count ->
             if(signUpFields.confirmPassword != text) {
                 signUpFields.confirmPassword = text.toString()
                 if (signUpFields.confirmPassword != null || signUpFields.confirmPassword != "") {
@@ -97,8 +99,31 @@ class SignUp : AppCompatActivity() {
                     binding.confirmPassword.hint = "Confirm Password..."
                 }
             }
-        }
+        }*/
 
+        binding.confirmPassword.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                signUpFields.confirmPassword = s.toString()
+                var confirmPasswordLog:String
+                if (signUpFields.confirmPassword == null){
+                    confirmPasswordLog = "Is Null"
+                } else{
+                    confirmPasswordLog = s.toString()
+                }
+                Log.d(SIGNUP,confirmPasswordLog)
+                if (signUpFields.confirmPassword != null || signUpFields.confirmPassword != "") {
+                    binding.confirmPassword.hint = ""
+                } else {
+                    binding.confirmPassword.hint = "Confirm Password..."
+                }
+            }
+        })
 
         //Set on clicker
         binding.date.setOnClickListener(View.OnClickListener { // calender class's instance and get current date , month and year from calender
