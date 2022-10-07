@@ -135,7 +135,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signUp(){
-        val intent = Intent(this, MyFoodList::class.java)
+        val intent = Intent(this, SignUp::class.java)
         startActivity(intent)
     }
 

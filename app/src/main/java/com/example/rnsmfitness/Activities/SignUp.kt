@@ -2,13 +2,17 @@ package com.example.rnsmfitness.Activities
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.databinding.ActivitySignUpBinding
 import java.util.*
 
+
+const val SIGNUP = "SIGNUP"
 
 class SignUp : AppCompatActivity() {
 
@@ -28,6 +32,8 @@ class SignUp : AppCompatActivity() {
 
 
     //Measurements
+    //0 for Imperial; 1 for Metric
+    var measurement: Int = 0
 
     var height: Double? = null
     var heightCm: Double? = null
@@ -50,7 +56,7 @@ class SignUp : AppCompatActivity() {
     var dob: Date? = null
 
     var datePickerDialog: DatePickerDialog? = null
-
+    lateinit var date : EditText
 
     //Sign Up
 
@@ -67,7 +73,14 @@ class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        //Binding
+
         binding = ActivitySignUpBinding.inflate(layoutInflater)
+
+        date = binding.date
+
+        //Set Listeners
 
         binding.HeightInch.doOnTextChanged { text, start, before, count ->
             heightIn = text.toString().toDouble()
@@ -96,9 +109,30 @@ class SignUp : AppCompatActivity() {
         binding.goalWeightkg.doOnTextChanged { text, start, before, count ->
             goalWeightkg = text.toString().toDouble()
         }
-        var date = binding.date
-        // perform click event on edit text
-        // perform click event on edit text
+
+        binding.FirstName.doOnTextChanged{text, start, before, count ->
+            firstName = text.toString()
+        }
+
+        binding.LastName.doOnTextChanged{text, start, before, count ->
+            lastName = text.toString()
+        }
+
+        binding.email.doOnTextChanged{text, start, before, count ->
+            email = text.toString()
+        }
+
+        binding.password.doOnTextChanged{text, start, before, count ->
+            password = text.toString()
+        }
+
+        binding.confirmPassword.doOnTextChanged{text, start, before, count ->
+            confirmPassword = text.toString()
+        }
+
+
+        //Set on clicker
+
         date.setOnClickListener(View.OnClickListener { // calender class's instance and get current date , month and year from calender
             val c = Calendar.getInstance()
             val mYear = c[Calendar.YEAR] // current year
@@ -116,7 +150,61 @@ class SignUp : AppCompatActivity() {
             datePickerDialog!!.show()
         })
 
+        //Next Buttons
+
+        binding.ActivityLevelNextButton.setOnClickListener {
+            Log.d(SIGNUP, "ActivityLevelNextButton Clicked")
+            binding.ActivityLevelHiddenView.visibility = View.GONE
+            binding.WeightGoalHiddenView.visibility = View.VISIBLE
+        }
+
+        binding.WeightGoalNextButton.setOnClickListener {
+            binding.WeightGoalHiddenView.visibility = View.GONE
+            binding.MeasurementImperialHiddenView.visibility = View.VISIBLE
+            binding.ImpMetricButtons.visibility = View.VISIBLE
+        }
+
+        binding.MetricButton.setOnClickListener {
+            if(measurement == 0){
+                binding.MeasurementImperialHiddenView.visibility = View.GONE
+                binding.MeasurementMetricHiddenView.visibility = View.VISIBLE
+                measurement = 1
+            }
+        }
+
+        binding.ImperialButton.setOnClickListener {
+            if(measurement == 1){
+                binding.MeasurementMetricHiddenView.visibility = View.GONE
+                binding.MeasurementImperialHiddenView.visibility = View.VISIBLE
+                measurement = 0
+            }
+        }
+
+        binding.MeasurementNextButton.setOnClickListener {
+            binding.MeasurementImperialHiddenView.visibility = View.GONE
+            binding.MeasurementMetricHiddenView.visibility = View.GONE
+            binding.ImpMetricButtons.visibility = View.GONE
+            binding.SexDOBHiddenView.visibility = View.VISIBLE
+        }
+
+        binding.SexDOBNextButton.setOnClickListener {
+            binding.SexDOBHiddenView.visibility = View.GONE
+            binding.SignUpHiddenView.visibility = View.VISIBLE
+        }
+
+        binding.signUpButton.setOnClickListener {
+            signUp()
+        }
+
+
+
     }
+
+    private fun signUp() {
+        TODO("Not yet implemented")
+    }
+
+    //On Click Functions
 
     fun onActiveLevelButtonClick(view: View) {
         if(view.id == R.id.sedentary){
@@ -153,4 +241,6 @@ class SignUp : AppCompatActivity() {
             sex = null
         }
     }
+
+
 }

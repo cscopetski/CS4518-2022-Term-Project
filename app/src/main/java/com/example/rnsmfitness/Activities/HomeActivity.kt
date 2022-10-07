@@ -59,7 +59,6 @@ class HomeActivity : AppCompatActivity() {
         resultText = findViewById(R.id.resultText)
 
 
-
         nameTextView.text = intent.getStringExtra("Name")
 
         myFoodButton.setOnClickListener {
@@ -80,10 +79,6 @@ class HomeActivity : AppCompatActivity() {
             testSearch("Burger")
         }
 
-        signUpButton.setOnClickListener{
-            switchToSignUpPage()
-            Log.v(TAG, "Switching to Sign Up")
-        }
 
         btnScan.setOnClickListener {
             /*val intent = Intent(applicationContext, ScanActivity::class.java)
@@ -179,12 +174,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun switchToMyFoodPage(){
         val intent = Intent(this, MyFoodList::class.java)
-        startActivity(intent)
-    }
-
-    private fun switchToSignUpPage(){
-        Log.v(TAG, "switchToSignUp")
-        val intent = Intent(this, SignUp::class.java)
         startActivity(intent)
     }
 

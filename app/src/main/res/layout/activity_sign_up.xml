@@ -7,7 +7,7 @@
     tools:context=".Activities.SignUp">
 
     <!-- Activity Level -->
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/ActivityLevel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -157,12 +157,12 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 
     <!-- Weight Goal -->
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/WeightGoal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -282,14 +282,14 @@
                     android:layout_gravity="right"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 
 
 
     <!-- Measurements -->
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/Measurement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -527,10 +527,12 @@
                 <Button
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/ImperialButton"
                     android:text="Imperial"/>
                 <Button
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/MetricButton"
                     android:text="Metric"/>
                 </LinearLayout>
                 <Button
@@ -542,11 +544,11 @@
                     android:layout_gravity="right"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
     <!-- Sex/DOB -->
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/SexDOB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -665,12 +667,11 @@
                     android:layout_gravity="right"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-
+    </androidx.cardview.widget.CardView>
 
 
     <!-- Sign Up -->
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/SignUpSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -826,7 +827,8 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
