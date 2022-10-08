@@ -13,7 +13,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -43,9 +42,6 @@ import javax.xml.datatype.DatatypeConstants.MONTHS
 
 private const val TAG = "HomeActivity"
 
-
-
-
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var editDate: Button
@@ -72,12 +68,12 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var snackView: LinearLayout
 
 
-    lateinit var myFoodButton: Button
-    lateinit var logoutButton: Button
-    lateinit var nameTextView: TextView
+//    lateinit var myFoodButton: Button
+//    lateinit var logoutButton: Button
+//    lateinit var nameTextView: TextView
 
 
-    lateinit var btnScan: Button
+//    lateinit var btnScan: Button
     lateinit var resultText: TextView
 
     lateinit var signUpButton:Button
@@ -99,11 +95,11 @@ class HomeActivity : AppCompatActivity() {
 
         lunchCardView = findViewById(R.id.lunch_card)
         lunchView = findViewById(R.id.lunch_view)
-        btnScan = findViewById(R.id.btnScan)
-        resultText = findViewById(R.id.resultText)
+//        btnScan = findViewById(R.id.btnScan)
+//        resultText = findViewById(R.id.resultText)
 
 
-        nameTextView.text = intent.getStringExtra("Name")
+//        nameTextView.text = intent.getStringExtra("Name")
 
         dinnerCardView = findViewById(R.id.dinner_card)
         dinnerView = findViewById(R.id.dinner_view)
@@ -176,18 +172,18 @@ class HomeActivity : AppCompatActivity() {
         snackRecyclerView = findViewById(R.id.snack_recycler)
 
 
-        btnScan.setOnClickListener {
-            /*val intent = Intent(applicationContext, ScanActivity::class.java)
-            startActivity(intent)*/
-            openCameraActivityForResult()
-        }
+//        btnScan.setOnClickListener {
+//            /*val intent = Intent(applicationContext, ScanActivity::class.java)
+//            startActivity(intent)*/
+//            openCameraActivityForResult()
+//        }
 
-        val result = data?.getStringExtra(RESULT)
+//        val result = data?.getStringExtra(RESULT)
+//
+//        if(result != null)
+//            resultText.text = result.toString()
 
-        if(result != null)
-            resultText.text = result.toString()
 
-    }
 
 
         breakfastRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -270,20 +266,20 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    private fun openCameraActivityForResult() {
-        val intent = Intent(this, ScanActivity::class.java)
-        resultLauncher.launch(intent)
-    }
-
-    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == CAMERARESULT) {
-            // There are no request codes
-            data = result.data
-            val result = data?.getStringExtra(RESULT)
-
-            if(result != null)
-                resultText.text = result.toString()
-        }
-    }
+//    private fun openCameraActivityForResult() {
+//        val intent = Intent(this, ScanActivity::class.java)
+//        resultLauncher.launch(intent)
+//    }
+//
+//    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//        if (result.resultCode == CAMERARESULT) {
+//            // There are no request codes
+//            data = result.data
+//            val result = data?.getStringExtra(RESULT)
+//
+//            if(result != null)
+//                resultText.text = result.toString()
+//        }
+//    }
 
 }
