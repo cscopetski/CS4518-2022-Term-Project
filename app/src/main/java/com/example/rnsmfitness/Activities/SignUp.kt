@@ -1,25 +1,20 @@
 package com.example.rnsmfitness.Activities
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import androidx.annotation.ColorInt
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.example.rnsmfitness.ModelViews.SignUpModelView
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.databinding.ActivitySignUpBinding
 import java.util.*
-import kotlin.math.sign
 
 
 const val SIGNUP = "SIGNUP"
@@ -246,37 +241,58 @@ class SignUp : AppCompatActivity() {
 
         //Click on section/Header
         binding.ActivityLevelHeader.setOnClickListener {
+            checkAll()
             activityLevelPage()
         }
         binding.WeightGoalHeader.setOnClickListener {
-            weightGoalPage()
+            checkAll()
+            if(activityLevelChecker()){
+                weightGoalPage()
+            }
         }
         binding.MeasurementHeader.setOnClickListener {
-            measurementPage()
+            checkAll()
+            if(activityLevelChecker() && weightGoalChecker()){
+                measurementPage()
+            }
         }
         binding.SexDOBHeader.setOnClickListener {
-            sexDOBPage()
+            checkAll()
+            if(activityLevelChecker()&& weightGoalChecker()&&measurementChecker()){
+                sexDOBPage()
+            }
         }
         binding.SignUpHeader.setOnClickListener {
-            signUpPage()
+            checkAll()
+            if(activityLevelChecker()&& weightGoalChecker()&&measurementChecker() && sexDOBChecker()){
+                signUpPage()
+            }
         }
 
 
         //Next Buttons
         binding.ActivityLevelNextButton.setOnClickListener {
-            weightGoalPage()
+            if(activityLevelChecker()) {
+                weightGoalPage()
+            }
         }
 
         binding.WeightGoalNextButton.setOnClickListener {
-            measurementPage()
+            if(weightGoalChecker()) {
+                measurementPage()
+            }
         }
 
         binding.MeasurementNextButton.setOnClickListener {
-            sexDOBPage()
+            if(measurementChecker()) {
+                sexDOBPage()
+            }
         }
 
         binding.SexDOBNextButton.setOnClickListener {
-            signUpPage()
+            if (sexDOBChecker()){
+                signUpPage()
+            }
         }
 
 
@@ -300,7 +316,10 @@ class SignUp : AppCompatActivity() {
 
         //Sign Up Button
         binding.signUpButton.setOnClickListener {
-            signUp()
+            if(checkAll() && matchingPassword()) {
+                signUp()
+            }
+
         }
 
 
@@ -337,7 +356,7 @@ class SignUp : AppCompatActivity() {
         //Initializing the page
         updateSection()
 
-        //insertData()
+        insertData()
 
     }
 
@@ -367,14 +386,27 @@ class SignUp : AppCompatActivity() {
         }
 
         //Measurement
-        binding.HeightFeet.setText(signUpFields.heightFt.toString())
-        binding.HeightInch.setText(signUpFields.heightIn.toString())
-        binding.currentWeightlb.setText(signUpFields.weightlb.toString())
-        binding.goalWeightlb.setText(signUpFields.goalWeightlb.toString())
+        if(signUpFields.heightFt != null){
+            binding.HeightFeet.setText(signUpFields.heightFt.toString())
+        }
+        if(signUpFields.heightIn != null){
+            binding.HeightInch.setText(signUpFields.heightIn.toString())
+        }
+        if(signUpFields.weightlb != null){
+            binding.currentWeightlb.setText(signUpFields.weightlb.toString())}
+        if(signUpFields.goalWeightlb != null){
+            binding.goalWeightlb.setText(signUpFields.goalWeightlb.toString())
+        }
 
-        binding.HeightCm.setText(signUpFields.heightCm.toString())
-        binding.currentWeightKg.setText(signUpFields.weightkg.toString())
-        binding.goalWeightkg.setText(signUpFields.goalWeightkg.toString())
+        if(signUpFields.heightCm != null){
+            binding.HeightCm.setText(signUpFields.heightCm.toString())
+        }
+        if(signUpFields.weightkg != null){
+            binding.currentWeightKg.setText(signUpFields.weightkg.toString())
+        }
+        if(signUpFields.goalWeightkg != null){
+            binding.goalWeightkg.setText(signUpFields.goalWeightkg.toString())
+        }
 
         //SexDOB
         if(signUpFields.sex == "male"){
@@ -386,6 +418,23 @@ class SignUp : AppCompatActivity() {
         if(signUpFields.dob != null){
             var dateText  = signUpFields.dob!!.day.toString() + "/" + (signUpFields.dob!!.month + 1) + "/" + signUpFields.dob!!.year.toString()
             binding.date.text =dateText
+        }
+
+        //Sign Up
+        if(signUpFields.firstName != null){
+            binding.FirstName.setText(signUpFields.firstName, TextView.BufferType.EDITABLE)
+        }
+        if(signUpFields.lastName != null){
+            binding.LastName.setText(signUpFields.lastName, TextView.BufferType.EDITABLE)
+        }
+        if(signUpFields.email != null){
+            binding.email.setText(signUpFields.email, TextView.BufferType.EDITABLE)
+        }
+        if(signUpFields.password != null){
+            binding.password.setText(signUpFields.password, TextView.BufferType.EDITABLE)
+        }
+        if(signUpFields.confirmPassword != null){
+            binding.confirmPassword.setText(signUpFields.confirmPassword, TextView.BufferType.EDITABLE)
         }
     }
 
@@ -496,8 +545,8 @@ class SignUp : AppCompatActivity() {
                 binding.MeasurementImperialHiddenView.visibility = (View.VISIBLE)
                 binding.MeasurementMetricHiddenView.visibility = (View.GONE)
             } else if(signUpFields.measurement == 1) {
-                binding.MeasurementImperialHiddenView.visibility = (View.VISIBLE)
-                binding.MeasurementMetricHiddenView.visibility = (View.GONE)
+                binding.MeasurementImperialHiddenView.visibility = (View.GONE)
+                binding.MeasurementMetricHiddenView.visibility = (View.VISIBLE)
             }
             binding.ImpMetricButtons.visibility = (View.VISIBLE)
         }else if(signUpFields.section == 3){
@@ -525,15 +574,17 @@ class SignUp : AppCompatActivity() {
 
     //Checkers
     private fun activityLevelChecker(): Boolean {
-        if(binding.sedentary.isSelected || binding.lightlyActive.isSelected ||binding.active.isSelected || binding.veryActive.isSelected){
+        if(signUpFields.activityLevel !=null){
             binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
             return true
-        } else
+        } else{
+            binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_arrow_drop_down_circle_24, null))
             return false
+        }
     }
 
     private fun weightGoalChecker(): Boolean {
-        if(binding.loseWeight.isSelected || binding.maintainWeight.isSelected ||binding.gainWeight.isSelected){
+        if(signUpFields.weightGoal != null){
             binding.WeightGoalIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
             return true
         } else
@@ -543,19 +594,49 @@ class SignUp : AppCompatActivity() {
     private fun measurementChecker(): Boolean {
         if(signUpFields.measurement == 0){
             if(binding.HeightFeet.text.isNullOrEmpty() || binding.HeightInch.text.isNullOrEmpty() || binding.currentWeightlb.text.isNullOrEmpty() || binding.goalWeightlb.text.isNullOrEmpty()){
-                binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
-                return true
-            } else
                 return false
+            } else{
+                binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+                return true
+                }
         } else if(signUpFields.measurement == 1){
             if(binding.HeightCm.text.isNullOrEmpty() || binding.currentWeightKg.text.isNullOrEmpty() || binding.goalWeightkg.text.isNullOrEmpty()){
-                binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
-                return true
-            } else
                 return false
+            } else{
+                binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+                return true
+            }
         }
         else
             return false
     }
 
+    private fun sexDOBChecker(): Boolean{
+        if(signUpFields.sex != null){
+            if(signUpFields.dob != null){
+                binding.SexDOBIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+                return true
+            }else
+                return false
+        }else
+            return false
+    }
+
+    private fun signUpChecker():Boolean{
+        if(binding.FirstName.text.isNullOrEmpty() || binding.LastName.text.isNullOrEmpty() || binding.email.text.isNullOrEmpty() || binding.password.text.isNullOrEmpty() || binding.confirmPassword.text.isNullOrEmpty()){
+            return false
+        }else if(matchingPassword()){
+            binding.SignUpIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+            return true
+        } else
+            return false
+    }
+
+    private fun checkAll() : Boolean{
+        return activityLevelChecker() && weightGoalChecker() && measurementChecker() && sexDOBChecker() && signUpChecker()
+    }
+
+    private fun matchingPassword(): Boolean {
+        return signUpFields.password == signUpFields.confirmPassword
+    }
 }
