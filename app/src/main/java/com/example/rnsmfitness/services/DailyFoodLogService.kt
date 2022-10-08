@@ -25,8 +25,14 @@ interface DailyFoodLogService {
     fun deleteDailyFoodLogItem(@Body id: DailyFoodId): Call<ResponseBody>
 
     @POST("$URL_PREFIX/add")
-    fun insertDailyFoodLogItem(@Body foodId: Int, quantity: Double, date: Date, meal: String): Call<ResponseBody>
+    fun insertDailyFoodLogItem(@Body myFood: MyFoodDailyFood): Call<ResponseBody>
+
+    @POST("$URL_PREFIX/add-usda")
+    fun insertUSDADailyFoodLogItem(@Body dailyFood: USDADailyFood): Call<ResponseBody>
 
 }
+
+data class USDADailyFood(val date:Date, val quantity: Double, val meal: String, val food: FoodItemBody)
 data class DailyFoodId(val id: Int)
 data class DailyFoodBody(val id: Int,val quantity: Double,val meal: String)
+data class MyFoodDailyFood(val date:Date, val food_id: Int,val quantity: Double,val meal: String)

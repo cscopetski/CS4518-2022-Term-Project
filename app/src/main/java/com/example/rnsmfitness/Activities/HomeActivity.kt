@@ -30,6 +30,8 @@ import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.myFood.DailyFoodItemAdapter
 import com.example.rnsmfitness.services.DailyFoodId
+import com.example.rnsmfitness.services.USDADailyFood
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -68,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var snackView: LinearLayout
 
 
-//    lateinit var myFoodButton: Button
+    lateinit var test: FloatingActionButton
 //    lateinit var logoutButton: Button
 //    lateinit var nameTextView: TextView
 
@@ -87,6 +89,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_new)
+
+        test = findViewById(R.id.test_button)
+
+        test.setOnClickListener{testInsert()}
 
         editDate = findViewById(R.id.edit_date)
 
@@ -262,6 +268,34 @@ class HomeActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.v(TAG, "In delete on failure")
+            }
+        })
+    }
+
+    private fun testInsert(){
+
+        val body = USDADailyFood(Date(System.currentTimeMillis()), 1.0, "breakfast", FoodItemBody("Chicken 3", 20, 1, 0, 49, 100.0))
+
+        Log.v(TAG, body.toString())
+        val call: Call<ResponseBody> =
+            RetroFitClient.dailyFoodLogService.insertUSDADailyFoodLogItem(body)
+
+        call.enqueue(object : Callback<ResponseBody> {
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.v(TAG, "in Delete on Response")
+                if(response.isSuccessful){
+                    Log.v(TAG, "success")
+
+                }else{
+                    Log.v(TAG, "fail")
+                    Log.v(TAG, response.code().toString())
+
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.v(TAG, "big fail")
             }
         })
     }

@@ -41,11 +41,11 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
         val quantity: Double = intent.getStringArrayListExtra("valueList")!![6].toDouble()
         val meal: String = intent.getStringArrayListExtra("valueList")!![7]
         val calories: Int =
-            Math.round(quantity*(protein.toInt() * 4) + (carbs.toInt() * 4) + (fat.toInt() * 9)).toInt()
+            Math.round(quantity*((protein.toInt() * 4) + (carbs.toInt() * 4) + (fat.toInt() * 9))).toInt()
 
-        detailsProtein.text = protein + "g"
-        detailsCarbs.text = carbs + "g"
-        detailsFat.text = fat + "g"
+        detailsProtein.text = Math.round(quantity*protein.toInt()).toString() + "g"
+        detailsCarbs.text = Math.round(quantity*carbs.toInt()).toString() + "g"
+        detailsFat.text = Math.round(quantity*fat.toInt()).toString() + "g"
         detailsCalories.text = calories.toString() + " cal"
         detailsName.text = name
 

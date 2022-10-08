@@ -5,15 +5,26 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Entities.FoodItem
+import com.example.rnsmfitness.Entities.FoodItemBody
 
 import com.example.rnsmfitness.R
+import com.example.rnsmfitness.RetroFitClient
+import com.example.rnsmfitness.services.USDADailyFood
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.sql.Date
+
+private const val TAG = "FoodDetailsActivity"
 
 class FoodDetailsActivity() : AppCompatActivity() {
 
@@ -23,7 +34,8 @@ class FoodDetailsActivity() : AppCompatActivity() {
     lateinit var detailsFat: TextView
     lateinit var detailsName: TextView
     lateinit var closeButton: Button
-    lateinit var editButton: Button
+    private lateinit var editButton: Button
+    private lateinit var addToLogButton: Button
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +49,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
         detailsName = findViewById(R.id.food_detail_name)
         closeButton = findViewById(R.id.close_button)
         editButton = findViewById(R.id.edit_button)
-
+        addToLogButton = findViewById(R.id.add_food_to_log_button)
 
         val protein: String = intent.getStringArrayListExtra("valueList")!![0]
         val fat: String = intent.getStringArrayListExtra("valueList")!![1]
@@ -69,6 +81,13 @@ class FoodDetailsActivity() : AppCompatActivity() {
         editButton.setOnClickListener {
             val intent = Intent(this, EditFoodActivity::class.java)
             intent.putStringArrayListExtra("foodDetailsList", detailsList)
+            startActivity(intent)
+        }
+
+        addToLogButton.setOnClickListener{
+            val intent = Intent(this, AddFoodToLogActivity::class.java)
+            intent.putStringArrayListExtra("foodDetailsList", detailsList)
+            intent.putExtra(INTENT_CODE, INTENT_CODE_MY_FOOD)
             startActivity(intent)
         }
     }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.rnsmfitness.services.*
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import okhttp3.Cookie
 import okhttp3.CookieJar
@@ -80,15 +81,6 @@ object RetroFitClient {
                     val listType = object : TypeToken<List<Cookie>>() {}.type
                     val cookiesList = Gson().fromJson<List<Cookie>>(json, listType)
 
-//TODO: Look into logging out user here when expired cookies are found??
-//                    Log.d(TAG, prefsKey)
-//
-//                    for (cookie in cookiesList) {
-//                        if(cookie.expiresAt() < System.currentTimeMillis()){
-//                            return ArrayList()
-//                        }
-//                    }
-
                     return cookiesList;
                 }
                 return cookies ?: ArrayList()
@@ -133,10 +125,12 @@ object RetroFitClient {
     }
 
     private fun retrofit(): Retrofit {
+
+        val gson = GsonBuilder().setDateFormat("yyyy-MM-dd").create()
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 

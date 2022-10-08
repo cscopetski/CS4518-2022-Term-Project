@@ -31,7 +31,7 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
     lateinit var detailsName: TextView
     lateinit var closeButton: Button
     lateinit var addToMyFoodsButton: Button
-
+    lateinit var addToLogButton: Button
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
         detailsName = findViewById(R.id.usda_food_detail_name)
         closeButton = findViewById(R.id.usda_close_button)
         addToMyFoodsButton = findViewById(R.id.add_to_my_foods_button)
-
+        addToLogButton = findViewById(R.id.add_food_to_log_button)
 
         val protein: String = intent.getStringArrayListExtra("valueList")!![0]
         val fat: String = intent.getStringArrayListExtra("valueList")!![1]
@@ -77,7 +77,12 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
             Toast.makeText(this, "Food has been added to MyFoods list", Toast.LENGTH_SHORT).show()
         }
 
-
+        addToLogButton.setOnClickListener{
+            val intent = Intent(this, AddFoodToLogActivity::class.java)
+            intent.putStringArrayListExtra("foodDetailsList", detailsList)
+            intent.putExtra(INTENT_CODE, INTENT_CODE_USDA)
+            startActivity(intent)
+        }
     }
 
     private fun insertFood(food: FoodItemBody){

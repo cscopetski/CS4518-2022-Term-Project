@@ -38,13 +38,15 @@ class DailyFoodItemAdapter (val activity: Activity, private val foods: List<Dail
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameText: TextView
+        private val servingText: TextView
         private val calText: TextView
         private val cardView: CardView
 
         fun bind(food: DailyFoodItem) {
             nameText.text = food.name
-            val updatedCalories = Math.round((food.protein*4 + food.carbs*4 + food.fat*9)*food.quantity)
-            calText.text = updatedCalories.toString()
+            servingText.text = Math.round(food.serving_size*food.quantity).toString() + " g"
+            val updatedCalories = (Math.round(food.quantity*food.protein*4) + Math.round(food.quantity * food.carbs*4) + Math.round(food.quantity * food.fat*9))
+            calText.text = updatedCalories.toString() + " cal"
 
             cardView.setOnClickListener {
 
@@ -74,6 +76,7 @@ class DailyFoodItemAdapter (val activity: Activity, private val foods: List<Dail
             nameText = itemView.findViewById(R.id.item_title)
             calText = itemView.findViewById(R.id.item_calories)
             cardView = itemView.findViewById(R.id.card)
+            servingText = itemView.findViewById(R.id.serving_text)
         }
 
 

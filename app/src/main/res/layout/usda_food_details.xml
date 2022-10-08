@@ -163,12 +163,18 @@
 
     <Button
         android:id="@+id/add_to_my_foods_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
 
         android:text="Add Food to my foods" />
+    <Button
+        android:id="@+id/add_food_to_log_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
 
+        android:text="Add Food to Daily Log" />
     <Button
         android:id="@+id/usda_close_button"
         android:layout_width="match_parent"

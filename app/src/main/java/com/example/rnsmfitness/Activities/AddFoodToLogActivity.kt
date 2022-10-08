@@ -2,6 +2,7 @@ package com.example.rnsmfitness.Activities
 
 import android.app.Activity
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,22 +10,25 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import androidx.appcompat.app.AppCompatActivity
-import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.Entities.FoodItemBody
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.services.DailyFoodBody
+import com.example.rnsmfitness.services.MyFoodDailyFood
+import com.example.rnsmfitness.services.USDADailyFood
 import com.google.android.material.textfield.TextInputEditText
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.sql.Date
 
-private const val TAG2 = "EditDailyFoodActivity"
+private const val TAG2 = "AddFoodToLogActivity"
+const val INTENT_CODE = "ACTIVITY_NAME"
+const val INTENT_CODE_USDA = "USDA"
+const val INTENT_CODE_MY_FOOD = "MY_FOOD"
 
-class EditDailyFoodActivity : AppCompatActivity() {
-
+class AddFoodToLogActivity : AppCompatActivity() {
     private lateinit var editFoodQuantity: TextInputEditText
     private lateinit var editFoodMeal: Spinner
     private lateinit var editFoodName: TextInputEditText
@@ -39,7 +43,7 @@ class EditDailyFoodActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_daily_food)
+        setContentView(R.layout.activity_add_food_to_log)
 
         editFoodName = findViewById(R.id.edit_food_name)
         editFoodProtein = findViewById(R.id.edit_food_protein)
@@ -62,16 +66,20 @@ class EditDailyFoodActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             editFoodMeal.adapter = adapter
         }
+        val quantity: Double = 1.0;
+
+        var meal = "breakfast"
+
+        if(!intent.getStringExtra("MEAL").isNullOrEmpty()){
+            meal = intent.getStringExtra("MEAL").toString()
+        }
 
         val protein: String = intent.getStringArrayListExtra("foodDetailsList")!![0]
         val fat: String = intent.getStringArrayListExtra("foodDetailsList")!![1]
         val carbs: String = intent.getStringArrayListExtra("foodDetailsList")!![2]
+        val calories: Int = (protein.toInt() * 4) + (carbs.toInt() * 4) + (fat.toInt() * 9)
         val name: String = intent.getStringArrayListExtra("foodDetailsList")!![3]
-        val servingSize: Double = intent.getStringArrayListExtra("foodDetailsList")!![4].toDouble()
-        val foodID: Int = intent.getStringArrayListExtra("foodDetailsList")!![5].toInt()
-        val quantity: Double = intent.getStringArrayListExtra("foodDetailsList")!![6].toDouble()
-        val meal: String = intent.getStringArrayListExtra("foodDetailsList")!![7]
-
+        val servingSize: String = intent.getStringArrayListExtra("foodDetailsList")!![4].toString()
 
         editFoodName.setText(name)
         editFoodProtein.setText(protein)
@@ -82,50 +90,90 @@ class EditDailyFoodActivity : AppCompatActivity() {
 
         editFoodMeal.setSelection(spinnerAdapter.getPosition(meal.replaceFirstChar { it.uppercase() }))
 
-        cancelButton.setOnClickListener {
-            finish()
-        }
-
-
         submitButton.setOnClickListener {
+
+            val date = Date(intent.getLongExtra("DATE", System.currentTimeMillis()))
 
             if (editFoodQuantity.text.isNullOrEmpty()) {
                 Log.d(TAG2, "There was a null value")
                 submitButton.error = "Must fill out all fields"
             } else {
                 Log.d(TAG2, "There were no null values, now sending intent")
-                updateDailyFood(DailyFoodBody(foodID, editFoodQuantity.text.toString().toDouble(), editFoodMeal.selectedItem.toString()))
+                if(intent.getStringExtra(INTENT_CODE).equals(INTENT_CODE_MY_FOOD)){
+
+                    val foodID: Int = intent.getStringArrayListExtra("foodDetailsList")!![5].toInt()
+                    val body = MyFoodDailyFood(date, foodID, editFoodQuantity.text.toString().toDouble(), editFoodMeal.selectedItem.toString())
+                    addFoodtoLog(body)
+
+
+                }else{
+                    val body = USDADailyFood(date, editFoodQuantity.text.toString().toDouble(), editFoodMeal.selectedItem.toString(), FoodItemBody(editFoodName.text.toString(), editFoodProtein.text.toString().toInt(), editFoodFat.text.toString().toInt(), editFoodCarbs.text.toString().toInt(), editFoodCalories.text.toString().toInt(), servingSize.toDouble()))
+                    addUSDAFoodtoLog(body)
+                }
             }
+            finish()
         }
+
+        cancelButton.setOnClickListener {
+            finish()
+        }
+
+
+
     }
 
-    private fun updateDailyFood(food: DailyFoodBody){
-        val call: Call<ResponseBody> =
-            RetroFitClient.dailyFoodLogService.updateDailyFoodLogItem(food)
+    private fun addUSDAFoodtoLog(food: USDADailyFood){
 
+        Log.v(TAG2, food.toString())
+        val call: Call<ResponseBody> =
+            RetroFitClient.dailyFoodLogService.insertUSDADailyFoodLogItem(food)
 
         call.enqueue(object : Callback<ResponseBody> {
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.v(TAG2, "in Delete on Response")
                 if(response.isSuccessful){
-                    setResult(Activity.RESULT_OK, Intent())
-                    Log.d(TAG2,"On Response IF")
-                    finish()
+                    Log.v(TAG2, "success")
+
                 }else{
-                    setResult(Activity.RESULT_CANCELED, Intent())
-                    Log.d(TAG2,"On Response else")
-                    finish()
+                    Log.v(TAG2, "fail")
+                    Log.v(TAG2, response.code().toString())
+
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                setResult(Activity.RESULT_CANCELED, Intent())
-                Log.d(TAG2,"On test")
-                finish()
+                Log.v(TAG2, "big fail")
             }
+
         })
     }
 
+        private fun addFoodtoLog(food: MyFoodDailyFood){
+
+        Log.v(TAG2, food.toString())
+        val call: Call<ResponseBody> =
+            RetroFitClient.dailyFoodLogService.insertDailyFoodLogItem(food)
+
+        call.enqueue(object : Callback<ResponseBody> {
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.v(TAG2, "in Delete on Response")
+                if(response.isSuccessful){
+                    Log.v(TAG2, "success")
+
+                }else{
+                    Log.v(TAG2, "fail")
+                    Log.v(TAG2, response.code().toString())
+
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.v(TAG2, "big fail")
+            }
+        })
+    }
 
     private val quantityWatcher = object : TextWatcher {
 
