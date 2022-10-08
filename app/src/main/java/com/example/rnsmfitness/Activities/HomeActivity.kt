@@ -19,6 +19,7 @@ import com.example.rnsmfitness.Entities.*
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.myFood.DailyFoodItemAdapter
+import com.example.rnsmfitness.services.DailyFoodId
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -179,9 +180,8 @@ class HomeActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val curFood: DailyFoodItem? =  dataSource.getFoodList().value?.get(viewHolder.bindingAdapterPosition)
                 if (curFood != null){
+                    Log.v(TAG, curFood.toString())
                     deleteFood(curFood.id)
-                    Log.v(TAG, "Food has been swiped")
-
                 }
 
             }
@@ -195,9 +195,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun deleteFood(id: Int){
-
+        Log.v(TAG, id.toString())
         val call: Call<ResponseBody> =
-            RetroFitClient.dailyFoodLogService.deleteDailyFoodLogItem(id)
+            RetroFitClient.dailyFoodLogService.deleteDailyFoodLogItem(DailyFoodId(id))
 
         call.enqueue(object : Callback<ResponseBody> {
 

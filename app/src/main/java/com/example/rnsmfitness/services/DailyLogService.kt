@@ -22,11 +22,11 @@ interface DailyFoodLogService {
     fun updateDailyFoodLogItem(@Body update: DailyFoodBody): Call<ResponseBody>
 
     @POST("$URL_PREFIX/delete")
-    fun deleteDailyFoodLogItem(@Body id:Int): Call<ResponseBody>
+    fun deleteDailyFoodLogItem(@Body id: DailyFoodId): Call<ResponseBody>
 
     @POST("$URL_PREFIX/add")
     fun insertDailyFoodLogItem(@Body foodId: Int, quantity: Double, date: Date, meal: String): Call<ResponseBody>
 
 }
-
+data class DailyFoodId(val id: Int)
 data class DailyFoodBody(val id: Int,val quantity: Double,val meal: String)
