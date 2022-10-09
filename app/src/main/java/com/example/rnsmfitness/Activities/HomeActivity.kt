@@ -31,6 +31,7 @@ import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.myFood.DailyFoodItemAdapter
 import com.example.rnsmfitness.services.DailyFoodId
+import com.example.rnsmfitness.services.DailyLog
 import com.example.rnsmfitness.services.USDADailyFood
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import okhttp3.ResponseBody
@@ -279,30 +280,23 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
-
     private fun testInsert(){
+        TODO("Charlie, this is the example of using the daily log, if you click the black fab on the daily food log page it will print the response to console")
+        val call: Call<DailyLog> =
+            RetroFitClient.dailyLogService.getDailyLog(date)
 
-        val body = USDADailyFood(Date(System.currentTimeMillis()), 1.0, "breakfast", FoodItemBody("Chicken 3", 20, 1, 0, 49, 100.0))
-
-        Log.v(TAG, body.toString())
-        val call: Call<ResponseBody> =
-            RetroFitClient.dailyFoodLogService.insertUSDADailyFoodLogItem(body)
-
-        call.enqueue(object : Callback<ResponseBody> {
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                Log.v(TAG, "in Delete on Response")
+        call.enqueue(object : Callback<DailyLog> {
+            override fun onResponse(call: Call<DailyLog>, response: Response<DailyLog>) {
                 if(response.isSuccessful){
-                    Log.v(TAG, "success")
+                    Log.v(TAG, response.body().toString())
 
                 }else{
-                    Log.v(TAG, "fail")
                     Log.v(TAG, response.code().toString())
 
                 }
             }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            override fun onFailure(call: Call<DailyLog>, t: Throwable) {
                 Log.v(TAG, "big fail")
             }
         })

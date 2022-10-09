@@ -154,4 +154,8 @@ object RetroFitClient {
         retrofit().create(DailyFoodLogService::class.java)
     }
 
+    val dailyLogService: DailyLogService by lazy {
+        retrofit().create(DailyLogService::class.java)
+    }
+
 }
