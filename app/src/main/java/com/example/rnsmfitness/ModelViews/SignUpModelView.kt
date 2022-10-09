@@ -3,6 +3,7 @@ package com.example.rnsmfitness.ModelViews
 import android.app.DatePickerDialog
 import android.widget.Button
 import androidx.lifecycle.ViewModel
+import java.sql.Date
 import java.util.*
 
 class SignUpModelView : ViewModel() {

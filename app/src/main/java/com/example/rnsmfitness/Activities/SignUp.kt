@@ -8,17 +8,25 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import androidx.annotation.ColorInt
+import android.widget.BaseAdapter
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doOnTextChanged
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.rnsmfitness.BaseApplication
+import com.example.rnsmfitness.Entities.LoginCredentials
+import com.example.rnsmfitness.Entities.SignUpCredentials
+import com.example.rnsmfitness.Entities.User
 import com.example.rnsmfitness.ModelViews.SignUpModelView
 import com.example.rnsmfitness.R
+import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.databinding.ActivitySignUpBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.sql.Date
 import java.util.*
-import kotlin.math.sign
 
 
 const val SIGNUP = "SIGNUP"
@@ -41,6 +49,8 @@ class SignUp : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        insertData()
+
         //Set Listeners
         binding.HeightInch.addTextChangedListener(object : TextWatcher {
 
@@ -50,7 +60,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.HeightInch.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.HeightInch.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.heightIn = null
                 }else
                     signUpFields.heightIn = s.toString().toDouble()
@@ -65,7 +75,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.HeightFeet.text.isNullOrEmpty()||s.toString() == "" || s== null){
+                if(binding.HeightFeet.text.isNullOrEmpty()||s.toString() == ""){
                     signUpFields.heightFt = null
                 }else
                     signUpFields.heightFt = s.toString().toDouble()
@@ -80,7 +90,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.HeightCm.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.HeightCm.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.heightCm = null
                 }else
                     signUpFields.heightCm = s.toString().toDouble()
@@ -95,7 +105,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.currentWeightlb.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.currentWeightlb.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.weightlb = null
                 }else
                     signUpFields.weightlb = s.toString().toDouble()
@@ -110,7 +120,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.currentWeightKg.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.currentWeightKg.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.weightkg = null
                 }else
                     signUpFields.weightkg = s.toString().toDouble()
@@ -125,7 +135,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.goalWeightlb.text.isNullOrEmpty() ||s.toString() == "" || s== null){
+                if(binding.goalWeightlb.text.isNullOrEmpty() ||s.toString() == ""){
                     signUpFields.goalWeightlb = null
                 }else
                     signUpFields.goalWeightlb = s.toString().toDouble()
@@ -140,7 +150,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.goalWeightkg.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.goalWeightkg.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.goalWeightkg = null
                 }else
                     signUpFields.goalWeightkg = s.toString().toDouble()
@@ -155,7 +165,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.FirstName.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.FirstName.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.firstName = null
                 }else
                     signUpFields.firstName = s.toString()
@@ -170,7 +180,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.LastName.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.LastName.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.lastName = null
                 }else
                     signUpFields.lastName = s.toString()
@@ -185,7 +195,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.email.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.email.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.email = null
                 }else
                     signUpFields.email = s.toString()
@@ -200,7 +210,7 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.password.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.password.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.password = null
                 }else
                     signUpFields.password = s.toString()
@@ -215,70 +225,86 @@ class SignUp : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if(binding.confirmPassword.text.isNullOrEmpty() || s.toString() == "" || s== null){
+                if(binding.confirmPassword.text.isNullOrEmpty() || s.toString() == ""){
                     signUpFields.confirmPassword = null
                 }else
                     signUpFields.confirmPassword = s.toString()
             }
         })
 
-        //Set on clicker
-        binding.date.setOnClickListener(View.OnClickListener { // calender class's instance and get current date , month and year from calender
+        //Set DOB on clicker
+        binding.date.setOnClickListener {
             val c = Calendar.getInstance()
-            val mYear = c[Calendar.YEAR] // current year
-            val mMonth = c[Calendar.MONTH] // current month
-            val mDay = c[Calendar.DAY_OF_MONTH] // current day
-            // date picker dialog
-            datePickerDialog = DatePickerDialog(this@SignUp,
-                { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
-                    binding.date.setText(
-                        dayOfMonth.toString() + "/"
-                                + (monthOfYear + 1) + "/" + year
-                    )
-                    c.set(Calendar.YEAR, year)
-                    c.set(Calendar.MONTH, monthOfYear)
-                    c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    signUpFields.dob = c.time
-                    Log.d(SIGNUP, signUpFields.dob.toString())
-                }, mYear, mMonth, mDay
-            )
-            datePickerDialog!!.show()
-        })
+            c.time = Date(System.currentTimeMillis())
+            val year: Int = c.get(Calendar.YEAR)
+            val month: Int = c.get(Calendar.MONTH)
+            val day: Int = c.get(Calendar.DAY_OF_MONTH)
+            val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
 
+                // Display Selected date in textbox
+//                val dateString = "$monthOfYear/$dayOfMonth/$year"
+                c.set(year,monthOfYear,dayOfMonth)
+                signUpFields.dob = Date(c.timeInMillis)
+                binding.date.text= Date(c.timeInMillis).toString()
+            }, year, month, day)
+
+            dpd.show()
+        }
 
         //Click on section/Header
         binding.ActivityLevelHeader.setOnClickListener {
+            checkAll()
             activityLevelPage()
         }
         binding.WeightGoalHeader.setOnClickListener {
-            weightGoalPage()
+            checkAll()
+            if(activityLevelChecker()){
+                weightGoalPage()
+            }
         }
         binding.MeasurementHeader.setOnClickListener {
-            measurementPage()
+            checkAll()
+            if(activityLevelChecker() && weightGoalChecker()){
+                measurementPage()
+            }
         }
         binding.SexDOBHeader.setOnClickListener {
-            sexDOBPage()
+            checkAll()
+            if(activityLevelChecker()&& weightGoalChecker()&&measurementChecker()){
+                sexDOBPage()
+            }
         }
         binding.SignUpHeader.setOnClickListener {
-            signUpPage()
+            checkAll()
+            if(activityLevelChecker()&& weightGoalChecker()&&measurementChecker() && sexDOBChecker()){
+                signUpPage()
+            }
         }
 
 
         //Next Buttons
         binding.ActivityLevelNextButton.setOnClickListener {
-            weightGoalPage()
+            if(activityLevelChecker()) {
+                weightGoalPage()
+            }
         }
 
         binding.WeightGoalNextButton.setOnClickListener {
-            measurementPage()
+            if(weightGoalChecker()) {
+                measurementPage()
+            }
         }
 
         binding.MeasurementNextButton.setOnClickListener {
-            sexDOBPage()
+            if(measurementChecker()) {
+                sexDOBPage()
+            }
         }
 
         binding.SexDOBNextButton.setOnClickListener {
-            signUpPage()
+            if (sexDOBChecker()){
+                signUpPage()
+            }
         }
 
 
@@ -302,7 +328,9 @@ class SignUp : AppCompatActivity() {
 
         //Sign Up Button
         binding.signUpButton.setOnClickListener {
-            signUp()
+            if(checkAll() && matchingPassword()) {
+                signUp()
+            }
         }
 
 
@@ -339,13 +367,68 @@ class SignUp : AppCompatActivity() {
         //Initializing the page
         updateSection()
 
-        //insertData()
 
     }
 
     private fun signUp() {
-        TODO("Not yet implemented")
+
+        if(signUpFields.measurement == 0){
+            signUpFields.weight = lbToKg(signUpFields.weightlb!!)
+            signUpFields.height = ftInToCm(signUpFields.heightFt!!, signUpFields.heightIn!!)
+            signUpFields.goalWeight = lbToKg(signUpFields.goalWeightlb!!)
+        } else{
+            signUpFields.weight = signUpFields.weightkg
+            signUpFields.height = signUpFields.heightCm
+            signUpFields.goalWeight = signUpFields.goalWeightkg
+        }
+        val call: Call<User> = RetroFitClient.userService.signupUser(SignUpCredentials(signUpFields.activityLevel!!,
+            signUpFields.weightGoal!!,
+            signUpFields.height!!,
+            signUpFields.weight!!,
+            signUpFields.goalWeight!!,
+            signUpFields.firstName!!,
+            signUpFields.lastName!!,
+            signUpFields.email!!,
+            signUpFields.password!!,
+            signUpFields.sex!!,
+            signUpFields.dob!!,
+            "imperial"))
+
+
+        call.enqueue(object : Callback<User?> {
+
+            override fun onResponse(call: Call<User?>?, response: Response<User?>) {
+
+                if (response.isSuccessful) {
+                    val user: User = response.body()!!
+
+                    Log.d(SIGNUP, "SignUp:\n" + user.firstname)
+                    Toast.makeText(BaseApplication.getAppContext(), "SignUp " + user.firstname, Toast.LENGTH_LONG).show()
+
+                    switchActivity(user)
+                } else {
+                    Log.d(SIGNUP, "Sign Up Failed")
+                    Log.d(SIGNUP, response.code().toString())
+                    binding.signUpButton.error = "Email Taken"
+                    Toast.makeText(BaseApplication.getAppContext(), "Failed to Sign Up:\nEmail Taken", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<User?>?, t: Throwable?) {
+                Log.d(SIGNUP, "Sign Up: Error")
+                Toast.makeText(BaseApplication.getAppContext(), "Error", Toast.LENGTH_LONG).show()
+            }
+        })
     }
+
+    private fun lbToKg(pounds : Double) : Double{
+        return pounds/2.204
+    }
+
+    private fun ftInToCm(ft: Double, inch : Double) : Double{
+        return (ft*12 + inch)*2.54
+    }
+
 
     private fun insertData(){
         //Activity Level
@@ -369,15 +452,56 @@ class SignUp : AppCompatActivity() {
         }
 
         //Measurement
-        binding.HeightFeet.setText(signUpFields.heightFt.toString())
-        binding.HeightInch.setText(signUpFields.heightIn.toString())
-        binding.currentWeightlb.setText(signUpFields.weightlb.toString())
-        binding.goalWeightlb.setText(signUpFields.goalWeightlb.toString())
+        if(signUpFields.heightFt != null){
+            binding.HeightFeet.setText(signUpFields.heightFt.toString())
+        }
+        if(signUpFields.heightIn != null){
+            binding.HeightInch.setText(signUpFields.heightIn.toString())
+        }
+        if(signUpFields.weightlb != null){
+            binding.currentWeightlb.setText(signUpFields.weightlb.toString())}
+        if(signUpFields.goalWeightlb != null){
+            binding.goalWeightlb.setText(signUpFields.goalWeightlb.toString())
+        }
 
-        binding.HeightCm.setText(signUpFields.heightCm.toString())
-        binding.currentWeightKg.setText(signUpFields.weightkg.toString())
-        binding.goalWeightkg.setText(signUpFields.goalWeightkg.toString())
+        if(signUpFields.heightCm != null){
+            binding.HeightCm.setText(signUpFields.heightCm.toString())
+        }
+        if(signUpFields.weightkg != null){
+            binding.currentWeightKg.setText(signUpFields.weightkg.toString())
+        }
+        if(signUpFields.goalWeightkg != null){
+            binding.goalWeightkg.setText(signUpFields.goalWeightkg.toString())
+        }
 
+        //SexDOB
+        if(signUpFields.sex == "male"){
+            binding.Male.isSelected = true
+        } else if(signUpFields.sex == "female"){
+            binding.Female.isSelected = true
+        }
+
+        if(signUpFields.dob != null){
+            var dateText  = signUpFields.dob!!.day.toString() + "/" + (signUpFields.dob!!.month + 1) + "/" + signUpFields.dob!!.year.toString()
+            binding.date.text =dateText
+        }
+
+        //Sign Up
+        if(signUpFields.firstName != null){
+            binding.FirstName.setText(signUpFields.firstName, TextView.BufferType.EDITABLE)
+        }
+        if(signUpFields.lastName != null){
+            binding.LastName.setText(signUpFields.lastName, TextView.BufferType.EDITABLE)
+        }
+        if(signUpFields.email != null){
+            binding.email.setText(signUpFields.email, TextView.BufferType.EDITABLE)
+        }
+        if(signUpFields.password != null){
+            binding.password.setText(signUpFields.password, TextView.BufferType.EDITABLE)
+        }
+        if(signUpFields.confirmPassword != null){
+            binding.confirmPassword.setText(signUpFields.confirmPassword, TextView.BufferType.EDITABLE)
+        }
     }
 
     //On Click Functions
@@ -397,7 +521,7 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    fun WeightGoalClick(view: View) {
+    fun weightGoalClick(view: View) {
         Log.d(SIGNUP, view.id.toString())
         if(view.id == R.id.loseWeight){
             signUpFields.weightGoal = 0
@@ -413,10 +537,10 @@ class SignUp : AppCompatActivity() {
     fun onSexClick(view: View) {
         Log.d(SIGNUP, view.id.toString())
         if(view.id == R.id.Male){
-            signUpFields.sex = "Male"
+            signUpFields.sex = "male"
             binding.Male.setBackgroundColor(Color.parseColor("#ffffff"))
         } else if(view.id == R.id.Female){
-            signUpFields.sex = "Female"
+            signUpFields.sex = "female"
             binding.Female.setBackgroundColor(Color.parseColor("#ffffff"))
         } else{
             signUpFields.sex = null
@@ -425,42 +549,43 @@ class SignUp : AppCompatActivity() {
 
     //Switching Sections
 
-    fun activityLevelPage(){
+    private fun activityLevelPage(){
         if(signUpFields.section != 0) {
             signUpFields.section = 0
             updateSection()
         }
     }
 
-    fun weightGoalPage(){
+    private fun weightGoalPage(){
         if(signUpFields.section != 1) {
             signUpFields.section = 1
             updateSection()
         }
     }
 
-    fun measurementPage(){
+    private fun measurementPage(){
         if(signUpFields.section != 2) {
             signUpFields.section = 2
             updateSection()
         }
     }
 
-    fun sexDOBPage(){
+    private fun sexDOBPage(){
         if(signUpFields.section != 3) {
             signUpFields.section = 3
             updateSection()
         }
     }
 
-    fun signUpPage(){
+    private fun signUpPage(){
         if(signUpFields.section != 4) {
             signUpFields.section = 4
             updateSection()
         }
     }
 
-    fun updateSection(){
+    private fun updateSection(){
+        checkAll()
         Log.d(SIGNUP, signUpFields.section.toString())
         if(signUpFields.section == 0){
             binding.ActivityLevelHiddenView.visibility = (View.VISIBLE)
@@ -487,8 +612,8 @@ class SignUp : AppCompatActivity() {
                 binding.MeasurementImperialHiddenView.visibility = (View.VISIBLE)
                 binding.MeasurementMetricHiddenView.visibility = (View.GONE)
             } else if(signUpFields.measurement == 1) {
-                binding.MeasurementImperialHiddenView.visibility = (View.VISIBLE)
-                binding.MeasurementMetricHiddenView.visibility = (View.GONE)
+                binding.MeasurementImperialHiddenView.visibility = (View.GONE)
+                binding.MeasurementMetricHiddenView.visibility = (View.VISIBLE)
             }
             binding.ImpMetricButtons.visibility = (View.VISIBLE)
         }else if(signUpFields.section == 3){
@@ -510,10 +635,99 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    fun loginPage(){
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+    private fun loginPage(){
+        finish()
     }
 
+    //Checkers
+    private fun activityLevelChecker(): Boolean {
+        if(signUpFields.activityLevel !=null){
+            binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+            return true
+        } else{
+            binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
+            return false
+        }
+    }
+
+    private fun weightGoalChecker(): Boolean {
+        if(signUpFields.weightGoal != null){
+            binding.WeightGoalIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+            return true
+        } else{
+            binding.WeightGoalIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
+            return false
+        }
+    }
+
+    private fun measurementChecker(): Boolean {
+        if(signUpFields.measurement == 0){
+            if(binding.HeightFeet.text.isNullOrEmpty() || binding.HeightInch.text.isNullOrEmpty() || binding.currentWeightlb.text.isNullOrEmpty() || binding.goalWeightlb.text.isNullOrEmpty()){
+                binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
+                return false
+            } else{
+                binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+                return true
+                }
+        } else if(signUpFields.measurement == 1){
+            if(binding.HeightCm.text.isNullOrEmpty() || binding.currentWeightKg.text.isNullOrEmpty() || binding.goalWeightkg.text.isNullOrEmpty()){
+                binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
+                return false
+            } else{
+                binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+                return true
+            }
+        }
+        else {
+            binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
+            return false
+        }
+    }
+
+    private fun sexDOBChecker(): Boolean{
+        if(signUpFields.sex != null){
+            if(signUpFields.dob != null){
+                binding.SexDOBIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+                return true
+            }else {
+                binding.SexDOBIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
+                return false
+            }
+        }else {
+            binding.SexDOBIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
+            return false
+        }
+    }
+
+    private fun signUpChecker():Boolean{
+        if(binding.FirstName.text.isNullOrEmpty() || binding.LastName.text.isNullOrEmpty() || binding.email.text.isNullOrEmpty() || binding.password.text.isNullOrEmpty() || binding.confirmPassword.text.isNullOrEmpty()){
+            binding.SignUpIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
+            return false
+        }else if(matchingPassword()){
+            binding.SignUpIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
+            return true
+        } else {
+            binding.SignUpIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
+            return false
+        }
+    }
+
+    private fun checkAll() : Boolean{
+        return activityLevelChecker() && weightGoalChecker() && measurementChecker() && sexDOBChecker() && signUpChecker()
+    }
+
+    private fun matchingPassword(): Boolean {
+        return signUpFields.password == signUpFields.confirmPassword
+    }
+
+    private fun switchActivity(user: User?){
+        if(user!=null){
+            val intent = Intent(this, NavActivity::class.java)
+            intent.putExtra("Name",user.firstname + " " + user.lastname)
+            startActivity(intent)
+        }else{
+            Log.d(SIGNUP, "Switch Activity: User Error")
+        }
+    }
 
 }

@@ -5,8 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.SignUp">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent">
     <!-- Activity Level -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="0dp"
+                android:layout_gravity="left"
+                android:text="Login Page"/>
     <androidx.cardview.widget.CardView
         android:id="@+id/ActivityLevel"
         android:layout_width="match_parent"
@@ -43,7 +60,7 @@
                 android:id="@+id/ActivityLevelIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_baseline_fastfood_24"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                 app:layout_constraintBottom_toBottomOf="@+id/ActivityLevelHeader"
                 app:layout_constraintEnd_toEndOf="@+id/ActivityLevelHeader"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -198,7 +215,7 @@
                     android:id="@+id/WeightGoalIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_baseline_fastfood_24"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                     app:layout_constraintBottom_toBottomOf="@+id/WeightGoalHeader"
                     app:layout_constraintEnd_toEndOf="@+id/WeightGoalHeader"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -256,21 +273,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Lose Weight"
-                            android:onClick="WeightGoalClick"/>
+                            android:onClick="weightGoalClick"/>
 
                         <RadioButton
                             android:id="@+id/maintainWeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Maintain Weight"
-                            android:onClick="WeightGoalClick"/>
+                            android:onClick="weightGoalClick"/>
 
                         <RadioButton
                             android:id="@+id/gainWeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Gain Weight"
-                            android:onClick="WeightGoalClick"/>
+                            android:onClick="weightGoalClick"/>
                     </RadioGroup>
                 </LinearLayout>
                 <LinearLayout
@@ -350,7 +367,7 @@
                     android:id="@+id/MeasurementIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_baseline_fastfood_24"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                     app:layout_constraintBottom_toBottomOf="@+id/MeasurementHeader"
                     app:layout_constraintEnd_toEndOf="@+id/MeasurementHeader"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -640,7 +657,7 @@
                     android:id="@+id/SexDOBIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_baseline_fastfood_24"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                     app:layout_constraintBottom_toBottomOf="@+id/SexDOBHeader"
                     app:layout_constraintEnd_toEndOf="@+id/SexDOBHeader"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -790,7 +807,7 @@
                     android:id="@+id/SignUpIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_baseline_fastfood_24"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
                     app:layout_constraintBottom_toBottomOf="@+id/SignUpHeader"
                     app:layout_constraintEnd_toEndOf="@+id/SignUpHeader"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -951,14 +968,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_margin="20dp"
-        android:text="Login Page"/>
-
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
