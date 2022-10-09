@@ -35,8 +35,6 @@ class SignUp : AppCompatActivity() {
 
     lateinit var binding: ActivitySignUpBinding
 
-    var datePickerDialog: DatePickerDialog? = null
-
     private val signUpFields: SignUpModelView by lazy{
         ViewModelProvider(this)[SignUpModelView::class.java]
     }
