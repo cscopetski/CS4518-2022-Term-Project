@@ -8,10 +8,12 @@ import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rnsmfitness.Entities.DailyFoodItem
 import com.example.rnsmfitness.Entities.DataSource
 import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.FoodItemAdapter
@@ -36,6 +38,7 @@ class MyFoodList : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     lateinit var searchView: SearchView
     private val createFoodActivityRequestCode = 1
+    private lateinit var liveList: LiveData<List<FoodItem>>
 
     private var adapter: FoodItemAdapter = FoodItemAdapter(this,
         foods.value!!
@@ -114,6 +117,12 @@ class MyFoodList : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getDBFoods()
+        liveList = dataSource.getFoodList()
     }
 
 

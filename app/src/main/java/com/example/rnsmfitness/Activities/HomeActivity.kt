@@ -22,6 +22,7 @@ import com.example.rnsmfitness.Entities.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.LiveData
 import com.example.rnsmfitness.Activities.ScanActivity.Companion.CAMERARESULT
 import com.example.rnsmfitness.Entities.LoginCredentials
 import com.example.rnsmfitness.Entities.USDAFoodItem
@@ -68,7 +69,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var dinnerView: LinearLayout
     private lateinit var snackCardView: CardView
     private lateinit var snackView: LinearLayout
-
+    private lateinit var liveList: LiveData<List<DailyFoodItem>>
 
     lateinit var test: FloatingActionButton
 //    lateinit var logoutButton: Button
@@ -199,7 +200,8 @@ class HomeActivity : AppCompatActivity() {
 
         dataSource = DailyFoodLogDataSource.getDataSource()
         dataSource.getDBFoods(date)
-        val liveList = dataSource.getFoodList()
+
+        liveList = dataSource.getFoodList()
 
         liveList.observe(this) { it ->
             it?.let { list ->
@@ -218,6 +220,12 @@ class HomeActivity : AppCompatActivity() {
         }
 
         setRecyclerViewItemTouchListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dataSource.getDBFoods(date)
+        liveList = dataSource.getFoodList()
     }
 
     private fun setRecyclerViewItemTouchListener() {
