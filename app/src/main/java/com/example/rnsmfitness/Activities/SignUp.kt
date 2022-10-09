@@ -1,19 +1,31 @@
 package com.example.rnsmfitness.Activities
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.BaseAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.rnsmfitness.BaseApplication
+import com.example.rnsmfitness.Entities.LoginCredentials
+import com.example.rnsmfitness.Entities.SignUpCredentials
+import com.example.rnsmfitness.Entities.User
 import com.example.rnsmfitness.ModelViews.SignUpModelView
 import com.example.rnsmfitness.R
+import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.databinding.ActivitySignUpBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.sql.Date
 import java.util.*
 
 
@@ -36,6 +48,8 @@ class SignUp : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        insertData()
 
         //Set Listeners
         binding.HeightInch.addTextChangedListener(object : TextWatcher {
@@ -218,26 +232,24 @@ class SignUp : AppCompatActivity() {
             }
         })
 
-        //Set on clicker
-        binding.date.setOnClickListener(View.OnClickListener { // calender class's instance and get current date , month and year from calender
+        //Set DOB on clicker
+        binding.date.setOnClickListener {
             val c = Calendar.getInstance()
-            val mYear = c[Calendar.YEAR] // current year
-            val mMonth = c[Calendar.MONTH] // current month
-            val mDay = c[Calendar.DAY_OF_MONTH] // current day
-            // date picker dialog
-            datePickerDialog = DatePickerDialog(this@SignUp,
-                { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
-                    binding.date.text = dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year
-                    c.set(Calendar.YEAR, year)
-                    c.set(Calendar.MONTH, monthOfYear)
-                    c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    signUpFields.dob = c.time
-                    Log.d(SIGNUP, signUpFields.dob.toString())
-                }, mYear, mMonth, mDay
-            )
-            datePickerDialog!!.show()
-        })
+            c.time = Date(System.currentTimeMillis())
+            val year: Int = c.get(Calendar.YEAR)
+            val month: Int = c.get(Calendar.MONTH)
+            val day: Int = c.get(Calendar.DAY_OF_MONTH)
+            val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
 
+                // Display Selected date in textbox
+//                val dateString = "$monthOfYear/$dayOfMonth/$year"
+                c.set(year,monthOfYear,dayOfMonth)
+                signUpFields.dob = Date(c.timeInMillis)
+                binding.date.text= Date(c.timeInMillis).toString()
+            }, year, month, day)
+
+            dpd.show()
+        }
 
         //Click on section/Header
         binding.ActivityLevelHeader.setOnClickListener {
@@ -319,7 +331,6 @@ class SignUp : AppCompatActivity() {
             if(checkAll() && matchingPassword()) {
                 signUp()
             }
-
         }
 
 
@@ -356,13 +367,68 @@ class SignUp : AppCompatActivity() {
         //Initializing the page
         updateSection()
 
-        insertData()
 
     }
 
     private fun signUp() {
-        TODO("Not yet implemented")
+
+        if(signUpFields.measurement == 0){
+            signUpFields.weight = lbToKg(signUpFields.weightlb!!)
+            signUpFields.height = ftInToCm(signUpFields.heightFt!!, signUpFields.heightIn!!)
+            signUpFields.goalWeight = lbToKg(signUpFields.goalWeightlb!!)
+        } else{
+            signUpFields.weight = signUpFields.weightkg
+            signUpFields.height = signUpFields.heightCm
+            signUpFields.goalWeight = signUpFields.goalWeightkg
+        }
+        val call: Call<User> = RetroFitClient.userService.signupUser(SignUpCredentials(signUpFields.activityLevel!!,
+            signUpFields.weightGoal!!,
+            signUpFields.height!!,
+            signUpFields.weight!!,
+            signUpFields.goalWeight!!,
+            signUpFields.firstName!!,
+            signUpFields.lastName!!,
+            signUpFields.email!!,
+            signUpFields.password!!,
+            signUpFields.sex!!,
+            signUpFields.dob!!,
+            "imperial"))
+
+
+        call.enqueue(object : Callback<User?> {
+
+            override fun onResponse(call: Call<User?>?, response: Response<User?>) {
+
+                if (response.isSuccessful) {
+                    val user: User = response.body()!!
+
+                    Log.d(SIGNUP, "SignUp:\n" + user.firstname)
+                    Toast.makeText(BaseApplication.getAppContext(), "SignUp " + user.firstname, Toast.LENGTH_LONG).show()
+
+                    switchActivity(user)
+                } else {
+                    Log.d(SIGNUP, "Sign Up Failed")
+                    Log.d(SIGNUP, response.code().toString())
+                    binding.signUpButton.error = "Email Taken"
+                    Toast.makeText(BaseApplication.getAppContext(), "Failed to Sign Up:\nEmail Taken", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<User?>?, t: Throwable?) {
+                Log.d(SIGNUP, "Sign Up: Error")
+                Toast.makeText(BaseApplication.getAppContext(), "Error", Toast.LENGTH_LONG).show()
+            }
+        })
     }
+
+    private fun lbToKg(pounds : Double) : Double{
+        return pounds/2.204
+    }
+
+    private fun ftInToCm(ft: Double, inch : Double) : Double{
+        return (ft*12 + inch)*2.54
+    }
+
 
     private fun insertData(){
         //Activity Level
@@ -519,6 +585,7 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun updateSection(){
+        checkAll()
         Log.d(SIGNUP, signUpFields.section.toString())
         if(signUpFields.section == 0){
             binding.ActivityLevelHiddenView.visibility = (View.VISIBLE)
@@ -578,7 +645,7 @@ class SignUp : AppCompatActivity() {
             binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
             return true
         } else{
-            binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_arrow_drop_down_circle_24, null))
+            binding.ActivityLevelIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
             return false
         }
     }
@@ -587,13 +654,16 @@ class SignUp : AppCompatActivity() {
         if(signUpFields.weightGoal != null){
             binding.WeightGoalIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
             return true
-        } else
+        } else{
+            binding.WeightGoalIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
             return false
+        }
     }
 
     private fun measurementChecker(): Boolean {
         if(signUpFields.measurement == 0){
             if(binding.HeightFeet.text.isNullOrEmpty() || binding.HeightInch.text.isNullOrEmpty() || binding.currentWeightlb.text.isNullOrEmpty() || binding.goalWeightlb.text.isNullOrEmpty()){
+                binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
                 return false
             } else{
                 binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
@@ -601,14 +671,17 @@ class SignUp : AppCompatActivity() {
                 }
         } else if(signUpFields.measurement == 1){
             if(binding.HeightCm.text.isNullOrEmpty() || binding.currentWeightKg.text.isNullOrEmpty() || binding.goalWeightkg.text.isNullOrEmpty()){
+                binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
                 return false
             } else{
                 binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
                 return true
             }
         }
-        else
+        else {
+            binding.MeasurementIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
             return false
+        }
     }
 
     private fun sexDOBChecker(): Boolean{
@@ -616,20 +689,27 @@ class SignUp : AppCompatActivity() {
             if(signUpFields.dob != null){
                 binding.SexDOBIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
                 return true
-            }else
+            }else {
+                binding.SexDOBIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
                 return false
-        }else
+            }
+        }else {
+            binding.SexDOBIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
             return false
+        }
     }
 
     private fun signUpChecker():Boolean{
         if(binding.FirstName.text.isNullOrEmpty() || binding.LastName.text.isNullOrEmpty() || binding.email.text.isNullOrEmpty() || binding.password.text.isNullOrEmpty() || binding.confirmPassword.text.isNullOrEmpty()){
+            binding.SignUpIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
             return false
         }else if(matchingPassword()){
             binding.SignUpIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_check_circle_24, null))
             return true
-        } else
+        } else {
+            binding.SignUpIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.ic_baseline_cancel_24, null))
             return false
+        }
     }
 
     private fun checkAll() : Boolean{
@@ -639,4 +719,15 @@ class SignUp : AppCompatActivity() {
     private fun matchingPassword(): Boolean {
         return signUpFields.password == signUpFields.confirmPassword
     }
+
+    private fun switchActivity(user: User?){
+        if(user!=null){
+            val intent = Intent(this, NavActivity::class.java)
+            intent.putExtra("Name",user.firstname + " " + user.lastname)
+            startActivity(intent)
+        }else{
+            Log.d(SIGNUP, "Switch Activity: User Error")
+        }
+    }
+
 }

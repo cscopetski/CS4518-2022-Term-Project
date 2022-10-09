@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.rnsmfitness.services.*
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import okhttp3.Cookie
 import okhttp3.CookieJar
@@ -133,10 +134,11 @@ object RetroFitClient {
     }
 
     private fun retrofit(): Retrofit {
+        val gson = GsonBuilder().setDateFormat("yyyy-MM-dd").create()
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
