@@ -54,10 +54,14 @@
             android:name=".Activities.CreateFoodActivity"
             android:exported="true" />
         <activity
+            android:name=".Activities.LoginActivity"
+            android:exported="true"
+            />
+        <activity
             android:name=".Activities.ScanActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".Activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

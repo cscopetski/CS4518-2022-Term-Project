@@ -1,35 +1,28 @@
 package com.example.rnsmfitness.Activities
 
 import android.app.DatePickerDialog
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.transition.AutoTransition
-import android.transition.TransitionManager
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Entities.*
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.LiveData
 import com.example.rnsmfitness.Activities.ScanActivity.Companion.CAMERARESULT
-import com.example.rnsmfitness.Entities.LoginCredentials
-import com.example.rnsmfitness.Entities.USDAFoodItem
-import com.example.rnsmfitness.Entities.User
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.myFood.DailyFoodItemAdapter
+
 import com.example.rnsmfitness.services.DailyFoodId
 import com.example.rnsmfitness.services.DailyLog
 import com.example.rnsmfitness.services.USDADailyFood
@@ -39,10 +32,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Integer.parseInt
+
 import java.sql.Date
-import java.time.Year
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.MONTHS
 
 private const val TAG = "HomeActivity"
 
@@ -80,11 +72,11 @@ class HomeActivity : AppCompatActivity() {
 //    lateinit var btnScan: Button
     lateinit var resultText: TextView
 
-    lateinit var signUpButton:Button
+    lateinit var signUpButton: Button
 
     var data: Intent? = null
 
-    companion object{
+    companion object {
         const val RESULT = "RESULT"
     }
 
@@ -115,40 +107,40 @@ class HomeActivity : AppCompatActivity() {
         snackCardView = findViewById(R.id.snack_card)
         snackView = findViewById(R.id.snack_view)
 
-        breakfastCardView.setOnClickListener{
+        breakfastCardView.setOnClickListener {
             if (breakfastView.visibility == View.VISIBLE) {
 //                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
                 breakfastView.visibility = (View.GONE);
 //                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
-            }else {
+            } else {
 //                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
                 breakfastView.visibility = (View.VISIBLE);
 //                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
             }
         }
 
-        lunchCardView.setOnClickListener{
+        lunchCardView.setOnClickListener {
             if (lunchView.visibility == View.VISIBLE) {
                 lunchView.visibility = (View.GONE);
-            }else {
+            } else {
 //                TransitionManager.beginDelayedTransition(lunchCardView, AutoTransition());
                 lunchView.visibility = (View.VISIBLE);
             }
         }
 
-        dinnerCardView.setOnClickListener{
+        dinnerCardView.setOnClickListener {
             if (dinnerView.visibility == View.VISIBLE) {
                 dinnerView.visibility = (View.GONE);
-            }else {
+            } else {
 //                TransitionManager.beginDelayedTransition(dinnerCardView, AutoTransition());
                 dinnerView.visibility = (View.VISIBLE);
             }
         }
 
-        snackCardView.setOnClickListener{
+        snackCardView.setOnClickListener {
             if (snackView.visibility == View.VISIBLE) {
                 snackView.visibility = (View.GONE);
-            }else {
+            } else {
 //                TransitionManager.beginDelayedTransition(snackCardView, AutoTransition());
                 snackView.visibility = (View.VISIBLE);
             }
@@ -164,7 +156,7 @@ class HomeActivity : AppCompatActivity() {
 
                 // Display Selected date in textbox
 //                val dateString = "$monthOfYear/$dayOfMonth/$year"
-                c.set(year,monthOfYear,dayOfMonth)
+                c.set(year, monthOfYear, dayOfMonth)
                 date = Date(c.timeInMillis)
                 editDate.setText(date.toString())
                 dataSource.getDBFoods(date)
@@ -194,6 +186,8 @@ class HomeActivity : AppCompatActivity() {
 
 
 
+
+
         breakfastRecyclerView.layoutManager = LinearLayoutManager(this)
         lunchRecyclerView.layoutManager = LinearLayoutManager(this)
         dinnerRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -204,9 +198,11 @@ class HomeActivity : AppCompatActivity() {
 
         liveList = dataSource.getFoodList()
 
-        liveList.observe(this) { it ->
+        liveList.observe(this)
+        { it ->
             it?.let { list ->
-                breakfastAdapter = DailyFoodItemAdapter(this, list.filter { it.meal.equals("breakfast") })
+                breakfastAdapter =
+                    DailyFoodItemAdapter(this, list.filter { it.meal.equals("breakfast") })
                 breakfastRecyclerView.adapter = breakfastAdapter
 
                 lunchAdapter = DailyFoodItemAdapter(this, list.filter { it.meal.equals("lunch") })
@@ -215,10 +211,11 @@ class HomeActivity : AppCompatActivity() {
                 dinnerAdapter = DailyFoodItemAdapter(this, list.filter { it.meal.equals("dinner") })
                 dinnerRecyclerView.adapter = dinnerAdapter
 
-                snackAdapter = DailyFoodItemAdapter(this, list.filter { it.meal.equals("snacks")})
+                snackAdapter = DailyFoodItemAdapter(this, list.filter { it.meal.equals("snacks") })
                 snackRecyclerView.adapter = snackAdapter
             }
         }
+
 
         setRecyclerViewItemTouchListener()
     }
@@ -281,7 +278,7 @@ class HomeActivity : AppCompatActivity() {
         })
     }
     private fun testInsert(){
-        TODO("Charlie, this is the example of using the daily log, if you click the black fab on the daily food log page it will print the response to console")
+        //TODO("Charlie, this is the example of using the daily log, if you click the black fab on the daily food log page it will print the response to console")
         val call: Call<DailyLog> =
             RetroFitClient.dailyLogService.getDailyLog(date)
 
@@ -317,5 +314,7 @@ class HomeActivity : AppCompatActivity() {
 //                resultText.text = result.toString()
 //        }
 //    }
+
+
 
 }
