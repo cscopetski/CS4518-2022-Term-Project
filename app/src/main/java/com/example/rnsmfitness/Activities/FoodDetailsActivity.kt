@@ -1,28 +1,16 @@
 package com.example.rnsmfitness.Activities
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.RecyclerView
-import com.example.rnsmfitness.Entities.FoodItem
-import com.example.rnsmfitness.Entities.FoodItemBody
-
 import com.example.rnsmfitness.R
-import com.example.rnsmfitness.RetroFitClient
-import com.example.rnsmfitness.services.USDADailyFood
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.sql.Date
+import ir.mahozad.android.PieChart
+
+
 
 private const val TAG = "FoodDetailsActivity"
 
@@ -36,6 +24,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
     lateinit var closeButton: Button
     private lateinit var editButton: Button
     private lateinit var addToLogButton: Button
+    private lateinit var detailsPieChart: PieChart
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +39,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
         closeButton = findViewById(R.id.close_button)
         editButton = findViewById(R.id.edit_button)
         addToLogButton = findViewById(R.id.add_food_to_log_button)
+        detailsPieChart = findViewById(R.id.pieChartFoodDetails)
 
         val protein: String = intent.getStringArrayListExtra("valueList")!![0]
         val fat: String = intent.getStringArrayListExtra("valueList")!![1]
@@ -90,14 +80,51 @@ class FoodDetailsActivity() : AppCompatActivity() {
             intent.putExtra(INTENT_CODE, INTENT_CODE_MY_FOOD)
             startActivity(intent)
         }
+
+
+
+
+        //(protein.toInt() / total).toFloat()
+        detailsPieChart.slices = listOf(
+            PieChart.Slice(0.2f, Color.BLUE),
+            PieChart.Slice(0.4f, Color.MAGENTA),
+            PieChart.Slice(0.3f, Color.YELLOW),
+            PieChart.Slice(0.1f, Color.CYAN),
+        )
+
+        /*
+        val total: Int = protein.toInt() + carbs.toInt() + fat.toInt()
+
+        detailsPieChart.addPieSlice(
+            PieModel(
+                "Protein", ((protein.toInt() / total).toFloat()),
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        detailsPieChart.addPieSlice(
+            PieModel(
+                "Carbs", (carbs.toInt() / total).toFloat(),
+                Color.parseColor("#EF5350") //red
+            )
+        )
+        detailsPieChart.addPieSlice(
+            PieModel(
+                "Fat", (fat.toInt() / total).toFloat(),
+                Color.parseColor("#29B6F6")//light blue
+            )
+        )
+
+        // To animate the pie chart
+        detailsPieChart.startAnimation()
+
+        */
+
     }
 
     private fun switchToMyFoodPage(){
         val intent = Intent(this, MyFoodList::class.java)
         startActivity(intent)
     }
-
-
 
 
 
