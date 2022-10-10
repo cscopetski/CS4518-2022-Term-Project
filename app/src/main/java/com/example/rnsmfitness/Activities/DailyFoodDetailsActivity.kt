@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.example.rnsmfitness.R
@@ -83,25 +84,29 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
 
         pieChart.addPieSlice(
             PieModel(
-                "% Protein", ((protein.toFloat() / total)) * 100F,
+                "Protein", ((protein.toFloat() / total)) * 100F,
                 Color.parseColor("#66BB6A") //green
             )
         )
         pieChart.addPieSlice(
             PieModel(
-                "% Carbs", (carbs.toFloat() / total) * 100F,
+                "Carbs", (carbs.toFloat() / total) * 100F,
                 Color.parseColor("#EF5350") //red
             )
         )
 
         pieChart.addPieSlice(
             PieModel(
-                "% Fat", (fat.toFloat() / total) * 100F,
+                "Fat", (fat.toFloat() / total) * 100F,
                 Color.parseColor("#29B6F6")//light blue
             )
         )
 
-        pieChart.innerPadding = 60F;
+        pieChart.innerPadding = 60F
+        pieChart.innerValueUnit = "%"
+        Log.v("DailyFoodDetails", pieChart.innerPaddingColor.toString())
+        pieChart.innerPaddingColor = 3881787
+
 
         // To animate the pie chart
         pieChart.startAnimation()

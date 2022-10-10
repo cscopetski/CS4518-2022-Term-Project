@@ -9,59 +9,17 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.sql.Date
 
-private const val TAG = "DailyLogDataSource"
+private const val TAG = "DailyFoodLogDataSource"
 
 class DailyFoodLogDataSource {
 
     private val liveList: MutableLiveData<List<DailyFoodItem>> = MutableLiveData()
 
-//    fun insertFood(name: String?, protein: Int?,carbs: Int?,fat: Int?, serving_size: Double?){
-//        if (name == null || protein == null || carbs == null || fat == null || serving_size == null) {
-//            return
-//        }
-//        //get the id and user ID to insert into this statement
-//        val calories = protein * 4 + carbs * 4 + fat * 9
-//        addFood(DailyFoodItem(0, name, 0,protein, carbs, fat, calories, serving_size, 0.0, "breakfast"))
-//        Log.d(TAG, "Food not adding to recycler view")
-//    }
-//
-//    private fun addFood(food: DailyFoodItem){
-//
-//        val list = liveList.value
-//        if (list == null){
-//            liveList.postValue(listOf(food))
-//        } else {
-//            Log.d(TAG, "add food")
-//            val updatedList = list.toMutableList()
-//            updatedList.add(0, food)
-//            liveList.postValue(updatedList)
-//        }
-//    }
-//
-//    fun deleteFood(food: DailyFoodItem) {
-//        val currentList = liveList.value
-//        if (currentList != null) {
-//            val updatedList = currentList.toMutableList()
-//            updatedList.remove(food)
-//            liveList.postValue(updatedList)
-//        }
-//
-//    }
 
     fun getFoodList(): LiveData<List<DailyFoodItem>> {
         return liveList
     }
 
-//    fun getMealList(meal:String):List<DailyFoodItem> {
-//
-//        val currentList = liveList.value
-//        if (currentList != null) {
-//            val updatedList = currentList.toMutableList()
-//            updatedList.filter { it.meal === meal }
-//            return updatedList;
-//        }
-//        return listOf()
-//    }
 
     fun getDBFoods(date: Date) {
         val call: Call<List<DailyFoodItem>> =

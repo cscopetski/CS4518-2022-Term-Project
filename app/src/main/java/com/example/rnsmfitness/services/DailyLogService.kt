@@ -17,4 +17,4 @@ interface DailyLogService {
 
 }
 
-data class DailyLog(val weight_results: Double, val weight_goal: Double, val protein_results: Int, val protein_goal:Int, val fat_results: Int, val carb_results: Int, val carb_goal: Int, val calorie_results: Int, val calorie_goal: Int)
+data class DailyLog(val weight_results: Double, val weight_goal: Double, val protein_results: Int, val protein_goal:Int, val fat_results: Int, val fat_goal: Int, val carb_results: Int, val carb_goal: Int, val calorie_results: Int, val calorie_goal: Int)

@@ -70,6 +70,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var proteinPie: PieChart
     private lateinit var carbPie: PieChart
     private lateinit var fatPie: PieChart
+    private lateinit var dailyLog: LiveData<DailyLog>
 
     lateinit var test: FloatingActionButton
 //    lateinit var logoutButton: Button
@@ -122,6 +123,8 @@ class HomeActivity : AppCompatActivity() {
         proteinPie = findViewById(R.id.proteinPie)
         carbPie = findViewById(R.id.carbPie)
         fatPie = findViewById(R.id.fatPie)
+
+
 
         breakfastCardView.setOnClickListener {
             if (breakfastView.visibility == View.VISIBLE) {
@@ -176,9 +179,11 @@ class HomeActivity : AppCompatActivity() {
                 date = Date(c.timeInMillis)
                 editDate.setText(date.toString())
                 dataSource.getDBFoods(date)
+                DailyLogDataSource.getDataSource().getDailyDetails(date)
             }, year, month, day)
 
             dpd.show()
+
         }
 
 
@@ -198,10 +203,6 @@ class HomeActivity : AppCompatActivity() {
 //
 //        if(result != null)
 //            resultText.text = result.toString()
-
-
-
-
 
 
         breakfastRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -232,75 +233,16 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        DailyLogDataSource.getDataSource().getDailyDetails(date)
+        dailyLog = DailyLogDataSource.getDataSource().getDailyLog()
+
+
+        dailyLog.observe(this){ it ->
+            setPies(it)
+        }
+
 
         setRecyclerViewItemTouchListener()
-
-        caloriePie.addPieSlice(
-            PieModel(
-                "Calories Eaten", 2400F,
-                Color.parseColor("#66BB6A") //green
-            )
-        )
-        caloriePie.addPieSlice(
-            PieModel(
-                "Calories Left", 500F,
-                Color.parseColor("#EF5350") //red
-            )
-        )
-
-
-        proteinPie.addPieSlice(
-            PieModel(
-                "Protein Eaten", 180F,
-                Color.parseColor("#66BB6A") //green
-            )
-        )
-        proteinPie.addPieSlice(
-            PieModel(
-                "Protein Left", 40F,
-                Color.parseColor("#EF5350") //red
-            )
-        )
-
-
-        carbPie.addPieSlice(
-            PieModel(
-                "Carbs Eaten", 300F,
-                Color.parseColor("#66BB6A") //green
-            )
-        )
-        carbPie.addPieSlice(
-            PieModel(
-                "Carbs Left", 300F,
-                Color.parseColor("#EF5350") //red
-            )
-        )
-
-
-        fatPie.addPieSlice(
-            PieModel(
-                "Fat Eaten", 20F,
-                Color.parseColor("#66BB6A") //green
-            )
-        )
-        fatPie.addPieSlice(
-            PieModel(
-                "Fat Left", 80F,
-                Color.parseColor("#EF5350") //red
-            )
-        )
-
-        caloriePie.innerPadding = 60F;
-        caloriePie.startAnimation()
-
-        proteinPie.innerPadding = 60F;
-        proteinPie.startAnimation()
-
-        carbPie.innerPadding = 60F;
-        carbPie.startAnimation()
-
-        fatPie.innerPadding = 60F;
-        fatPie.startAnimation()
 
 
     }
@@ -362,28 +304,98 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
-    private fun testInsert(){
-        //TODO("Charlie, this is the example of using the daily log, if you click the black fab on the daily food log page it will print the response to console")
-        val call: Call<DailyLog> =
-            RetroFitClient.dailyLogService.getDailyLog(date)
-
-        call.enqueue(object : Callback<DailyLog> {
-            override fun onResponse(call: Call<DailyLog>, response: Response<DailyLog>) {
-                if(response.isSuccessful){
-                    Log.v(TAG, response.body().toString())
-                    //TODO find way to return response.body()
 
 
-                }else{
-                    Log.v(TAG, response.code().toString())
+    private fun setPies(log: DailyLog){
 
-                }
-            }
+        Log.v(TAG, log.toString())
 
-            override fun onFailure(call: Call<DailyLog>, t: Throwable) {
-                Log.v(TAG, "big fail")
-            }
-        })
+        caloriePie.clearChart()
+        proteinPie.clearChart()
+        carbPie.clearChart()
+        fatPie.clearChart()
+
+        var calsEaten = log.calorie_results
+        var calsRemaining = log.calorie_goal - log.calorie_results
+
+        var proteinEaten = log.protein_results
+        var proteinRemaining = log.protein_goal - log.protein_results
+
+        var carbsEaten = log.calorie_results
+        var carbsRemaining = log.carb_goal - log.carb_results
+
+        var fatsEaten = log.fat_results
+        var fatsRemaining = log.fat_goal - log.fat_results
+
+
+        caloriePie.addPieSlice(
+            PieModel(
+                "Calories Eaten", calsEaten.toFloat(),
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        caloriePie.addPieSlice(
+            PieModel(
+                "Calories Left", calsRemaining.toFloat(),
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+
+        proteinPie.addPieSlice(
+            PieModel(
+                "Protein Eaten", proteinEaten.toFloat(),
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        proteinPie.addPieSlice(
+            PieModel(
+                "Protein Left", proteinRemaining.toFloat(),
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+
+        carbPie.addPieSlice(
+            PieModel(
+                "Carbs Eaten", carbsEaten.toFloat(),
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        carbPie.addPieSlice(
+            PieModel(
+                "Carbs Left", carbsRemaining.toFloat(),
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+
+        fatPie.addPieSlice(
+            PieModel(
+                "Fat Eaten", fatsEaten.toFloat(),
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        fatPie.addPieSlice(
+            PieModel(
+                "Fat Left", fatsRemaining.toFloat(),
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+
+
+        caloriePie.innerPadding = 60F;
+        caloriePie.startAnimation()
+
+        proteinPie.innerPadding = 60F;
+        proteinPie.startAnimation()
+
+        carbPie.innerPadding = 60F;
+        carbPie.startAnimation()
+
+        fatPie.innerPadding = 60F;
+        fatPie.startAnimation()
     }
 
 //    private fun openCameraActivityForResult() {
