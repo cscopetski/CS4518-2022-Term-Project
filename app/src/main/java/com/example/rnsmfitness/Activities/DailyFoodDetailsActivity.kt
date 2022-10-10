@@ -2,11 +2,14 @@ package com.example.rnsmfitness.Activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import com.example.rnsmfitness.R
+import org.eazegraph.lib.charts.PieChart
+import org.eazegraph.lib.models.PieModel
 
 class DailyFoodDetailsActivity : AppCompatActivity() {
 
@@ -17,6 +20,7 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
     lateinit var detailsName: TextView
     lateinit var closeButton: Button
     lateinit var editButton: Button
+    lateinit var pieChart: PieChart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,7 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
         detailsName = findViewById(R.id.food_detail_name)
         closeButton = findViewById(R.id.close_button)
         editButton = findViewById(R.id.edit_button)
+        pieChart = findViewById(R.id.dailyDetailsPieChart)
 
 
         val protein: String = intent.getStringArrayListExtra("valueList")!![0]
@@ -73,6 +78,33 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
             intent.putStringArrayListExtra("foodDetailsList", detailsList)
             startActivity(intent)
         }
+
+        val total: Float = protein.toFloat() + carbs.toFloat() + fat.toFloat()
+
+        pieChart.addPieSlice(
+            PieModel(
+                "% Protein", ((protein.toFloat() / total)) * 100F,
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        pieChart.addPieSlice(
+            PieModel(
+                "% Carbs", (carbs.toFloat() / total) * 100F,
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+        pieChart.addPieSlice(
+            PieModel(
+                "% Fat", (fat.toFloat() / total) * 100F,
+                Color.parseColor("#29B6F6")//light blue
+            )
+        )
+
+        pieChart.innerPadding = 60F;
+
+        // To animate the pie chart
+        pieChart.startAnimation()
     }
 
     private fun switchToMyFoodPage(){
