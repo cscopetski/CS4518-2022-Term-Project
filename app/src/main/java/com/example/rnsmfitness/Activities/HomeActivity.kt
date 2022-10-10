@@ -86,7 +86,11 @@ class HomeActivity : AppCompatActivity() {
 
         test = findViewById(R.id.test_button)
 
-        test.setOnClickListener{testInsert()}
+        test.setOnClickListener{
+            val intent = Intent(this, MyFoodList::class.java)
+            startActivity(intent)
+
+        }
 
         editDate = findViewById(R.id.edit_date)
 

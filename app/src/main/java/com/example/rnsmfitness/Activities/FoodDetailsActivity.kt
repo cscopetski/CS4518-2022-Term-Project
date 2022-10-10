@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rnsmfitness.R
-import ir.mahozad.android.PieChart
-
+import org.eazegraph.lib.charts.PieChart
+import org.eazegraph.lib.models.PieModel
 
 
 private const val TAG = "FoodDetailsActivity"
@@ -85,39 +85,38 @@ class FoodDetailsActivity() : AppCompatActivity() {
 
 
         //(protein.toInt() / total).toFloat()
-        detailsPieChart.slices = listOf(
-            PieChart.Slice(0.2f, Color.BLUE),
-            PieChart.Slice(0.4f, Color.MAGENTA),
-            PieChart.Slice(0.3f, Color.YELLOW),
-            PieChart.Slice(0.1f, Color.CYAN),
-        )
 
-        /*
-        val total: Int = protein.toInt() + carbs.toInt() + fat.toInt()
+        val total: Float = protein.toFloat() + carbs.toFloat() + fat.toFloat()
 
         detailsPieChart.addPieSlice(
             PieModel(
-                "Protein", ((protein.toInt() / total).toFloat()),
+                "Protein", ((protein.toFloat() / total)) * 100F,
                 Color.parseColor("#66BB6A") //green
             )
         )
         detailsPieChart.addPieSlice(
             PieModel(
-                "Carbs", (carbs.toInt() / total).toFloat(),
+                "Carbs", (carbs.toFloat() / total) * 100F,
                 Color.parseColor("#EF5350") //red
             )
         )
+
         detailsPieChart.addPieSlice(
             PieModel(
-                "Fat", (fat.toInt() / total).toFloat(),
+                "Fat", (fat.toFloat() / total) * 100F,
                 Color.parseColor("#29B6F6")//light blue
             )
         )
 
+        detailsPieChart.innerPadding = 60F;
+
+
+
+
         // To animate the pie chart
         detailsPieChart.startAnimation()
 
-        */
+
 
     }
 

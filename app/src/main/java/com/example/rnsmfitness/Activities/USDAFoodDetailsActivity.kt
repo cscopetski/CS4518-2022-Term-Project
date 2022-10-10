@@ -18,6 +18,8 @@ import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import okhttp3.ResponseBody
+import org.eazegraph.lib.charts.PieChart
+import org.eazegraph.lib.models.PieModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +34,7 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
     lateinit var closeButton: Button
     lateinit var addToMyFoodsButton: Button
     lateinit var addToLogButton: Button
+    lateinit var usdaPieChart: PieChart
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,7 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
         closeButton = findViewById(R.id.usda_close_button)
         addToMyFoodsButton = findViewById(R.id.add_to_my_foods_button)
         addToLogButton = findViewById(R.id.add_food_to_log_button)
+        usdaPieChart = findViewById(R.id.pieChartUSDADetails)
 
         val protein: String = intent.getStringArrayListExtra("valueList")!![0]
         val fat: String = intent.getStringArrayListExtra("valueList")!![1]
@@ -83,6 +87,36 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
             intent.putExtra(INTENT_CODE, INTENT_CODE_USDA)
             startActivity(intent)
         }
+        val total: Float = protein.toFloat() + carbs.toFloat() + fat.toFloat()
+
+        usdaPieChart.addPieSlice(
+            PieModel(
+                "Protein", ((protein.toFloat() / total)) * 100F,
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        usdaPieChart.addPieSlice(
+            PieModel(
+                "Carbs", (carbs.toFloat() / total) * 100F,
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+        usdaPieChart.addPieSlice(
+            PieModel(
+                "Fat", (fat.toFloat() / total) * 100F,
+                Color.parseColor("#29B6F6")//light blue
+            )
+        )
+
+        usdaPieChart.innerPadding = 60F;
+
+
+
+
+        // To animate the pie chart
+        usdaPieChart.startAnimation()
+
     }
 
     private fun insertFood(food: FoodItemBody){

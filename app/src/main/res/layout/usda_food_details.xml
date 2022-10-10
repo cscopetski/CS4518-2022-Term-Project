@@ -161,26 +161,49 @@
         />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/add_to_my_foods_button"
+    <LinearLayout
+        android:padding="14dp"
+        android:id="@+id/chart_and_buttons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        android:text="Add Food to my foods" />
-    <Button
-        android:id="@+id/add_food_to_log_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
 
-        android:text="Add Food to Daily Log" />
-    <Button
-        android:id="@+id/usda_close_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Close" />
+        <org.eazegraph.lib.charts.PieChart
+            android:id="@+id/pieChartUSDADetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:padding="6dp"/>
+
+        <Button
+            android:id="@+id/add_to_my_foods_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:text="Add Food to my foods" />
+        <Button
+            android:id="@+id/add_food_to_log_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:text="Add Food to Daily Log" />
+        <Button
+            android:id="@+id/usda_close_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Close" />
+
+
+
+    </LinearLayout>
+
+
 
 </LinearLayout>
 
