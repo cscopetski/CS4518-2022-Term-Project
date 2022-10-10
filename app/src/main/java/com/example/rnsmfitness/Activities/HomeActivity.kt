@@ -2,6 +2,7 @@ package com.example.rnsmfitness.Activities
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +29,8 @@ import com.example.rnsmfitness.services.DailyLog
 import com.example.rnsmfitness.services.USDADailyFood
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import okhttp3.ResponseBody
+import org.eazegraph.lib.charts.PieChart
+import org.eazegraph.lib.models.PieModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,6 +66,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var snackCardView: CardView
     private lateinit var snackView: LinearLayout
     private lateinit var liveList: LiveData<List<DailyFoodItem>>
+    private lateinit var caloriePie: PieChart
+    private lateinit var proteinPie: PieChart
+    private lateinit var carbPie: PieChart
+    private lateinit var fatPie: PieChart
 
     lateinit var test: FloatingActionButton
 //    lateinit var logoutButton: Button
@@ -110,6 +117,11 @@ class HomeActivity : AppCompatActivity() {
 
         snackCardView = findViewById(R.id.snack_card)
         snackView = findViewById(R.id.snack_view)
+
+        caloriePie = findViewById(R.id.caloriePie)
+        proteinPie = findViewById(R.id.proteinPie)
+        carbPie = findViewById(R.id.carbPie)
+        fatPie = findViewById(R.id.fatPie)
 
         breakfastCardView.setOnClickListener {
             if (breakfastView.visibility == View.VISIBLE) {
@@ -222,6 +234,75 @@ class HomeActivity : AppCompatActivity() {
 
 
         setRecyclerViewItemTouchListener()
+
+        caloriePie.addPieSlice(
+            PieModel(
+                "Calories Eaten", 2400F,
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        caloriePie.addPieSlice(
+            PieModel(
+                "Calories Left", 500F,
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+
+        proteinPie.addPieSlice(
+            PieModel(
+                "Protein Eaten", 180F,
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        proteinPie.addPieSlice(
+            PieModel(
+                "Protein Left", 40F,
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+
+        carbPie.addPieSlice(
+            PieModel(
+                "Carbs Eaten", 300F,
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        carbPie.addPieSlice(
+            PieModel(
+                "Carbs Left", 300F,
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+
+        fatPie.addPieSlice(
+            PieModel(
+                "Fat Eaten", 20F,
+                Color.parseColor("#66BB6A") //green
+            )
+        )
+        fatPie.addPieSlice(
+            PieModel(
+                "Fat Left", 80F,
+                Color.parseColor("#EF5350") //red
+            )
+        )
+
+        caloriePie.innerPadding = 60F;
+        caloriePie.startAnimation()
+
+        proteinPie.innerPadding = 60F;
+        proteinPie.startAnimation()
+
+        carbPie.innerPadding = 60F;
+        carbPie.startAnimation()
+
+        fatPie.innerPadding = 60F;
+        fatPie.startAnimation()
+
+
     }
 
     override fun onResume() {
@@ -290,6 +371,8 @@ class HomeActivity : AppCompatActivity() {
             override fun onResponse(call: Call<DailyLog>, response: Response<DailyLog>) {
                 if(response.isSuccessful){
                     Log.v(TAG, response.body().toString())
+                    //TODO find way to return response.body()
+
 
                 }else{
                     Log.v(TAG, response.code().toString())
