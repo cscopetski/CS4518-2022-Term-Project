@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.sql.Date
 import java.util.*
 
 
@@ -35,16 +37,20 @@ class MyFoodList : AppCompatActivity() {
 
     private var foods: MutableLiveData<List<FoodItem>> = MutableLiveData(listOf<FoodItem>())
     lateinit var createFoodButton: FloatingActionButton
-    lateinit var homeButton: FloatingActionButton
-    lateinit var usdaButton: FloatingActionButton
     private lateinit var recyclerView: RecyclerView
     lateinit var searchView: SearchView
     private val createFoodActivityRequestCode = 1
     private lateinit var liveList: LiveData<List<FoodItem>>
     private lateinit var navBar: BottomNavigationView
 
+    private lateinit var date: Date
+
+    private lateinit var myFoodButton: Button
+    private lateinit var usdaButton: Button
+
+
     private var adapter: FoodItemAdapter = FoodItemAdapter(this,
-        foods.value!!
+        foods.value!!, Date(System.currentTimeMillis())
     )
 
     private lateinit var dataSource: DataSource
@@ -52,15 +58,16 @@ class MyFoodList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_food_list)
-
+        date = Date(intent.getLongExtra("Date",System.currentTimeMillis()))
         createFoodButton = findViewById(R.id.add_food_fab)
-        homeButton = findViewById(R.id.home_buton)
-        usdaButton = findViewById(R.id.USDA_DB_button)
         recyclerView = findViewById(R.id.foodRecycler)
         searchView = findViewById(R.id.my_food_search)
 
         navBar = findViewById(R.id.bottom_nav)
         navBar.selectedItemId = (R.id.foods)
+
+        myFoodButton = findViewById(R.id.my_food_button)
+        usdaButton = findViewById(R.id.usda_button)
 
         navBar.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
@@ -73,20 +80,9 @@ class MyFoodList : AppCompatActivity() {
 
         getDBFoods()
 
-
-        homeButton.setOnClickListener {
-            //set current view to home page
-            switchToHomePage()
-        }
-
         createFoodButton.setOnClickListener {
             //set current view to myFoodPage
             switchToCreateFood()
-        }
-
-        usdaButton.setOnClickListener {
-            //set current view to USDA Page
-            switchToUSDAPage()
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -95,12 +91,16 @@ class MyFoodList : AppCompatActivity() {
 
         dataSource = DataSource.getDataSource()
 
+        myFoodButton.isSelected = true
+        usdaButton.setOnClickListener{
+            switchToUSDAPage()
+        }
 
         val liveList = dataSource.getFoodList()
 
         liveList.observe(this) {
             it?.let {
-                adapter = FoodItemAdapter(this, it)
+                adapter = FoodItemAdapter(this, it, date)
                 recyclerView.adapter = adapter
             }
         }
@@ -184,6 +184,7 @@ class MyFoodList : AppCompatActivity() {
 
     private fun switchToUSDAPage(){
         val intent = Intent(this, USDAFoodList::class.java)
+//        intent.putExtra("Date",date)
         startActivity(intent)
     }
 

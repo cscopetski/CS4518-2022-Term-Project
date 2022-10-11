@@ -23,6 +23,7 @@ import org.eazegraph.lib.models.PieModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.sql.Date
 
 class USDAFoodDetailsActivity() : AppCompatActivity() {
 
@@ -56,7 +57,7 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
         val calories: Int = (protein.toInt() * 4) + (carbs.toInt() * 4) + (fat.toInt() * 9)
         val name: String = intent.getStringArrayListExtra("valueList")!![3]
         val servingSize: String = intent.getStringArrayListExtra("valueList")!![4].toString()
-
+        val date: Date = Date(intent.getLongExtra("Date",System.currentTimeMillis()))
         detailsProtein.text = protein + "g"
         detailsCarbs.text = carbs + "g"
         detailsFat.text = fat + "g"
@@ -84,6 +85,7 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
         addToLogButton.setOnClickListener{
             val intent = Intent(this, AddFoodToLogActivity::class.java)
             intent.putStringArrayListExtra("foodDetailsList", detailsList)
+            intent.putExtra("Date",date.time)
             intent.putExtra(INTENT_CODE, INTENT_CODE_USDA)
             startActivity(intent)
         }
