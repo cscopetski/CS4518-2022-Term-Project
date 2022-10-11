@@ -58,6 +58,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var dinnerCardView: CardView
     private lateinit var dinnerView: LinearLayout
     private lateinit var snackCardView: CardView
+    private lateinit var chartsCard: CardView
+    private lateinit var chartView: LinearLayout
     private lateinit var snackView: LinearLayout
     private lateinit var liveList: LiveData<List<DailyFoodItem>>
     private lateinit var caloriePie: PieChart
@@ -121,6 +123,9 @@ class HomeActivity : AppCompatActivity() {
         snackCardView = findViewById(R.id.snack_card)
         snackView = findViewById(R.id.snack_view)
 
+        chartsCard = findViewById(R.id.charts_card)
+        chartView = findViewById(R.id.chart_view)
+
         caloriePie = findViewById(R.id.caloriePie)
         proteinPie = findViewById(R.id.proteinPie)
         carbPie = findViewById(R.id.carbPie)
@@ -171,6 +176,19 @@ class HomeActivity : AppCompatActivity() {
                 snackView.visibility = (View.VISIBLE);
             }
         }
+
+        chartsCard.setOnClickListener {
+            if (chartView.visibility == View.VISIBLE) {
+//                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
+                chartView.visibility = (View.GONE);
+//                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
+            } else {
+//                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
+                chartView.visibility = (View.VISIBLE);
+//                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
+            }
+        }
+
         editDate.setText(date.toString())
         editDate.setOnClickListener {
             val c = Calendar.getInstance()
@@ -458,8 +476,6 @@ class HomeActivity : AppCompatActivity() {
             )
         )
 
-
-
         caloriePie.innerPadding = 60F;
         caloriePie.startAnimation()
 
@@ -472,23 +488,5 @@ class HomeActivity : AppCompatActivity() {
         fatPie.innerPadding = 60F;
         fatPie.startAnimation()
     }
-
-//    private fun openCameraActivityForResult() {
-//        val intent = Intent(this, ScanActivity::class.java)
-//        resultLauncher.launch(intent)
-//    }
-//
-//    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//        if (result.resultCode == CAMERARESULT) {
-//            // There are no request codes
-//            data = result.data
-//            val result = data?.getStringExtra(RESULT)
-//
-//            if(result != null)
-//                resultText.text = result.toString()
-//        }
-//    }
-
-
 
 }
