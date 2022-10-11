@@ -36,7 +36,6 @@ import kotlin.collections.ArrayList
 private const val TAG = "USDAFoodList"
 
 class USDAFoodList : AppCompatActivity() {
-
     private var foods: MutableLiveData<List<USDAFoodItem>> = MutableLiveData(listOf<USDAFoodItem>())
     private lateinit var scanButton: FloatingActionButton
     private lateinit var searchUSDA: Button
