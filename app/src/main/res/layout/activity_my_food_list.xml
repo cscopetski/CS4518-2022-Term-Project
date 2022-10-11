@@ -16,24 +16,35 @@
     android:orientation="vertical"
     android:gravity="center_horizontal">
     <LinearLayout
-        android:padding="14dp"
         android:id="@+id/headers"
-        android:background="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="vertical">
-        <TextView
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/my_food_button"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:textAlignment="center"
             android:text="My Foods" />
+        <Button
+            android:id="@+id/usda_button"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:text="USDA Database"/>
 
     </LinearLayout>
 
@@ -45,7 +56,7 @@
         android:layout_gravity="center"
         android:hint="Search"
         app:hintTextColor="@color/white"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="10dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
@@ -70,40 +81,14 @@
         tools:listitem="@layout/item_food" />
 </LinearLayout>
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_food_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="80dp"
+        android:layout_above="@id/bottom_nav"
+        android:layout_margin="20dp"
         android:src="@drawable/ic_baseline_fastfood_24_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/home_buton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:baselineAlignBottom="true"
-        android:src="@drawable/ic_baseline_house_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/USDA_DB_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="156dp"
-        android:baselineAlignBottom="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_alignParentRight="true"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
