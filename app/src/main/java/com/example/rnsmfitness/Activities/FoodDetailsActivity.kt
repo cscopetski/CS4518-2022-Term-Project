@@ -109,6 +109,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
         )
 
         detailsPieChart.innerPadding = 60F;
+        detailsPieChart.innerValueUnit = "%"
 
 
 

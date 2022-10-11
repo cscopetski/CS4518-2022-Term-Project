@@ -478,15 +478,19 @@ class HomeActivity : AppCompatActivity() {
 
         caloriePie.innerPadding = 60F;
         caloriePie.startAnimation()
+        caloriePie.innerValueUnit = "cal"
 
         proteinPie.innerPadding = 60F;
         proteinPie.startAnimation()
+        proteinPie.innerValueUnit = "g"
 
         carbPie.innerPadding = 60F;
         carbPie.startAnimation()
+        carbPie.innerValueUnit = "g"
 
         fatPie.innerPadding = 60F;
         fatPie.startAnimation()
+        fatPie.innerValueUnit = "g"
     }
 
 }

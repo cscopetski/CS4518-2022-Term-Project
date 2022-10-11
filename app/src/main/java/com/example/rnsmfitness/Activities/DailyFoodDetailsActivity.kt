@@ -110,6 +110,7 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
 
         // To animate the pie chart
         pieChart.startAnimation()
+        pieChart.innerValueUnit = "%"
     }
 
     private fun switchToMyFoodPage(){
