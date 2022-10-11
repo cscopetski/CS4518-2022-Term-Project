@@ -55,7 +55,6 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
         detailsCalories.text = calories.toString() + " cal"
         detailsName.text = name
 
-        //val detailsList = intent.getStringArrayListExtra("valueList")
         val detailsList = ArrayList<String>()
         detailsList.add(protein)
         detailsList.add(fat)
@@ -71,7 +70,6 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
 
 
         closeButton.setOnClickListener {
-            //switchToMyFoodPage()
             finish()
         }
 
@@ -105,17 +103,8 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
 
         pieChart.innerPadding = 60F
         pieChart.innerValueUnit = "%"
-        Log.v("DailyFoodDetails", pieChart.innerPaddingColor.toString())
 
 
-        // To animate the pie chart
-        pieChart.startAnimation()
-        pieChart.innerValueUnit = "%"
-    }
-
-    private fun switchToMyFoodPage(){
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
     }
 
 }

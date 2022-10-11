@@ -112,8 +112,6 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
         usdaPieChart.innerPadding = 60F;
         usdaPieChart.innerValueUnit = "%"
 
-        // To animate the pie chart
-        usdaPieChart.startAnimation()
 
     }
 

@@ -73,16 +73,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var snackCals: TextView
     private lateinit var navBar: BottomNavigationView
 
-//    lateinit var test: FloatingActionButton
-//    lateinit var logoutButton: Button
-//    lateinit var nameTextView: TextView
-
-
-//    lateinit var btnScan: Button
-    lateinit var resultText: TextView
-
-    lateinit var signUpButton: Button
-
     var data: Intent? = null
 
     companion object {
@@ -111,11 +101,7 @@ class HomeActivity : AppCompatActivity() {
 
         lunchCardView = findViewById(R.id.lunch_card)
         lunchView = findViewById(R.id.lunch_view)
-//        btnScan = findViewById(R.id.btnScan)
-//        resultText = findViewById(R.id.resultText)
 
-
-//        nameTextView.text = intent.getStringExtra("Name")
 
         dinnerCardView = findViewById(R.id.dinner_card)
         dinnerView = findViewById(R.id.dinner_view)
@@ -140,13 +126,9 @@ class HomeActivity : AppCompatActivity() {
 
         breakfastCardView.setOnClickListener {
             if (breakfastView.visibility == View.VISIBLE) {
-//                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
                 breakfastView.visibility = (View.GONE);
-//                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
             } else {
-//                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
                 breakfastView.visibility = (View.VISIBLE);
-//                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
             }
         }
 
@@ -154,7 +136,6 @@ class HomeActivity : AppCompatActivity() {
             if (lunchView.visibility == View.VISIBLE) {
                 lunchView.visibility = (View.GONE);
             } else {
-//                TransitionManager.beginDelayedTransition(lunchCardView, AutoTransition());
                 lunchView.visibility = (View.VISIBLE);
             }
         }
@@ -163,7 +144,6 @@ class HomeActivity : AppCompatActivity() {
             if (dinnerView.visibility == View.VISIBLE) {
                 dinnerView.visibility = (View.GONE);
             } else {
-//                TransitionManager.beginDelayedTransition(dinnerCardView, AutoTransition());
                 dinnerView.visibility = (View.VISIBLE);
             }
         }
@@ -172,20 +152,15 @@ class HomeActivity : AppCompatActivity() {
             if (snackView.visibility == View.VISIBLE) {
                 snackView.visibility = (View.GONE);
             } else {
-//                TransitionManager.beginDelayedTransition(snackCardView, AutoTransition());
                 snackView.visibility = (View.VISIBLE);
             }
         }
 
         chartsCard.setOnClickListener {
             if (chartView.visibility == View.VISIBLE) {
-//                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
                 chartView.visibility = (View.GONE);
-//                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
             } else {
-//                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
                 chartView.visibility = (View.VISIBLE);
-//                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
             }
         }
 
@@ -210,7 +185,6 @@ class HomeActivity : AppCompatActivity() {
             dpd.show()
 
         }
-
 
         breakfastRecyclerView = findViewById(R.id.breakfast_recycler)
         lunchRecyclerView = findViewById(R.id.lunch_recycler)
@@ -250,14 +224,11 @@ class HomeActivity : AppCompatActivity() {
         DailyLogDataSource.getDataSource().getDailyDetails(date)
         dailyLog = DailyLogDataSource.getDataSource().getDailyLog()
 
-
         dailyLog.observe(this){ it ->
             setPies(it)
         }
 
-
         setRecyclerViewItemTouchListener()
-
 
     }
 
@@ -283,7 +254,6 @@ class HomeActivity : AppCompatActivity() {
                 return false
             }
 
-
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val curFood: DailyFoodItem? =
                     dataSource.getFoodList().value?.filter { it.meal.equals("breakfast") }?.get(viewHolder.bindingAdapterPosition)
@@ -299,7 +269,6 @@ class HomeActivity : AppCompatActivity() {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, viewHolder1: RecyclerView.ViewHolder): Boolean {
                 return false
             }
-
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val curFood: DailyFoodItem? =
@@ -464,19 +433,15 @@ class HomeActivity : AppCompatActivity() {
         )
 
         caloriePie.innerPadding = 60F;
-        caloriePie.startAnimation()
         caloriePie.innerValueUnit = "cal"
 
         proteinPie.innerPadding = 60F;
-        proteinPie.startAnimation()
         proteinPie.innerValueUnit = "g"
 
         carbPie.innerPadding = 60F;
-        carbPie.startAnimation()
         carbPie.innerValueUnit = "g"
 
         fatPie.innerPadding = 60F;
-        fatPie.startAnimation()
         fatPie.innerValueUnit = "g"
     }
 

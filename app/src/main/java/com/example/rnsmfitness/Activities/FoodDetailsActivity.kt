@@ -55,7 +55,6 @@ class FoodDetailsActivity() : AppCompatActivity() {
         detailsCalories.text = calories.toString() + " cal"
         detailsName.text = name
 
-        //val detailsList = intent.getStringArrayListExtra("valueList")
         val detailsList = ArrayList<String>()
         detailsList.add(protein)
         detailsList.add(fat)
@@ -80,11 +79,6 @@ class FoodDetailsActivity() : AppCompatActivity() {
             intent.putExtra(INTENT_CODE, INTENT_CODE_MY_FOOD)
             startActivity(intent)
         }
-
-
-
-
-        //(protein.toInt() / total).toFloat()
 
         val total: Float = protein.toFloat() + carbs.toFloat() + fat.toFloat()
 
@@ -111,21 +105,11 @@ class FoodDetailsActivity() : AppCompatActivity() {
         detailsPieChart.innerPadding = 60F;
         detailsPieChart.innerValueUnit = "%"
 
-
-
-
-        // To animate the pie chart
-        detailsPieChart.startAnimation()
-
-
-
     }
 
     private fun switchToMyFoodPage(){
         val intent = Intent(this, MyFoodList::class.java)
         startActivity(intent)
     }
-
-
 
 }

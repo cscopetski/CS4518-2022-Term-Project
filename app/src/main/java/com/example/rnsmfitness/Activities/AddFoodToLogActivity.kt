@@ -118,8 +118,6 @@ class AddFoodToLogActivity : AppCompatActivity() {
             finish()
         }
 
-
-
     }
 
     private fun addUSDAFoodtoLog(food: USDADailyFood){
