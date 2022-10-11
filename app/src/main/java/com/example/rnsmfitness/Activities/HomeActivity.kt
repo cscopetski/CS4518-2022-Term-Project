@@ -241,10 +241,7 @@ class HomeActivity : AppCompatActivity() {
                 snackAdapter = DailyFoodItemAdapter(this, list.filter { it.meal.equals("snacks") })
                 snackRecyclerView.adapter = snackAdapter
             }
-            breakfastCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("breakfast").toString()
-            lunchCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("lunch").toString()
-            dinnerCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("dinner").toString()
-            snackCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("snacks").toString()
+            setCalTotals()
         }
 
         DailyLogDataSource.getDataSource().getDailyDetails(date)
@@ -253,6 +250,7 @@ class HomeActivity : AppCompatActivity() {
 
         dailyLog.observe(this){ it ->
             setPies(it)
+            setCalTotals()
         }
 
 
@@ -267,10 +265,16 @@ class HomeActivity : AppCompatActivity() {
         liveList = dataSource.getFoodList()
     }
 
+    private fun setCalTotals(){
+        breakfastCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("breakfast").toString()
+        lunchCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("lunch").toString()
+        dinnerCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("dinner").toString()
+        snackCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("snacks").toString()
+    }
+
     private fun setRecyclerViewItemTouchListener() {
 
-
-        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+        val breakfastItemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, viewHolder1: RecyclerView.ViewHolder): Boolean {
                 return false
@@ -278,7 +282,42 @@ class HomeActivity : AppCompatActivity() {
 
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                val curFood: DailyFoodItem? =  dataSource.getFoodList().value?.get(viewHolder.bindingAdapterPosition)
+                val curFood: DailyFoodItem? =
+                    dataSource.getFoodList().value?.filter { it.meal.equals("breakfast") }?.get(viewHolder.bindingAdapterPosition)
+                if (curFood != null){
+                    Log.v(TAG, curFood.toString())
+                    deleteFood(curFood.id)
+                }
+
+            }
+        }
+        val lunchItemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, viewHolder1: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                val curFood: DailyFoodItem? =
+                    dataSource.getFoodList().value?.filter { it.meal.equals("lunch") }?.get(viewHolder.bindingAdapterPosition)
+                if (curFood != null){
+                    Log.v(TAG, curFood.toString())
+                    deleteFood(curFood.id)
+                }
+
+            }
+        }
+        val dinnerItemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, viewHolder1: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                val curFood: DailyFoodItem? =
+                    dataSource.getFoodList().value?.filter { it.meal.equals("dinner") }?.get(viewHolder.bindingAdapterPosition)
                 if (curFood != null){
                     Log.v(TAG, curFood.toString())
                     deleteFood(curFood.id)
@@ -287,15 +326,34 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(breakfastRecyclerView)
-        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(lunchRecyclerView)
-        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(dinnerRecyclerView)
-        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(snackRecyclerView)
+        val snackItemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, viewHolder1: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                val curFood: DailyFoodItem? =
+                    dataSource.getFoodList().value?.filter { it.meal.equals("snacks") }?.get(viewHolder.bindingAdapterPosition)
+                if (curFood != null){
+                    Log.v(TAG, curFood.toString())
+                    deleteFood(curFood.id)
+                }
+
+            }
+        }
+
+        ItemTouchHelper(breakfastItemTouchCallback).attachToRecyclerView(breakfastRecyclerView)
+        ItemTouchHelper(lunchItemTouchCallback).attachToRecyclerView(lunchRecyclerView)
+        ItemTouchHelper(dinnerItemTouchCallback).attachToRecyclerView(dinnerRecyclerView)
+        ItemTouchHelper(snackItemTouchCallback).attachToRecyclerView(snackRecyclerView)
 
     }
 
     private fun deleteFood(id: Int){
         Log.v(TAG, id.toString())
+
         val call: Call<ResponseBody> =
             RetroFitClient.dailyFoodLogService.deleteDailyFoodLogItem(DailyFoodId(id))
 
@@ -305,7 +363,8 @@ class HomeActivity : AppCompatActivity() {
                 Log.v(TAG, "in Delete on Response")
                 if(response.isSuccessful){
                     Log.v(TAG, "in if")
-
+                    DailyLogDataSource.getDataSource().getDailyDetails(date);
+                    dataSource.getDBFoods(date);
                 }else{
                     Log.v(TAG, "in else")
                     Log.v(TAG, response.code().toString())
