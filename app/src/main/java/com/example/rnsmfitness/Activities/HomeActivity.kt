@@ -71,6 +71,10 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var carbPie: PieChart
     private lateinit var fatPie: PieChart
     private lateinit var dailyLog: LiveData<DailyLog>
+    private lateinit var breakfastCals: TextView
+    private lateinit var lunchCals: TextView
+    private lateinit var dinnerCals: TextView
+    private lateinit var snackCals: TextView
 
     lateinit var test: FloatingActionButton
 //    lateinit var logoutButton: Button
@@ -123,6 +127,11 @@ class HomeActivity : AppCompatActivity() {
         proteinPie = findViewById(R.id.proteinPie)
         carbPie = findViewById(R.id.carbPie)
         fatPie = findViewById(R.id.fatPie)
+
+        breakfastCals = findViewById(R.id.breakfast_cals)
+        lunchCals = findViewById(R.id.lunch_cals)
+        dinnerCals = findViewById(R.id.dinner_cals)
+        snackCals = findViewById(R.id.snack_cals)
 
 
 
@@ -222,6 +231,7 @@ class HomeActivity : AppCompatActivity() {
                     DailyFoodItemAdapter(this, list.filter { it.meal.equals("breakfast") })
                 breakfastRecyclerView.adapter = breakfastAdapter
 
+
                 lunchAdapter = DailyFoodItemAdapter(this, list.filter { it.meal.equals("lunch") })
                 lunchRecyclerView.adapter = lunchAdapter
 
@@ -231,6 +241,10 @@ class HomeActivity : AppCompatActivity() {
                 snackAdapter = DailyFoodItemAdapter(this, list.filter { it.meal.equals("snacks") })
                 snackRecyclerView.adapter = snackAdapter
             }
+            breakfastCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("breakfast").toString()
+            lunchCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("lunch").toString()
+            dinnerCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("dinner").toString()
+            snackCals.text = DailyFoodLogDataSource.getDataSource().getMealCalories("snacks").toString()
         }
 
         DailyLogDataSource.getDataSource().getDailyDetails(date)
@@ -321,7 +335,7 @@ class HomeActivity : AppCompatActivity() {
         var proteinEaten = log.protein_results
         var proteinRemaining = log.protein_goal - log.protein_results
 
-        var carbsEaten = log.calorie_results
+        var carbsEaten = log.carb_results
         var carbsRemaining = log.carb_goal - log.carb_results
 
         var fatsEaten = log.fat_results

@@ -99,16 +99,44 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         >
-                        <TextView
-                            android:id="@+id/breakfast_text"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Breakfast"
-                            android:padding="10dp"
-                            android:textSize="30sp"
+                            android:id="@+id/breakfast_text"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:orientation="horizontal"
+
+                            android:weightSum="3">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Breakfast"
+                                android:padding="10dp"
+                                android:textSize="30sp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:gravity="left"
+                                app:layout_constraintStart_toStartOf="parent"/>
+
+                            <TextView
+                                android:id="@+id/breakfast_cals"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+
+                                android:padding="10dp"
+                                android:text="Cals"
+                                android:textSize="20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </LinearLayout>
+
+
                         <LinearLayout
                             android:id="@+id/breakfast_view"
                             android:layout_width="match_parent"
@@ -134,16 +162,42 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         >
-                        <TextView
-                            android:id="@+id/lunch_text"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Lunch"
-                            android:textSize="30sp"
+                            android:id="@+id/lunch_text"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:padding="10dp"/>
+                            android:orientation="horizontal"
+
+                            android:weightSum="3">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lunch"
+                                android:padding="10dp"
+                                android:textSize="30sp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:gravity="left"
+                                app:layout_constraintStart_toStartOf="parent"/>
+
+                            <TextView
+                                android:id="@+id/lunch_cals"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+
+                                android:padding="10dp"
+                                android:text="Cals"
+                                android:textSize="20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </LinearLayout>
                         <LinearLayout
                             android:id="@+id/lunch_view"
                             android:layout_width="match_parent"
@@ -169,16 +223,42 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         >
-                        <TextView
-                            android:id="@+id/dinner_text"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Dinner"
-                            android:textSize="30sp"
-                            android:padding="10dp"
+                            android:id="@+id/dinner_text"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:orientation="horizontal"
+
+                            android:weightSum="3">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dinner"
+                                android:padding="10dp"
+                                android:textSize="30sp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:gravity="left"
+                                app:layout_constraintStart_toStartOf="parent"/>
+
+                            <TextView
+                                android:id="@+id/dinner_cals"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+
+                                android:padding="10dp"
+                                android:text="Cals"
+                                android:textSize="20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </LinearLayout>
                         <LinearLayout
                             android:id="@+id/dinner_view"
                             android:layout_width="match_parent"
@@ -204,16 +284,42 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         >
-                        <TextView
-                            android:id="@+id/snack_text"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Snacks"
-                            android:padding="10dp"
-                            android:textSize="30sp"
+                            android:id="@+id/snack_text"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:orientation="horizontal"
+
+                            android:weightSum="3">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Snacks"
+                                android:padding="10dp"
+                                android:textSize="30sp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:gravity="left"
+                                app:layout_constraintStart_toStartOf="parent"/>
+
+                            <TextView
+                                android:id="@+id/snack_cals"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+
+                                android:padding="10dp"
+                                android:text="Cals"
+                                android:textSize="20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </LinearLayout>
                         <LinearLayout
                             android:id="@+id/snack_view"
                             android:layout_width="match_parent"

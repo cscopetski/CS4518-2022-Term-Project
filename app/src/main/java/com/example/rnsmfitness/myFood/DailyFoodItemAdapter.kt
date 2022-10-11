@@ -68,8 +68,6 @@ class DailyFoodItemAdapter (val activity: Activity, private val foods: List<Dail
 
             }
 
-
-
         }
 
         init {
@@ -79,10 +77,6 @@ class DailyFoodItemAdapter (val activity: Activity, private val foods: List<Dail
             servingText = itemView.findViewById(R.id.serving_text)
         }
 
-
-
     }
-
-
 
 }

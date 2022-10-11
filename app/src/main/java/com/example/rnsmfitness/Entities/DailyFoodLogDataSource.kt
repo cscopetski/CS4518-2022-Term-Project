@@ -60,6 +60,16 @@ class DailyFoodLogDataSource {
 
     }
 
+    fun getMealCalories(meal: String): Int{
+        var calTotal = 0;
+        for (item in liveList.value!!){
+            if (item.meal == meal){
+                calTotal += (item.calories * item.quantity).toInt()
+            }
+        }
+        return calTotal
+    }
+
     companion object {
         private var INSTANCE: DailyFoodLogDataSource? = null
 

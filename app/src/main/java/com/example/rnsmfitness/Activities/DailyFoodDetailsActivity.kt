@@ -71,7 +71,8 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
 
 
         closeButton.setOnClickListener {
-            switchToMyFoodPage()
+            //switchToMyFoodPage()
+            finish()
         }
 
         editButton.setOnClickListener {
@@ -105,7 +106,6 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
         pieChart.innerPadding = 60F
         pieChart.innerValueUnit = "%"
         Log.v("DailyFoodDetails", pieChart.innerPaddingColor.toString())
-        pieChart.innerPaddingColor = 3881787
 
 
         // To animate the pie chart
