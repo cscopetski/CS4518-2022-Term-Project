@@ -18,7 +18,7 @@
             android:layout_gravity="left"
             android:backgroundTint="@color/white"
             android:textColor="#AAAAAA"
-            android:text="<Back"/>
+            android:text="&#60;Back"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
