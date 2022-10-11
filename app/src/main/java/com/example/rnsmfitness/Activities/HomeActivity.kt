@@ -217,19 +217,6 @@ class HomeActivity : AppCompatActivity() {
         dinnerRecyclerView = findViewById(R.id.dinner_recycler)
         snackRecyclerView = findViewById(R.id.snack_recycler)
 
-
-//        btnScan.setOnClickListener {
-//            /*val intent = Intent(applicationContext, ScanActivity::class.java)
-//            startActivity(intent)*/
-//            openCameraActivityForResult()
-//        }
-
-//        val result = data?.getStringExtra(RESULT)
-//
-//        if(result != null)
-//            resultText.text = result.toString()
-
-
         breakfastRecyclerView.layoutManager = LinearLayoutManager(this)
         lunchRecyclerView.layoutManager = LinearLayoutManager(this)
         dinnerRecyclerView.layoutManager = LinearLayoutManager(this)
