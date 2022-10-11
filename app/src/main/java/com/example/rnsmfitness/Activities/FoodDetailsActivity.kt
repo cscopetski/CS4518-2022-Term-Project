@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.rnsmfitness.R
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
+import java.sql.Date
 
 
 private const val TAG = "FoodDetailsActivity"
@@ -48,7 +49,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
         val name: String = intent.getStringArrayListExtra("valueList")!![3]
         val servingSize: String = intent.getStringArrayListExtra("valueList")!![4].toString()
         val foodID: String = intent.getStringArrayListExtra("valueList")!![5]
-
+        val date: Date = Date(intent.getLongExtra("Date",System.currentTimeMillis()))
         detailsProtein.text = protein + "g"
         detailsCarbs.text = carbs + "g"
         detailsFat.text = fat + "g"
@@ -77,6 +78,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
         addToLogButton.setOnClickListener{
             val intent = Intent(this, AddFoodToLogActivity::class.java)
             intent.putStringArrayListExtra("foodDetailsList", detailsList)
+            intent.putExtra("Date",date.time)
             intent.putExtra(INTENT_CODE, INTENT_CODE_MY_FOOD)
             startActivity(intent)
         }
