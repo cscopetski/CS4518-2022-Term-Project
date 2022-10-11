@@ -77,7 +77,7 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
         }
 
         addToMyFoodsButton.setOnClickListener {
-            insertFood(FoodItemBody(name, protein.toInt(), carbs.toInt(), fat.toInt(), calories, servingSize.toDouble()))
+            insertFood(FoodItemBody(name, protein.toInt(), fat.toInt(), carbs.toInt(), calories, servingSize.toDouble()))
             Toast.makeText(this, "Food has been added to MyFoods list", Toast.LENGTH_SHORT).show()
         }
 
