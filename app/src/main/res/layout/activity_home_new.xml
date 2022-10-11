@@ -14,6 +14,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
         <androidx.cardview.widget.CardView
+            android:id="@+id/date_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
@@ -25,6 +26,95 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/charts_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/charts_text"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="horizontal"
+
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Charts"
+                        android:padding="10dp"
+                        android:textSize="30sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:gravity="left"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/chart_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/charts_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+                    <org.eazegraph.lib.charts.PieChart
+                        android:id="@+id/caloriePie"
+                        android:layout_width="300dp"
+                        android:layout_height="400dp"
+                        android:layout_gravity="center"
+                        android:padding="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:weightSum="3">
+
+                        <org.eazegraph.lib.charts.PieChart
+                            android:id="@+id/proteinPie"
+                            android:layout_width="0dp"
+                            android:layout_height="200dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:padding="6dp"/>
+
+                        <org.eazegraph.lib.charts.PieChart
+                            android:id="@+id/carbPie"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:padding="6dp"/>
+
+                        <org.eazegraph.lib.charts.PieChart
+                            android:id="@+id/fatPie"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:padding="6dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
 
@@ -38,48 +128,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <org.eazegraph.lib.charts.PieChart
-                    android:id="@+id/caloriePie"
-                    android:layout_width="300dp"
-                    android:layout_height="400dp"
-                    android:layout_gravity="center"
-                    android:padding="6dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:weightSum="3">
-
-                    <org.eazegraph.lib.charts.PieChart
-                        android:id="@+id/proteinPie"
-                        android:layout_width="0dp"
-                        android:layout_height="200dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:padding="6dp"/>
-
-                    <org.eazegraph.lib.charts.PieChart
-                        android:id="@+id/carbPie"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:padding="6dp"/>
-
-                    <org.eazegraph.lib.charts.PieChart
-                        android:id="@+id/fatPie"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:padding="6dp"/>
-
-                </LinearLayout>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/breakfast_card"

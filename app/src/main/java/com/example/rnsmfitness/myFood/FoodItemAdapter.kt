@@ -18,9 +18,11 @@ private const val TAG1 = "FoodItemAdapter"
 
 
 
-class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>, val date: Date) : RecyclerView.Adapter<FoodItemAdapter.ViewHolder>() {
+class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>) : RecyclerView.Adapter<FoodItemAdapter.ViewHolder>() {
 
     var foodsCopy: ArrayList<FoodItem> = ArrayList(foods)
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -81,7 +83,6 @@ class FoodItemAdapter (val activity: Activity, private val foods: List<FoodItem>
                 val intent = Intent(activity, FoodDetailsActivity::class.java)
 
                 intent.putStringArrayListExtra("valueList", valueList)
-                intent.putExtra("Date",date.time)
                 activity.startActivity(intent)
             }
 

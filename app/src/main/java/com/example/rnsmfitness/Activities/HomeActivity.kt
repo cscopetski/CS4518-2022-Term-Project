@@ -58,6 +58,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var dinnerCardView: CardView
     private lateinit var dinnerView: LinearLayout
     private lateinit var snackCardView: CardView
+    private lateinit var chartsCard: CardView
+    private lateinit var chartView: LinearLayout
     private lateinit var snackView: LinearLayout
     private lateinit var liveList: LiveData<List<DailyFoodItem>>
     private lateinit var caloriePie: PieChart
@@ -95,13 +97,7 @@ class HomeActivity : AppCompatActivity() {
 
         navBar.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
-
-                R.id.foods -> {
-
-                    val intent = Intent(this, MyFoodList::class.java)
-                    intent.putExtra("Date",date.time)
-                    startActivity(intent)
-                }
+                R.id.foods -> startActivity(Intent(this, MyFoodList::class.java))
                 R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
             }
             overridePendingTransition(0, 0);
@@ -126,6 +122,9 @@ class HomeActivity : AppCompatActivity() {
 
         snackCardView = findViewById(R.id.snack_card)
         snackView = findViewById(R.id.snack_view)
+
+        chartsCard = findViewById(R.id.charts_card)
+        chartView = findViewById(R.id.chart_view)
 
         caloriePie = findViewById(R.id.caloriePie)
         proteinPie = findViewById(R.id.proteinPie)
@@ -177,6 +176,19 @@ class HomeActivity : AppCompatActivity() {
                 snackView.visibility = (View.VISIBLE);
             }
         }
+
+        chartsCard.setOnClickListener {
+            if (chartView.visibility == View.VISIBLE) {
+//                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
+                chartView.visibility = (View.GONE);
+//                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
+            } else {
+//                TransitionManager.beginDelayedTransition(breakfastCardView, AutoTransition());
+                chartView.visibility = (View.VISIBLE);
+//                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
+            }
+        }
+
         editDate.setText(date.toString())
         editDate.setOnClickListener {
             val c = Calendar.getInstance()
@@ -381,15 +393,19 @@ class HomeActivity : AppCompatActivity() {
 
         var calsEaten = log.calorie_results
         var calsRemaining = log.calorie_goal - log.calorie_results
+        if (calsRemaining < 0){calsRemaining = 0}
 
         var proteinEaten = log.protein_results
         var proteinRemaining = log.protein_goal - log.protein_results
+        if (proteinRemaining < 0){proteinRemaining = 0}
 
         var carbsEaten = log.carb_results
         var carbsRemaining = log.carb_goal - log.carb_results
+        if (carbsRemaining < 0){carbsRemaining = 0}
 
         var fatsEaten = log.fat_results
         var fatsRemaining = log.fat_goal - log.fat_results
+        if (fatsRemaining < 0){fatsRemaining = 0}
 
 
         caloriePie.addPieSlice(
@@ -447,19 +463,21 @@ class HomeActivity : AppCompatActivity() {
             )
         )
 
-
-
         caloriePie.innerPadding = 60F;
         caloriePie.startAnimation()
+        caloriePie.innerValueUnit = "cal"
 
         proteinPie.innerPadding = 60F;
         proteinPie.startAnimation()
+        proteinPie.innerValueUnit = "g"
 
         carbPie.innerPadding = 60F;
         carbPie.startAnimation()
+        carbPie.innerValueUnit = "g"
 
         fatPie.innerPadding = 60F;
         fatPie.startAnimation()
+        fatPie.innerValueUnit = "g"
     }
 
 }

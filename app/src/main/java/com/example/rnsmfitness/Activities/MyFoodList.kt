@@ -26,7 +26,6 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.sql.Date
 import java.util.*
 
 
@@ -43,10 +42,9 @@ class MyFoodList : AppCompatActivity() {
     private val createFoodActivityRequestCode = 1
     private lateinit var liveList: LiveData<List<FoodItem>>
     private lateinit var navBar: BottomNavigationView
-    private lateinit var date: Date
 
     private var adapter: FoodItemAdapter = FoodItemAdapter(this,
-        foods.value!!, Date(System.currentTimeMillis())
+        foods.value!!
     )
 
     private lateinit var dataSource: DataSource
@@ -54,7 +52,7 @@ class MyFoodList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_food_list)
-        date = Date(intent.getLongExtra("Date",System.currentTimeMillis()))
+
         createFoodButton = findViewById(R.id.add_food_fab)
         homeButton = findViewById(R.id.home_buton)
         usdaButton = findViewById(R.id.USDA_DB_button)
@@ -102,7 +100,7 @@ class MyFoodList : AppCompatActivity() {
 
         liveList.observe(this) {
             it?.let {
-                adapter = FoodItemAdapter(this, it, date)
+                adapter = FoodItemAdapter(this, it)
                 recyclerView.adapter = adapter
             }
         }

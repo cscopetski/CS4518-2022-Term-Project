@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Activities.FoodDetailsActivity
 import com.example.rnsmfitness.Activities.USDAFoodDetailsActivity
 import com.example.rnsmfitness.Entities.USDAFoodItem
-import java.sql.Date
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -20,7 +19,7 @@ private const val TAG1 = "FoodItemAdapter"
 
 
 
-class USDAFoodItemAdapter (val activity: Activity, private val foods: List<USDAFoodItem>, val date: Date) : RecyclerView.Adapter<USDAFoodItemAdapter.ViewHolder>() {
+class USDAFoodItemAdapter (val activity: Activity, private val foods: List<USDAFoodItem>) : RecyclerView.Adapter<USDAFoodItemAdapter.ViewHolder>() {
 
     var foodsCopy: ArrayList<USDAFoodItem> = ArrayList(foods)
 
@@ -66,7 +65,6 @@ class USDAFoodItemAdapter (val activity: Activity, private val foods: List<USDAF
                 val intent = Intent(activity, USDAFoodDetailsActivity::class.java)
 
                 intent.putStringArrayListExtra("valueList", valueList)
-                intent.putExtra("Date",date.time)
                 activity.startActivity(intent)
             }
         }
