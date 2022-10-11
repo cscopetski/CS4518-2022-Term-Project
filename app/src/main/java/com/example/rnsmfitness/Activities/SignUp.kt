@@ -326,7 +326,7 @@ class SignUp : AppCompatActivity() {
 
         //Sign Up Button
         binding.signUpButton.setOnClickListener {
-            if(checkAll() && matchingPassword()) {
+            if(checkAll() && matchingPassword() && checkEmail()) {
                 signUp()
             }
         }
@@ -727,5 +727,15 @@ class SignUp : AppCompatActivity() {
             Log.d(SIGNUP, "Switch Activity: User Error")
         }
     }
+
+    private fun checkEmail():Boolean{
+        if(signUpFields.email != null && signUpFields.email!!.contains('@')){
+                return true
+            }
+            else{
+                binding.emailError.visibility = View.VISIBLE
+                return false
+            }
+        }
 
 }

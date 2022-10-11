@@ -879,12 +879,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Email*"
-                        android:inputType="text"
-                        android:layout_marginBottom="10dp"/>
+                        android:inputType="text"/>
+                    <TextView
+                        android:id="@+id/emailError"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Requires &quot;@&quot;"
+                        android:textSize="11sp"
+                        android:layout_marginHorizontal="10dp"
+                        android:textColor="#FF0000"
+                        android:visibility="gone"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Password"
+                        android:layout_marginTop="10dp"
                         android:layout_marginHorizontal="5dp"/>
                     <!--TextInput layout which acts as a wrapper to the edit text-->
                     <com.google.android.material.textfield.TextInputLayout
