@@ -1,6 +1,7 @@
 package com.example.rnsmfitness.Activities
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import com.example.rnsmfitness.Entities.DailyLogDataSource
 import com.example.rnsmfitness.Entities.FoodItemBody
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
@@ -22,6 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.sql.Date
+import java.util.*
 
 private const val TAG2 = "AddFoodToLogActivity"
 const val INTENT_CODE = "ACTIVITY_NAME"
@@ -39,11 +42,33 @@ class AddFoodToLogActivity : AppCompatActivity() {
     private lateinit var editFoodCalories: TextInputEditText
     private lateinit var submitButton: Button
     private lateinit var cancelButton: Button
-
+    private lateinit var editDate: Button
+    private lateinit var date: Date
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        date = Date(intent.getLongExtra("Date",System.currentTimeMillis()))
+
         setContentView(R.layout.activity_add_food_to_log)
+        editDate = findViewById(R.id.edit_date)
+        editDate.setText(date.toString())
+        editDate.setOnClickListener {
+            val c = Calendar.getInstance()
+            c.time = date
+            val year: Int = c.get(Calendar.YEAR)
+            val month: Int = c.get(Calendar.MONTH)
+            val day: Int = c.get(Calendar.DAY_OF_MONTH)
+            val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
+
+                c.set(year, monthOfYear, dayOfMonth)
+                date = Date(c.timeInMillis)
+                editDate.setText(date.toString())
+            }, year, month, day)
+
+            dpd.show()
+
+        }
 
         editFoodName = findViewById(R.id.edit_food_name)
         editFoodProtein = findViewById(R.id.edit_food_protein)
@@ -74,6 +99,10 @@ class AddFoodToLogActivity : AppCompatActivity() {
             meal = intent.getStringExtra("MEAL").toString()
         }
 
+
+
+
+
         val protein: String = intent.getStringArrayListExtra("foodDetailsList")!![0]
         val fat: String = intent.getStringArrayListExtra("foodDetailsList")!![1]
         val carbs: String = intent.getStringArrayListExtra("foodDetailsList")!![2]
@@ -91,8 +120,6 @@ class AddFoodToLogActivity : AppCompatActivity() {
         editFoodMeal.setSelection(spinnerAdapter.getPosition(meal.replaceFirstChar { it.uppercase() }))
 
         submitButton.setOnClickListener {
-
-            val date = Date(intent.getLongExtra("DATE", System.currentTimeMillis()))
 
             if (editFoodQuantity.text.isNullOrEmpty()) {
                 Log.d(TAG2, "There was a null value")

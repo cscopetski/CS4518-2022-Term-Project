@@ -95,7 +95,13 @@ class HomeActivity : AppCompatActivity() {
 
         navBar.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.foods -> startActivity(Intent(this, MyFoodList::class.java))
+
+                R.id.foods -> {
+
+                    val intent = Intent(this, MyFoodList::class.java)
+                    intent.putExtra("Date",date.time)
+                    startActivity(intent)
+                }
                 R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
             }
             overridePendingTransition(0, 0);

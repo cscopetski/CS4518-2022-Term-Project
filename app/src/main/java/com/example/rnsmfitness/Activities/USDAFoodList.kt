@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationBarView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.sql.Date
 import java.util.*
 
 
@@ -38,9 +39,9 @@ class USDAFoodList : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     lateinit var searchView: SearchView
     private lateinit var navBar:BottomNavigationView
-
+    private lateinit var date: Date
     private var adapter: USDAFoodItemAdapter = USDAFoodItemAdapter(this,
-        foods.value!!
+        foods.value!!, Date(System.currentTimeMillis())
     )
 
     private lateinit var usdaDataSource: USDADataSource
@@ -48,7 +49,7 @@ class USDAFoodList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.usda_food_list)
-
+        date = Date(intent.getLongExtra("Date",System.currentTimeMillis()))
 //        homeButton = findViewById(R.id.home_buton)
         recyclerView = findViewById(R.id.usda_foodRecycler)
         searchView = findViewById(R.id.my_food_search)
@@ -87,7 +88,7 @@ class USDAFoodList : AppCompatActivity() {
 
         liveList.observe(this) {
             it?.let {
-                adapter = USDAFoodItemAdapter(this, it)
+                adapter = USDAFoodItemAdapter(this, it, date)
                 recyclerView.adapter = adapter
             }
         }
