@@ -3,41 +3,35 @@ package com.example.rnsmfitness.Activities
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.ItemTouchHelper
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rnsmfitness.Entities.*
-import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.LiveData
-import com.example.rnsmfitness.Activities.ScanActivity.Companion.CAMERARESULT
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.myFood.DailyFoodItemAdapter
-
 import com.example.rnsmfitness.services.DailyFoodId
 import com.example.rnsmfitness.services.DailyLog
-import com.example.rnsmfitness.services.USDADailyFood
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import okhttp3.ResponseBody
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Integer.parseInt
-
 import java.sql.Date
 import java.util.*
+
 
 private const val TAG = "HomeActivity"
 
@@ -75,8 +69,9 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var lunchCals: TextView
     private lateinit var dinnerCals: TextView
     private lateinit var snackCals: TextView
+    private lateinit var navBar: BottomNavigationView
 
-    lateinit var test: FloatingActionButton
+//    lateinit var test: FloatingActionButton
 //    lateinit var logoutButton: Button
 //    lateinit var nameTextView: TextView
 
@@ -95,14 +90,17 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_new)
+        navBar = findViewById(R.id.bottom_nav)
+        navBar.selectedItemId = (R.id.home)
 
-        test = findViewById(R.id.test_button)
-
-        test.setOnClickListener{
-            val intent = Intent(this, MyFoodList::class.java)
-            startActivity(intent)
-
-        }
+        navBar.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.foods -> startActivity(Intent(this, MyFoodList::class.java))
+                R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            }
+            overridePendingTransition(0, 0);
+            true
+        })
 
         editDate = findViewById(R.id.edit_date)
 
@@ -250,7 +248,6 @@ class HomeActivity : AppCompatActivity() {
 
         dailyLog.observe(this){ it ->
             setPies(it)
-            setCalTotals()
         }
 
 
@@ -263,6 +260,7 @@ class HomeActivity : AppCompatActivity() {
         super.onResume()
         dataSource.getDBFoods(date)
         liveList = dataSource.getFoodList()
+        navBar.selectedItemId = (R.id.home)
     }
 
     private fun setCalTotals(){

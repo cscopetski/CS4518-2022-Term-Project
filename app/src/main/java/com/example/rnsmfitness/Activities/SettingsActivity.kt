@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
 import com.example.rnsmfitness.databinding.ActivitySettingsBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,7 +24,22 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivitySettingsBinding.inflate(layoutInflater)
+
+        binding.bottomNav.selectedItemId = (R.id.settings)
+
+        binding.bottomNav.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.foods -> startActivity(Intent(this, MyFoodList::class.java))
+                R.id.home -> startActivity(Intent(this, HomeActivity::class.java))
+            }
+            overridePendingTransition(0, 0);
+            true
+        })
+
+
+
         val view = binding.root
         setContentView(view)
 
@@ -64,5 +82,10 @@ class SettingsActivity : AppCompatActivity() {
     private fun switchActivity(){
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.bottomNav.selectedItemId = (R.id.settings)
     }
 }

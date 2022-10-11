@@ -19,7 +19,9 @@ import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.FoodItemAdapter
 import com.example.rnsmfitness.R
 import com.example.rnsmfitness.RetroFitClient
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationBarView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,6 +41,7 @@ class MyFoodList : AppCompatActivity() {
     lateinit var searchView: SearchView
     private val createFoodActivityRequestCode = 1
     private lateinit var liveList: LiveData<List<FoodItem>>
+    private lateinit var navBar: BottomNavigationView
 
     private var adapter: FoodItemAdapter = FoodItemAdapter(this,
         foods.value!!
@@ -56,7 +59,17 @@ class MyFoodList : AppCompatActivity() {
         recyclerView = findViewById(R.id.foodRecycler)
         searchView = findViewById(R.id.my_food_search)
 
+        navBar = findViewById(R.id.bottom_nav)
+        navBar.selectedItemId = (R.id.foods)
 
+        navBar.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> startActivity(Intent(this, HomeActivity::class.java))
+                R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            }
+            overridePendingTransition(0, 0);
+            true
+        })
 
         getDBFoods()
 
@@ -123,6 +136,7 @@ class MyFoodList : AppCompatActivity() {
         super.onResume()
         getDBFoods()
         liveList = dataSource.getFoodList()
+        navBar.selectedItemId = (R.id.foods)
     }
 
 
