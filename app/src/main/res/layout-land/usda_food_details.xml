@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/cardview_dark_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_dark_background"
     android:orientation="vertical"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    tools:context=".Activities.DailyFoodDetailsActivity">
-
+    android:paddingRight="16dp">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/cardview_dark_background">
+            android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,158 +21,150 @@
         android:paddingBottom="16dp"
         android:text="Food Details"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textStyle="bold"
         android:textSize="40sp"
 
-        android:textStyle="bold" />
+        android:textColor="@color/white"/>
 
 
     <LinearLayout
+        android:padding="14dp"
         android:id="@+id/headers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
 
-        android:padding="14dp">
-
+        android:orientation="horizontal">
         <TextView
-            android:id="@+id/food_detail_name"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Food Name"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="30sp"
             android:textStyle="bold"
-            android:ellipsize="end"
-            android:maxLines="2"/>
+            android:id="@+id/usda_food_detail_name"
+            android:text="Food Name"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/food_detail_calories"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Calories"
+            android:textStyle="bold"
+            android:id="@+id/usda_food_detail_calories"
 
-            android:textAlignment="center"
-            android:textColor="@color/white"
             android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
 
-            android:textStyle="bold" />
+            android:text="Calories" />
 
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:id="@+id/macros"
+        android:padding="14dp"
+        android:id="@+id/usda_macros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="14dp"
+        android:weightSum="3"
 
-        android:weightSum="3">
-
+        android:orientation="horizontal">
         <LinearLayout
-            android:id="@+id/protein"
+            android:padding="14dp"
+            android:id="@+id/usda_protein"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="14dp">
-
+            android:layout_weight="1">
             <TextView
-                android:id="@+id/food_detail_protein_label"
+                android:id="@+id/usda_food_detail_protein_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:text="Protein:"
-                android:textAlignment="center"
-                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/food_detail_protein"
+                android:id="@+id/usda_food_detail_protein"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="TextView"
-                android:textAlignment="center"
                 android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="TextView"
                 android:textSize="20sp"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/carbs"
+            android:padding="14dp"
+            android:id="@+id/usda_carbs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="14dp">
-
+            android:orientation="vertical">
             <TextView
-                android:id="@+id/food_detail_carbs_label"
+                android:id="@+id/usda_food_detail_carbs_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:text="Carbs:"
-                android:textAlignment="center"
-                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
-
             <TextView
-                android:id="@+id/food_detail_carbs"
+                android:id="@+id/usda_food_detail_carbs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="TextView"
-                android:textAlignment="center"
                 android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="TextView"
                 android:textSize="20sp"
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/fats"
+            android:padding="14dp"
+            android:id="@+id/usda_fats"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="14dp">
-
+            android:orientation="vertical">
             <TextView
-                android:id="@+id/food_detail_fats_label"
+                android:id="@+id/usda_food_detail_fats_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Fats:"
-                android:textAlignment="center"
                 android:textColor="@color/white"
+                android:text="Fats:"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 tools:ignore="HardcodedText" />
-
             <TextView
-                android:id="@+id/food_detail_fats"
+                android:id="@+id/usda_food_detail_fats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="TextView"
-                android:textAlignment="center"
                 android:textColor="@color/white"
+                android:text="TextView"
                 android:textSize="20sp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
 
-        />
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -189,7 +177,7 @@
 
 
         <org.eazegraph.lib.charts.PieChart
-            android:id="@+id/dailyDetailsPieChart"
+            android:id="@+id/pieChartUSDADetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -197,23 +185,32 @@
             android:padding="6dp"/>
 
         <Button
-            android:id="@+id/edit_button"
+            android:id="@+id/add_to_my_foods_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
 
-            android:text="Edit Food" />
-
+            android:text="Add Food to my foods" />
         <Button
-            android:id="@+id/close_button"
+            android:id="@+id/add_food_to_log_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:text="Add Food to Daily Log" />
+        <Button
+            android:id="@+id/usda_close_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Close" />
 
+
+
     </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
 
+
+</LinearLayout>
 

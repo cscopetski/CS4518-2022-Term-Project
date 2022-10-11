@@ -46,9 +46,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.logoutButton.setOnClickListener{
             logout(this)
         }
-        binding.backButton.setOnClickListener {
-            finish()
-        }
     }
 
     private fun logout(activity: Context){

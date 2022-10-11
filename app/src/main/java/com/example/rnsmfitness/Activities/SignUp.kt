@@ -720,7 +720,7 @@ class SignUp : AppCompatActivity() {
 
     private fun switchActivity(user: User?){
         if(user!=null){
-            val intent = Intent(this, NavActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             intent.putExtra("Name",user.firstname + " " + user.lastname)
             startActivity(intent)
         }else{
