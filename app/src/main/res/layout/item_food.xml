@@ -53,9 +53,10 @@
                         android:layout_weight="1"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:textAlignment="center"
+                        android:textAlignment="textStart"
                         tools:text="Food Name"
                         android:ellipsize="end"
+
                         android:maxLines="1"/>
 
                     <TextView
