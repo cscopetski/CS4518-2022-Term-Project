@@ -388,15 +388,19 @@ class HomeActivity : AppCompatActivity() {
 
         var calsEaten = log.calorie_results
         var calsRemaining = log.calorie_goal - log.calorie_results
+        if (calsRemaining < 0){calsRemaining = 0}
 
         var proteinEaten = log.protein_results
         var proteinRemaining = log.protein_goal - log.protein_results
+        if (proteinRemaining < 0){proteinRemaining = 0}
 
         var carbsEaten = log.carb_results
         var carbsRemaining = log.carb_goal - log.carb_results
+        if (carbsRemaining < 0){carbsRemaining = 0}
 
         var fatsEaten = log.fat_results
         var fatsRemaining = log.fat_goal - log.fat_results
+        if (fatsRemaining < 0){fatsRemaining = 0}
 
 
         caloriePie.addPieSlice(
