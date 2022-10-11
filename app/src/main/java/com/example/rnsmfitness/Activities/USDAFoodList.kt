@@ -43,7 +43,7 @@ class USDAFoodList : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     lateinit var searchView: SearchView
     private lateinit var navBar:BottomNavigationView
-
+    private lateinit var date: Date
     private var adapter: USDAFoodItemAdapter = USDAFoodItemAdapter(this,
         foods.value!!
     )
