@@ -37,7 +37,9 @@
             android:text="Food Name"
             android:textSize="30sp"
             android:textColor="@color/white"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:ellipsize="end"
+            android:maxLines="2"/>
 
         <TextView
             android:layout_weight="1"
