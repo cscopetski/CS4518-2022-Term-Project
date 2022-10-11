@@ -90,7 +90,14 @@
         tools:listitem="@layout/item_food" />
 </LinearLayout>
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/scan_food_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_nav"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_baseline_qr_code_scanner_24"
+        android:layout_alignParentRight="true"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

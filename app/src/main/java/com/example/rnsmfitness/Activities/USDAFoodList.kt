@@ -7,11 +7,14 @@ import android.util.Log
 import android.widget.Button
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rnsmfitness.Activities.ScanActivity.Companion.CAMERARESULT
+import com.example.rnsmfitness.Entities.DailyFoodItem
 import com.example.rnsmfitness.Entities.FoodItem
 import com.example.rnsmfitness.Entities.USDADataSource
 import com.example.rnsmfitness.Entities.USDAFoodItem
@@ -27,6 +30,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.sql.Date
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 private const val TAG = "USDAFoodList"
@@ -34,8 +38,9 @@ private const val TAG = "USDAFoodList"
 class USDAFoodList : AppCompatActivity() {
 
     private var foods: MutableLiveData<List<USDAFoodItem>> = MutableLiveData(listOf<USDAFoodItem>())
-//    lateinit var homeButton: FloatingActionButton
-    lateinit var searchUSDA: Button
+    private lateinit var scanButton: FloatingActionButton
+    private lateinit var searchUSDA: Button
+    private lateinit var scanData: Intent
     private lateinit var recyclerView: RecyclerView
     lateinit var searchView: SearchView
     private lateinit var navBar:BottomNavigationView
@@ -50,7 +55,7 @@ class USDAFoodList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.usda_food_list)
         date = Date(intent.getLongExtra("Date",System.currentTimeMillis()))
-//        homeButton = findViewById(R.id.home_buton)
+        scanButton = findViewById(R.id.scan_food_button)
         recyclerView = findViewById(R.id.usda_foodRecycler)
         searchView = findViewById(R.id.my_food_search)
         searchUSDA = findViewById(R.id.usda_search_button)
@@ -67,12 +72,9 @@ class USDAFoodList : AppCompatActivity() {
             true
         })
 
-        //getDBFoods()
-
-//        homeButton.setOnClickListener {
-//            //set current view to myFoodPage
-//            switchToHomePage()
-//        }
+        scanButton.setOnClickListener {
+            openCameraActivityForResult()
+        }
 
         searchUSDA.setOnClickListener {
             getUSDAFoods(searchView.query.toString())
@@ -94,23 +96,6 @@ class USDAFoodList : AppCompatActivity() {
         }
 
     }
-
-
-//    private fun setRecyclerViewItemTouchListener() {
-//
-//
-//        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-//
-//            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, viewHolder1: RecyclerView.ViewHolder): Boolean {
-//                return false
-//            }
-//
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-//            }
-//        }
-//
-//        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(recyclerView)
-//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
@@ -148,6 +133,47 @@ class USDAFoodList : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<USDAFoodItem>>, t: Throwable) {
+                Log.d(TAG,t.toString())
+            }
+        })
+    }
+
+    private fun openCameraActivityForResult() {
+        val intent = Intent(this, ScanActivity::class.java)
+        resultLauncher.launch(intent)
+    }
+
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == CAMERARESULT) {
+            // There are no request codes
+            scanData = result.data!!
+            val result = scanData.getStringExtra(HomeActivity.RESULT)
+
+            if(result != null)
+                getFoodByUPC(result.toString())
+        }
+    }
+
+    private fun getFoodByUPC(upcId : String){
+
+        val call: Call<USDAFoodItem> =
+            RetroFitClient.usdaFoodService.getFoodByUPCId(upcId);
+
+        call.enqueue(object : Callback<USDAFoodItem?> {
+            override fun onResponse(call: Call<USDAFoodItem?>, response: Response<USDAFoodItem?>) {
+                if(response.isSuccessful){
+
+                    Log.d(TAG,response.body().toString())
+                    val list = ArrayList<USDAFoodItem>()
+                    list.add(response.body()!!)
+                    usdaDataSource.setFoodList(list)
+                }else{
+                    Log.d(TAG,response.code().toString())
+                    Log.d(TAG,response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<USDAFoodItem?>, t: Throwable) {
                 Log.d(TAG,t.toString())
             }
         })

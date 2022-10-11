@@ -205,19 +205,6 @@ class HomeActivity : AppCompatActivity() {
         dinnerRecyclerView = findViewById(R.id.dinner_recycler)
         snackRecyclerView = findViewById(R.id.snack_recycler)
 
-
-//        btnScan.setOnClickListener {
-//            /*val intent = Intent(applicationContext, ScanActivity::class.java)
-//            startActivity(intent)*/
-//            openCameraActivityForResult()
-//        }
-
-//        val result = data?.getStringExtra(RESULT)
-//
-//        if(result != null)
-//            resultText.text = result.toString()
-
-
         breakfastRecyclerView.layoutManager = LinearLayoutManager(this)
         lunchRecyclerView.layoutManager = LinearLayoutManager(this)
         dinnerRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -474,23 +461,5 @@ class HomeActivity : AppCompatActivity() {
         fatPie.innerPadding = 60F;
         fatPie.startAnimation()
     }
-
-//    private fun openCameraActivityForResult() {
-//        val intent = Intent(this, ScanActivity::class.java)
-//        resultLauncher.launch(intent)
-//    }
-//
-//    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//        if (result.resultCode == CAMERARESULT) {
-//            // There are no request codes
-//            data = result.data
-//            val result = data?.getStringExtra(RESULT)
-//
-//            if(result != null)
-//                resultText.text = result.toString()
-//        }
-//    }
-
-
 
 }
