@@ -76,7 +76,7 @@ class EditFoodActivity: AppCompatActivity()  {
                 setResult(Activity.RESULT_CANCELED, Intent())
             } else {
                 Log.d(TAG2, "There were no null values, now sending intent")
-                updateFood(FoodItem(foodID, editFoodName.text.toString(), 1, editFoodProtein.text.toString().toInt(), editFoodCarbs.text.toString().toInt(), editFoodFat.text.toString().toInt(), editFoodCalories.text.toString().toInt(), editFoodServingSize.text.toString().toDouble()))
+                updateFood(FoodItem(foodID, editFoodName.text.toString(), 1, editFoodProtein.text.toString().toInt(), editFoodFat.text.toString().toInt(), editFoodCarbs.text.toString().toInt(), editFoodCalories.text.toString().toInt(), editFoodServingSize.text.toString().toDouble()))
             }
             finish()
             switchToMyFoodPage()
