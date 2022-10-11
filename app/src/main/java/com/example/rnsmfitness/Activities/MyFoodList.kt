@@ -91,9 +91,11 @@ class MyFoodList : AppCompatActivity() {
 
         dataSource = DataSource.getDataSource()
 
-        myFoodButton.isSelected = true
+        myFoodButton.isEnabled = false
+
         usdaButton.setOnClickListener{
             switchToUSDAPage()
+            overridePendingTransition(0, 0);
         }
 
         val liveList = dataSource.getFoodList()
@@ -184,7 +186,6 @@ class MyFoodList : AppCompatActivity() {
 
     private fun switchToUSDAPage(){
         val intent = Intent(this, USDAFoodList::class.java)
-//        intent.putExtra("Date",date)
         startActivity(intent)
     }
 

@@ -49,6 +49,8 @@ class USDAFoodList : AppCompatActivity() {
     )
 
     private lateinit var usdaDataSource: USDADataSource
+    private lateinit var myFoodButton: Button
+    private lateinit var usdaButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +63,16 @@ class USDAFoodList : AppCompatActivity() {
 
         navBar = findViewById(R.id.bottom_nav)
         navBar.selectedItemId = (R.id.foods)
+
+        myFoodButton = findViewById(R.id.my_food_button)
+        usdaButton = findViewById(R.id.usda_button)
+        usdaButton
+
+        usdaButton.isEnabled = false
+        myFoodButton.setOnClickListener{
+            switchToMyFood()
+            overridePendingTransition(0, 0);
+        }
 
         navBar.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
@@ -176,6 +188,11 @@ class USDAFoodList : AppCompatActivity() {
                 Log.d(TAG,t.toString())
             }
         })
+    }
+
+    private fun switchToMyFood(){
+        val intent = Intent(this, MyFoodList::class.java)
+        startActivity(intent)
     }
 
 }

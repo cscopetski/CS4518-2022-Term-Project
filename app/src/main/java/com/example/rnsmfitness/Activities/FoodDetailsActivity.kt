@@ -50,6 +50,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
         val servingSize: String = intent.getStringArrayListExtra("valueList")!![4].toString()
         val foodID: String = intent.getStringArrayListExtra("valueList")!![5]
         val date: Date = Date(intent.getLongExtra("Date",System.currentTimeMillis()))
+        
         detailsProtein.text = protein + "g"
         detailsCarbs.text = carbs + "g"
         detailsFat.text = fat + "g"

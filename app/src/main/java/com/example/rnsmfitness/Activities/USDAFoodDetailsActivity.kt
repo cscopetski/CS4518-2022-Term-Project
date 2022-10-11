@@ -36,10 +36,13 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
     lateinit var addToMyFoodsButton: Button
     lateinit var addToLogButton: Button
     lateinit var usdaPieChart: PieChart
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.usda_food_details)
+
+
 
         detailsCalories = findViewById(R.id.usda_food_detail_calories)
         detailsProtein = findViewById(R.id.usda_food_detail_protein)
