@@ -6,394 +6,547 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/cardview_dark_background">
-    <LinearLayout
-        android:id="@+id/top_layout"
-        android:layout_above="@id/bottom_nav"
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-        <androidx.cardview.widget.CardView
-            android:id="@+id/date_bar"
+        android:background="@color/rnsmDarkGray">
+
+        <LinearLayout
+            android:id="@+id/top_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/edit_date"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="Date"
-                android:layout_gravity="center_horizontal"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/charts_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_nav"
+            android:layout_alignParentTop="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/date_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/edit_date"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/charts_text"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Date"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.cardview.widget.CardView>
 
-                    android:weightSum="3">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/charts_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Charts"
-                        android:padding="10dp"
-                        android:textSize="30sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:gravity="left"
-                        app:layout_constraintStart_toStartOf="parent"/>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/chart_view"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/charts_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-                    <org.eazegraph.lib.charts.PieChart
-                        android:id="@+id/caloriePie"
-                        android:layout_width="300dp"
-                        android:layout_height="400dp"
-                        android:layout_gravity="center"
-                        android:padding="6dp"/>
+                    android:background="@color/rnsmDarkGray">
 
                     <LinearLayout
+                        android:id="@+id/charts_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:background="@color/rnsmDarkPaperGray"
                         android:orientation="horizontal"
-                        android:gravity="center_horizontal"
-                        android:weightSum="3">
+                        android:weightSum="3"
+                        app:layout_constraintEnd_toEndOf="parent"
 
-                        <org.eazegraph.lib.charts.PieChart
-                            android:id="@+id/proteinPie"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="200dp"
-                            android:layout_weight="1"
-                            android:layout_gravity="center_vertical"
-                            android:padding="6dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2.7"
+                            android:orientation="horizontal">
 
-                        <org.eazegraph.lib.charts.PieChart
-                            android:id="@+id/carbPie"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:padding="10dp"
+                                android:text="Charts"
+                                android:textSize="30sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/chartIcon"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_gravity="center_vertical"
-                            android:padding="6dp"/>
-
-                        <org.eazegraph.lib.charts.PieChart
-                            android:id="@+id/fatPie"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_gravity="center_vertical"
-                            android:padding="6dp"/>
+                            android:layout_weight="0.3"
+                            android:src="@drawable/white_down_arrow"
+                            app:tint="@color/color_two" />
 
                     </LinearLayout>
 
+
+                    <LinearLayout
+                        android:id="@+id/chart_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/charts_text">
+
+                        <org.eazegraph.lib.charts.PieChart
+                            android:id="@+id/caloriePie"
+                            android:layout_width="300dp"
+                            android:layout_height="350dp"
+                            android:layout_gravity="center"
+                            android:padding="6dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:weightSum="3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <org.eazegraph.lib.charts.PieChart
+                                android:id="@+id/proteinPie"
+                                android:layout_width="0dp"
+                                android:layout_height="200dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:padding="6dp" />
+
+                            <org.eazegraph.lib.charts.PieChart
+                                android:id="@+id/carbPie"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:padding="6dp" />
+
+                            <org.eazegraph.lib.charts.PieChart
+                                android:id="@+id/fatPie"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:padding="6dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/breakfast_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/breakfast_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/rnsmDarkPaperGray"
+                                android:orientation="horizontal"
+                                android:weightSum="3"
+                                app:layout_constraintEnd_toEndOf="parent"
+
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2.7"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:padding="10dp"
+                                        android:text="Breakfast"
+                                        android:textSize="30sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:id="@+id/breakfast_cals"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+
+                                        android:padding="7dp"
+                                        android:text="Cals"
+                                        android:textSize="20sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+
+                                        android:paddingRight="10dp"
+                                        android:text="cals"
+                                        android:textSize="20sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/breakfastIcon"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.3"
+                                    android:src="@drawable/white_down_arrow"
+                                    app:tint="@color/color_two" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/breakfast_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/rnsmDarkGray"
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/breakfast_text">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/breakfast_recycler"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:listitem="@layout/item_food" />
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/lunch_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/lunch_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/rnsmDarkPaperGray"
+                                android:orientation="horizontal"
+                                android:weightSum="3"
+                                app:layout_constraintEnd_toEndOf="parent"
+
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2.7"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:padding="10dp"
+                                        android:text="Lunch"
+                                        android:textSize="30sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:id="@+id/lunch_cals"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+
+                                        android:padding="7dp"
+                                        android:text="Cals"
+                                        android:textSize="20sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+
+                                        android:paddingRight="10dp"
+                                        android:text="cals"
+                                        android:textSize="20sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/lunchIcon"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.3"
+                                    android:src="@drawable/white_down_arrow"
+                                    app:tint="@color/color_two" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lunch_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/rnsmDarkGray"
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/lunch_text">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/lunch_recycler"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:listitem="@layout/item_food" />
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/dinner_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/dinner_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/rnsmDarkPaperGray"
+                                android:orientation="horizontal"
+                                android:weightSum="3"
+                                app:layout_constraintEnd_toEndOf="parent"
+
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2.7"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:padding="10dp"
+                                        android:text="Dinner"
+                                        android:textSize="30sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:id="@+id/dinner_cals"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+
+                                        android:padding="7dp"
+                                        android:text="Cals"
+                                        android:textSize="20sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+
+                                        android:paddingRight="10dp"
+                                        android:text="cals"
+                                        android:textSize="20sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/dinnerIcon"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.3"
+                                    android:src="@drawable/white_down_arrow"
+                                    app:tint="@color/color_two" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/dinner_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/rnsmDarkGray"
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/dinner_text">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/dinner_recycler"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:listitem="@layout/item_food" />
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/snack_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/snack_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/rnsmDarkPaperGray"
+                                android:orientation="horizontal"
+                                android:weightSum="3"
+                                app:layout_constraintEnd_toEndOf="parent"
+
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2.7"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:padding="10dp"
+                                        android:text="Snacks"
+                                        android:textSize="30sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:id="@+id/snack_cals"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+
+                                        android:padding="7dp"
+                                        android:text="Cals"
+                                        android:textSize="20sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+
+                                        android:paddingRight="10dp"
+                                        android:text="cals"
+                                        android:textSize="20sp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/snacksIcon"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.3"
+                                    android:src="@drawable/white_down_arrow"
+                                    app:tint="@color/color_two" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/snack_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/rnsmDarkGray"
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/snack_text">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/snack_recycler"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:listitem="@layout/item_food" />
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+            </ScrollView>
 
-
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/breakfast_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/breakfast_text"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:orientation="horizontal"
-
-                            android:weightSum="3">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Breakfast"
-                                android:padding="10dp"
-                                android:textSize="30sp"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:gravity="left"
-                                app:layout_constraintStart_toStartOf="parent"/>
-
-                            <TextView
-                                android:id="@+id/breakfast_cals"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-
-                                android:padding="10dp"
-                                android:text="Cals"
-                                android:textSize="20sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:id="@+id/breakfast_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/breakfast_text"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:visibility="gone">
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/breakfast_recycler"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                tools:listitem="@layout/item_food"/>
-                        </LinearLayout>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/lunch_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/lunch_text"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:orientation="horizontal"
-
-                            android:weightSum="3">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Lunch"
-                                android:padding="10dp"
-                                android:textSize="30sp"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:gravity="left"
-                                app:layout_constraintStart_toStartOf="parent"/>
-
-                            <TextView
-                                android:id="@+id/lunch_cals"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-
-                                android:padding="10dp"
-                                android:text="Cals"
-                                android:textSize="20sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/lunch_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/lunch_text"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:visibility="gone">
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/lunch_recycler"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                tools:listitem="@layout/item_food"/>
-                        </LinearLayout>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/dinner_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/dinner_text"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:orientation="horizontal"
-
-                            android:weightSum="3">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Dinner"
-                                android:padding="10dp"
-                                android:textSize="30sp"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:gravity="left"
-                                app:layout_constraintStart_toStartOf="parent"/>
-
-                            <TextView
-                                android:id="@+id/dinner_cals"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-
-                                android:padding="10dp"
-                                android:text="Cals"
-                                android:textSize="20sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/dinner_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/dinner_text"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:visibility="gone">
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/dinner_recycler"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                tools:listitem="@layout/item_food"/>
-                        </LinearLayout>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/snack_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/snack_text"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:orientation="horizontal"
-
-                            android:weightSum="3">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Snacks"
-                                android:padding="10dp"
-                                android:textSize="30sp"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:gravity="left"
-                                app:layout_constraintStart_toStartOf="parent"/>
-
-                            <TextView
-                                android:id="@+id/snack_cals"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-
-                                android:padding="10dp"
-                                android:text="Cals"
-                                android:textSize="20sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/snack_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/snack_text"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:visibility="gone">
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/snack_recycler"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                tools:listitem="@layout/item_food"/>
-                        </LinearLayout>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-        </ScrollView>
-
+        </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
-    </ScrollView>
 <com.google.android.material.bottomnavigation.BottomNavigationView
     android:layout_alignParentBottom="true"
     android:layout_width="match_parent"

@@ -341,24 +341,22 @@ class SignUp : AppCompatActivity() {
         //Imperial and Metric Button
         binding.MetricButton.setOnClickListener {
             if(signUpFields.measurement == 0){
-                binding.MeasurementImperialHiddenView.visibility = View.GONE
-                binding.MeasurementMetricHiddenView.visibility = View.VISIBLE
                 signUpFields.measurement = 1
                 binding.HeightFeet.text.clear()
                 binding.HeightInch.text.clear()
                 binding.currentWeightlb.text.clear()
                 binding.goalWeightlb.text.clear()
+                updateSection()
             }
         }
 
         binding.ImperialButton.setOnClickListener {
             if(signUpFields.measurement == 1){
-                binding.MeasurementMetricHiddenView.visibility = View.GONE
-                binding.MeasurementImperialHiddenView.visibility = View.VISIBLE
                 signUpFields.measurement = 0
                 binding.HeightCm.text.clear()
                 binding.currentWeightKg.text.clear()
                 binding.goalWeightkg.text.clear()
+                updateSection()
             }
         }
 
@@ -608,10 +606,14 @@ class SignUp : AppCompatActivity() {
             binding.SignUpHiddenView.visibility = (View.GONE)
             if(signUpFields.measurement == 0) {
                 binding.MeasurementImperialHiddenView.visibility = (View.VISIBLE)
+                binding.ImperialButton.isEnabled = false
                 binding.MeasurementMetricHiddenView.visibility = (View.GONE)
+                binding.MetricButton.isEnabled = true
             } else if(signUpFields.measurement == 1) {
                 binding.MeasurementImperialHiddenView.visibility = (View.GONE)
+                binding.ImperialButton.isEnabled = true
                 binding.MeasurementMetricHiddenView.visibility = (View.VISIBLE)
+                binding.MetricButton.isEnabled = false
             }
             binding.ImpMetricButtons.visibility = (View.VISIBLE)
         }else if(signUpFields.section == 3){

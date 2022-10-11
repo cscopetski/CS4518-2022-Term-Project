@@ -73,7 +73,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Activity Level"
-                android:textColor="#006600"
                 android:textSize="25dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/ActivityLevelHeader"
@@ -117,7 +116,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="Little to no exercise"
-                        android:textColor="#000000"
                         android:textSize="10sp" />
                     <RadioButton
                         android:id="@+id/lightlyActive"
@@ -130,7 +128,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="Exercise 1-3 times/week"
-                        android:textColor="#000000"
                         android:textSize="10sp" />
                     <RadioButton
                         android:id="@+id/active"
@@ -143,7 +140,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="Exercise 4-5 times/week"
-                        android:textColor="#000000"
                         android:textSize="10sp" />
                     <RadioButton
                         android:id="@+id/veryActive"
@@ -156,7 +152,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="Daily exercise or intense exercise 3-4 times/week"
-                        android:textColor="#000000"
                         android:textSize="10dp" />
                 </RadioGroup>
                 <TextView
@@ -228,7 +223,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Weight Goal"
-                    android:textColor="#006600"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/WeightGoalHeader"
@@ -380,7 +374,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Measurement"
-                    android:textColor="#006600"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/MeasurementHeader"
@@ -399,7 +392,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -560,7 +553,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:gravity="center_horizontal"
                 app:layout_constraintTop_toBottomOf="@id/MeasurementMetricHiddenView">
                 <LinearLayout
@@ -670,7 +663,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sex/DOB"
-                    android:textColor="#006600"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/SexDOBHeader"
@@ -820,7 +812,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sign Up"
-                    android:textColor="#006600"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/SignUpHeader"
@@ -840,7 +831,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="20dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -901,9 +892,7 @@
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Large"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/black"
-                        android:scrollbarSize="10dp"
-                        android:backgroundTint="@color/white">
+                        android:scrollbarSize="10dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password"
@@ -912,7 +901,7 @@
                         android:textSize="15dp"
                         android:inputType="textPassword"
                         android:ems="15"
-                        android:backgroundTint="@color/white"/>
+                        android:backgroundTint="@color/rnsmDarkGray"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -927,9 +916,7 @@
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Large"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/black"
-                        android:scrollbarSize="10dp"
-                        android:backgroundTint="@color/white">
+                        android:scrollbarSize="10dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/confirmPassword"
@@ -938,7 +925,7 @@
                             android:textSize="15dp"
                             android:inputType="textPassword"
                             android:ems="15"
-                            android:backgroundTint="@color/white"/>
+                            android:backgroundTint="@color/rnsmDarkGray"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
                 <LinearLayout

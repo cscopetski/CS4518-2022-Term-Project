@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,6 +75,24 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var snackCals: TextView
     private lateinit var navBar: BottomNavigationView
 
+    //Icons
+    private lateinit var chartIcon:ImageView
+    private lateinit var breakfastIcon:ImageView
+    private lateinit var lunchIcon:ImageView
+    private lateinit var dinnerIcon:ImageView
+    private lateinit var snacksIcon:ImageView
+
+
+//    lateinit var test: FloatingActionButton
+//    lateinit var logoutButton: Button
+//    lateinit var nameTextView: TextView
+
+
+//    lateinit var btnScan: Button
+    lateinit var resultText: TextView
+
+    lateinit var signUpButton: Button
+
     var data: Intent? = null
 
     companion object {
@@ -128,45 +148,65 @@ class HomeActivity : AppCompatActivity() {
         dinnerCals = findViewById(R.id.dinner_cals)
         snackCals = findViewById(R.id.snack_cals)
 
+        chartIcon = findViewById(R.id.chartIcon)
+        breakfastIcon = findViewById(R.id.breakfastIcon)
+        lunchIcon = findViewById(R.id.lunchIcon)
+        dinnerIcon = findViewById(R.id.dinnerIcon)
+        snacksIcon = findViewById(R.id.snacksIcon)
+
 
 
         breakfastCardView.setOnClickListener {
             if (breakfastView.visibility == View.VISIBLE) {
                 breakfastView.visibility = (View.GONE);
+                breakfastIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_down_arrow, null))
+//                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
             } else {
                 breakfastView.visibility = (View.VISIBLE);
+                breakfastIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_up_arrow, null))
+//                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
             }
         }
 
         lunchCardView.setOnClickListener {
             if (lunchView.visibility == View.VISIBLE) {
                 lunchView.visibility = (View.GONE);
+                lunchIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_down_arrow, null))
             } else {
                 lunchView.visibility = (View.VISIBLE);
+                lunchIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_up_arrow, null))
             }
         }
 
         dinnerCardView.setOnClickListener {
             if (dinnerView.visibility == View.VISIBLE) {
                 dinnerView.visibility = (View.GONE);
+                dinnerIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_down_arrow, null))
             } else {
                 dinnerView.visibility = (View.VISIBLE);
+                dinnerIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_up_arrow, null))
             }
         }
 
         snackCardView.setOnClickListener {
             if (snackView.visibility == View.VISIBLE) {
                 snackView.visibility = (View.GONE);
+                snacksIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_down_arrow, null))
             } else {
                 snackView.visibility = (View.VISIBLE);
+                snacksIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_up_arrow, null))
             }
         }
 
         chartsCard.setOnClickListener {
             if (chartView.visibility == View.VISIBLE) {
                 chartView.visibility = (View.GONE);
+                chartIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_down_arrow, null))
+//                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
             } else {
                 chartView.visibility = (View.VISIBLE);
+                chartIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_up_arrow, null))
+//                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
             }
         }
 
