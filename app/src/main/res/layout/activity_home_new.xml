@@ -130,7 +130,7 @@
                         <LinearLayout
                             android:id="@+id/breakfast_view"
                             android:layout_width="match_parent"
-                            android:layout_height="150dp"
+                            android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@+id/breakfast_text"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -191,7 +191,7 @@
                         <LinearLayout
                             android:id="@+id/lunch_view"
                             android:layout_width="match_parent"
-                            android:layout_height="150dp"
+                            android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@+id/lunch_text"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -252,7 +252,7 @@
                         <LinearLayout
                             android:id="@+id/dinner_view"
                             android:layout_width="match_parent"
-                            android:layout_height="150dp"
+                            android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@+id/dinner_text"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -313,7 +313,7 @@
                         <LinearLayout
                             android:id="@+id/snack_view"
                             android:layout_width="match_parent"
-                            android:layout_height="150dp"
+                            android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@+id/snack_text"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
