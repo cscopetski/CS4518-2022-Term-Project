@@ -73,6 +73,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
             val intent = Intent(this, EditFoodActivity::class.java)
             intent.putStringArrayListExtra("foodDetailsList", detailsList)
             startActivity(intent)
+            finish()
         }
 
         addToLogButton.setOnClickListener{
@@ -81,6 +82,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
             intent.putExtra("Date",date.time)
             intent.putExtra(INTENT_CODE, INTENT_CODE_MY_FOOD)
             startActivity(intent)
+            finish()
         }
 
         val total: Float = protein.toFloat() + carbs.toFloat() + fat.toFloat()
@@ -113,6 +115,7 @@ class FoodDetailsActivity() : AppCompatActivity() {
     private fun switchToMyFoodPage(){
         val intent = Intent(this, MyFoodList::class.java)
         startActivity(intent)
+        finish()
     }
 
 }

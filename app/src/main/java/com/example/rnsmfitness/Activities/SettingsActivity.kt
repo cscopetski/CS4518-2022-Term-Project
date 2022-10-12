@@ -31,8 +31,14 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.bottomNav.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.foods -> startActivity(Intent(this, MyFoodList::class.java))
-                R.id.home -> startActivity(Intent(this, HomeActivity::class.java))
+                R.id.foods -> {
+                    startActivity(Intent(this, MyFoodList::class.java))
+                    finish()
+                }
+                R.id.home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+                }
             }
             overridePendingTransition(0, 0);
             true
@@ -79,6 +85,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun switchActivity(){
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     override fun onResume() {

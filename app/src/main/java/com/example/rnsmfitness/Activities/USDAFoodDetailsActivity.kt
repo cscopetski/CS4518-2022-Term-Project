@@ -90,6 +90,7 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
             intent.putExtra("Date",date.time)
             intent.putExtra(INTENT_CODE, INTENT_CODE_USDA)
             startActivity(intent)
+            finish()
         }
         val total: Float = protein.toFloat() + carbs.toFloat() + fat.toFloat()
 

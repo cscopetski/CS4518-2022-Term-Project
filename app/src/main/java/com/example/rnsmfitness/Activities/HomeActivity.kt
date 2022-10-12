@@ -102,8 +102,13 @@ class HomeActivity : AppCompatActivity() {
                     val intent = Intent(this, MyFoodList::class.java)
                     intent.putExtra("Date",date.time)
                     startActivity(intent)
+                    finish()
                 }
-                R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
+                R.id.settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    finish()
+                }
+
             }
             overridePendingTransition(0, 0);
             true

@@ -71,8 +71,16 @@ class MyFoodList : AppCompatActivity() {
 
         navBar.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> startActivity(Intent(this, HomeActivity::class.java))
-                R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
+                R.id.home ->{
+                    (startActivity(Intent(this, HomeActivity::class.java)))
+                    finish()
+                }
+
+
+                R.id.settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    finish()
+                }
             }
             overridePendingTransition(0, 0);
             true
@@ -183,6 +191,7 @@ class MyFoodList : AppCompatActivity() {
     private fun switchToUSDAPage(){
         val intent = Intent(this, USDAFoodList::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun switchToCreateFood(){

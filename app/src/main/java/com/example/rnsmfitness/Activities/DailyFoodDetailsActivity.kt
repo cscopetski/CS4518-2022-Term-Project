@@ -77,6 +77,7 @@ class DailyFoodDetailsActivity : AppCompatActivity() {
             val intent = Intent(this, EditDailyFoodActivity::class.java)
             intent.putStringArrayListExtra("foodDetailsList", detailsList)
             startActivity(intent)
+            finish()
         }
 
         val total: Float = protein.toFloat() + carbs.toFloat() + fat.toFloat()

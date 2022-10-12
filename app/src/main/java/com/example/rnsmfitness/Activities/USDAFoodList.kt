@@ -80,8 +80,14 @@ class USDAFoodList : AppCompatActivity() {
 
         navBar.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> startActivity(Intent(this, HomeActivity::class.java))
-                R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
+                R.id.home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+                }
+                R.id.settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    finish()
+                }
             }
             overridePendingTransition(0, 0);
             true
@@ -124,6 +130,7 @@ class USDAFoodList : AppCompatActivity() {
     private fun switchToHomePage(){
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun getUSDAFoods(query : String){
@@ -196,6 +203,7 @@ class USDAFoodList : AppCompatActivity() {
     private fun switchToMyFood(){
         val intent = Intent(this, MyFoodList::class.java)
         startActivity(intent)
+        finish()
     }
 
 }

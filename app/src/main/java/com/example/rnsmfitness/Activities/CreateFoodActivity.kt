@@ -91,6 +91,7 @@ class CreateFoodActivity: AppCompatActivity() {
     private fun switchToMyFoodPage(){
         val intent = Intent(this, MyFoodList::class.java)
         startActivity(intent)
+        finish()
     }
 
     private val calorieWatcherP = object : TextWatcher{
