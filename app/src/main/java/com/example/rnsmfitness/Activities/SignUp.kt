@@ -238,9 +238,6 @@ class SignUp : AppCompatActivity() {
             val month: Int = c.get(Calendar.MONTH)
             val day: Int = c.get(Calendar.DAY_OF_MONTH)
             val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
-
-                // Display Selected date in textbox
-//                val dateString = "$monthOfYear/$dayOfMonth/$year"
                 c.set(year,monthOfYear,dayOfMonth)
                 signUpFields.dob = Date(c.timeInMillis)
                 binding.date.text= Date(c.timeInMillis).toString()
@@ -397,9 +394,6 @@ class SignUp : AppCompatActivity() {
 
                 if (response.isSuccessful) {
                     val user: User = response.body()!!
-
-                    Log.d(SIGNUP, "SignUp:\n" + user.firstname)
-                    Toast.makeText(BaseApplication.getAppContext(), "SignUp " + user.firstname, Toast.LENGTH_LONG).show()
 
                     switchActivity(user)
                 } else {
@@ -725,6 +719,7 @@ class SignUp : AppCompatActivity() {
             val intent = Intent(this, HomeActivity::class.java)
             intent.putExtra("Name",user.firstname + " " + user.lastname)
             startActivity(intent)
+            finish()
         }else{
             Log.d(SIGNUP, "Switch Activity: User Error")
         }

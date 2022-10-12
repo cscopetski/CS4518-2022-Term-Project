@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        android:text="Create Food"
+        android:text="@string/create_food"
         android:textAlignment="center"
         android:textStyle="bold"
         android:textSize="32sp"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Food Name"
+        android:hint="@string/food_name"
         android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Protein (g)"
+        android:hint="@string/protein_g"
         android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Carbs (g)"
+        android:hint="@string/carbs_g"
         android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
@@ -78,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Fat (g)"
+        android:hint="@string/fat_g"
         android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
@@ -94,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Serving Size (g)"
+        android:hint="@string/serving_size_g"
         android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
@@ -110,7 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Calories"
+        android:hint="@string/calories"
         android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
 
-        android:text="Create" />
+        android:text="@string/create_food" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

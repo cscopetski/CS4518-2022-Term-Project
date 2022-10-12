@@ -20,6 +20,16 @@ class DataSource {
         return liveList
     }
 
+    fun deleteFood(food: FoodItem) {
+        val currentList = liveList.value
+        if (currentList != null) {
+            val updatedList = currentList.toMutableList()
+            updatedList.remove(food)
+            liveList.postValue(updatedList)
+        }
+
+    }
+
     fun setFoodList(list: List<FoodItem>?){
         if (list.isNullOrEmpty()){
             val eList: List<FoodItem> = listOf()

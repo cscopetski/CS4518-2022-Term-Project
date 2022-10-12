@@ -82,17 +82,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var dinnerIcon:ImageView
     private lateinit var snacksIcon:ImageView
 
-
-//    lateinit var test: FloatingActionButton
-//    lateinit var logoutButton: Button
-//    lateinit var nameTextView: TextView
-
-
-//    lateinit var btnScan: Button
-    lateinit var resultText: TextView
-
-    lateinit var signUpButton: Button
-
     var data: Intent? = null
 
     companion object {
@@ -160,11 +149,11 @@ class HomeActivity : AppCompatActivity() {
             if (breakfastView.visibility == View.VISIBLE) {
                 breakfastView.visibility = (View.GONE);
                 breakfastIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_down_arrow, null))
-//                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
+
             } else {
                 breakfastView.visibility = (View.VISIBLE);
                 breakfastIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_up_arrow, null))
-//                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
+
             }
         }
 
@@ -202,11 +191,11 @@ class HomeActivity : AppCompatActivity() {
             if (chartView.visibility == View.VISIBLE) {
                 chartView.visibility = (View.GONE);
                 chartIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_down_arrow, null))
-//                arrow.setImageResource(R.drawable.ic_baseline_expand_more_24);
+
             } else {
                 chartView.visibility = (View.VISIBLE);
                 chartIcon.setImageDrawable(ResourcesCompat.getDrawable(resources,R.drawable.white_up_arrow, null))
-//                arrow.setImageResource(R.drawable.ic_baseline_expand_less_24);
+
             }
         }
 
@@ -219,8 +208,6 @@ class HomeActivity : AppCompatActivity() {
             val day: Int = c.get(Calendar.DAY_OF_MONTH)
             val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
 
-                // Display Selected date in textbox
-//                val dateString = "$monthOfYear/$dayOfMonth/$year"
                 c.set(year, monthOfYear, dayOfMonth)
                 date = Date(c.timeInMillis)
                 editDate.setText(date.toString())

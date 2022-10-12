@@ -25,7 +25,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var signUpButton: Button
     private lateinit var emailText: EditText
     private lateinit var passwordText: EditText
-    private var users: MutableLiveData<User> = MutableLiveData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +38,10 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
 
 
-            if(emailText.text.isEmpty() || passwordText.text.isEmpty()){
+            if (emailText.text.isEmpty() || passwordText.text.isEmpty()) {
                 loginButton.error = "Must fill out both fields"
                 Toast.makeText(this, "Must fill out both fields", Toast.LENGTH_LONG).show()
-            }else{
+            } else {
                 loginButton.error = null
                 login(emailText.text.toString(), passwordText.text.toString(), this)
             }
@@ -50,25 +49,14 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
-
-        if(RetroFitClient.checkCookie()){
-            Toast.makeText(this, "COOKIE FOUND, LOGGING IN", Toast.LENGTH_LONG).show()
-            //getUser()
-            this.users.observe(this) {
-                switchActivity(users.value)
-            }
-        }
-
-        signUpButton.setOnClickListener{
+        signUpButton.setOnClickListener {
             signUp()
         }
 
 
-
-
     }
 
-    private fun login(email: String, password: String, activity:Context) {
+    private fun login(email: String, password: String, activity: Context) {
 
         val call: Call<User> =
             RetroFitClient.authorizationService.login(LoginCredentials(email, password))
@@ -78,16 +66,15 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<User?>?, response: Response<User?>) {
 
                 if (response.isSuccessful) {
-                    val user: User = response.body()!!
-
-                    Log.d(TAG, "Login:\n" + user.firstname)
-                    Toast.makeText(activity, "Login " + user.firstname, Toast.LENGTH_LONG).show()
-
-                    switchActivity(user)
+                    switchActivity()
                 } else {
                     Log.d(TAG, "Incorrect Login")
                     loginButton.error = "Incorrect Email or Password"
-                    Toast.makeText(activity, "Failed to Login:\nIncorrect Email or Password", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        activity,
+                        "Failed to Login:\nIncorrect Email or Password",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
@@ -98,44 +85,14 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-
-    fun getUser(){
-        val call: Call<User> = RetroFitClient.userService.getUser()
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    val user: User = response.body()!!
-                    Log.d(TAG, "Get User:\n" + user.firstname)
-                    users.postValue(user)
-
-                } else {
-
-                    Log.d(TAG, "Failed to get user")
-                    users.postValue(null)
-
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.d(TAG, "Get User: Error")
-                users.postValue(null)
-            }
-
-        })
-    }
-
-    private fun switchActivity(user: User?){
-        if(user!=null){
-            val intent = Intent(this, HomeActivity::class.java)
-            intent.putExtra("Name",user.firstname + " " + user.lastname)
-            startActivity(intent)
-        }else{
-            Log.d(TAG, "Switch Activity: User Error")
-        }
+    private fun switchActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
 
     }
 
-    private fun signUp(){
+    private fun signUp() {
         val intent = Intent(this, SignUp::class.java)
         startActivity(intent)
     }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.SettingsActivity">
+    tools:context=".Activities.SettingsActivity"
+    android:background="@color/rnsmDarkGray">
 
     <LinearLayout
         android:id="@+id/top_layout"
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="Settings"
             android:textSize="100sp"
-            android:textColor="#777777"/>
+            android:textColor="@color/rnsmPaper"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

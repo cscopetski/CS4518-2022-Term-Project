@@ -18,5 +18,22 @@
     <string name="welcome_text">Welcome</string>
     <string name="myfoodpage_button_text">MyFood Page</string>
     <string name="sign_up">Sign Up</string>
+    <string name="add_food_to_daily_log">Add Food to Daily Log</string>
+    <string name="date">Date</string>
+    <string name="quantity">Quantity</string>
+    <string name="food_name">Food Name</string>
+    <string name="protein_g">Protein (g)</string>
+    <string name="carbs_g">Carbs (g)</string>
+    <string name="fat_g">Fat (g)</string>
+    <string name="serving_size_g">Serving Size (g)</string>
+    <string name="calories">Calories</string>
+    <string name="meal">Meal</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_food">Create Food</string>
+    <string name="food_details">Food Details</string>
+    <string name="edit_food">Edit Food</string>
+    <string name="close">Close</string>
+    <string name="edit_daily_food">Edit Daily Food</string>
+    <string name="submit_changes">Submit Changes</string>
 </resources>
 

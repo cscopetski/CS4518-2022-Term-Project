@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
-                android:text="Add Food to Daily Log"
+                android:text="@string/add_food_to_daily_log"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="32sp"
@@ -37,14 +37,14 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Date" />
+                    android:text="@string/date" />
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Quantity"
+                android:hint="@string/quantity"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp">
 
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Food Name"
+                android:hint="@string/food_name"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp">
 
@@ -92,7 +92,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:hint="Protein (g)">
+                    android:hint="@string/protein_g">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_food_protein"
@@ -113,7 +113,7 @@
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="5dp"
                     android:layout_weight="1"
-                    android:hint="Carbs (g)">
+                    android:hint="@string/carbs_g">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_food_carbs"
@@ -134,7 +134,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:hint="Fat (g)">
+                    android:hint="@string/fat_g">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_food_fat"
@@ -155,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Serving Size (g)"
+                android:hint="@string/serving_size_g"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp">
 
@@ -176,7 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Calories"
+                android:hint="@string/calories"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp">
 
@@ -197,7 +197,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Meal"
+                android:hint="@string/meal"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp">
 
@@ -219,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
 
-                android:text="Add Food" />
+                android:text="@string/add_food" />
 
             <Button
                 android:id="@+id/cancel_changes_button"
@@ -228,7 +228,7 @@
                 android:layout_gravity="center_horizontal"
 
 
-                android:text="Cancel" />
+                android:text="@string/cancel" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

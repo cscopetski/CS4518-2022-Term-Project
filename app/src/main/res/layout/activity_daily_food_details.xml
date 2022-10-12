@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        android:text="Food Details"
+        android:text="@string/food_details"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="40sp"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Food Name"
+            android:text="@string/food_name"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="30sp"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Calories"
+            android:text="@string/calories"
 
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -192,14 +192,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
 
-            android:text="Edit Food" />
+            android:text="@string/edit_food" />
 
         <Button
             android:id="@+id/close_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Close" />
+            android:text="@string/close" />
 
     </LinearLayout>
 </LinearLayout>

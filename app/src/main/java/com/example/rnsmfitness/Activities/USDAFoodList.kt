@@ -74,6 +74,10 @@ class USDAFoodList : AppCompatActivity() {
             overridePendingTransition(0, 0);
         }
 
+        searchView.setOnClickListener{
+            searchView.isIconified = false;
+        }
+
         navBar.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> startActivity(Intent(this, HomeActivity::class.java))
@@ -156,7 +160,6 @@ class USDAFoodList : AppCompatActivity() {
 
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == CAMERARESULT) {
-            // There are no request codes
             scanData = result.data!!
             val result = scanData.getStringExtra(HomeActivity.RESULT)
 

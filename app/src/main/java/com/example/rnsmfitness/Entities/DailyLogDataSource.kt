@@ -21,7 +21,6 @@ class DailyLogDataSource {
         return dailyLog
     }
 
-
     fun getDailyDetails(date: Date) {
         val call: Call<DailyLog> =
             RetroFitClient.dailyLogService.getDailyLog(date)

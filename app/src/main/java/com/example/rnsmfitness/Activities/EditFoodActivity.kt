@@ -56,7 +56,6 @@ class EditFoodActivity: AppCompatActivity()  {
         val name: String = intent.getStringArrayListExtra("foodDetailsList")!![3]
         val servingSize: Double = intent.getStringArrayListExtra("foodDetailsList")!![4].toDouble()
         val foodID: Int = intent.getStringArrayListExtra("foodDetailsList")!![5].toInt()
-        //val calories: Int = (protein.toInt() * 4) + (carbs.toInt() * 4) + (fat.toInt() * 9)
 
         editFoodName.setText(name)
         editFoodProtein.setText(protein)

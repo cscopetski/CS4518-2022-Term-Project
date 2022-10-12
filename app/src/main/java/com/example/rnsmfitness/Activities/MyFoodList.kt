@@ -78,10 +78,14 @@ class MyFoodList : AppCompatActivity() {
             true
         })
 
+
+        searchView.setOnClickListener{
+            searchView.isIconified = false;
+        }
+
         getDBFoods()
 
         createFoodButton.setOnClickListener {
-            //set current view to myFoodPage
             switchToCreateFood()
         }
 
@@ -113,15 +117,13 @@ class MyFoodList : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 adapter.filter(query)
-                //adapter = FoodItemAdapter(this@MyFoodList, liveList.value!!.filter { it.name.contains(query)})
-                //recyclerView.adapter = adapter
+
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
                 adapter.filter(newText)
-                //adapter = FoodItemAdapter(this@MyFoodList, liveList.value!!.filter { it.name.contains(newText)})
-                //recyclerView.adapter = adapter
+
                 return true
             }
         })
@@ -178,12 +180,6 @@ class MyFoodList : AppCompatActivity() {
         }
     }
 
-
-    private fun switchToHomePage(){
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-    }
-
     private fun switchToUSDAPage(){
         val intent = Intent(this, USDAFoodList::class.java)
         startActivity(intent)
@@ -235,7 +231,7 @@ class MyFoodList : AppCompatActivity() {
                 Log.v(TAG1, "in Delete on Response")
                 if(response.isSuccessful){
                     Log.v(TAG1, "in if")
-
+                    dataSource.deleteFood(food)
                 }else{
                     Log.v(TAG1, "in else")
                     Log.v(TAG1, response.code().toString())
@@ -247,37 +243,6 @@ class MyFoodList : AppCompatActivity() {
                 Log.v(TAG1, "In delete on failure")
             }
         })
-    }
-
-
-
-    private fun filter(text: String) {
-        // creating a new array list to filter our data.
-        val currentList = dataSource.getFoodList().value
-        val filteredlist: ArrayList<FoodItem> = ArrayList<FoodItem>()
-
-        // running a for loop to compare elements.
-        for (i in 0..(dataSource.getFoodList().value?.size!!)) {
-            // checking if the entered string matched with any item of our recycler view.
-            if (currentList != null) {
-                if (currentList.get(i).name.toLowerCase().contains(text.lowercase(Locale.getDefault()))) {
-                    // if the item is matched we are
-                    // adding it to our filtered list.
-                    filteredlist.add(currentList.get(i))
-                }
-            }
-        }
-        if (filteredlist.isEmpty()) {
-            // if no item is added in filtered list we are
-            // displaying a toast message as no data found.
-            Toast.makeText(this, "No Foods Found..", Toast.LENGTH_SHORT).show()
-        } else {
-            // at last we are passing that filtered
-            // list to our adapter class.
-
-            //adapter.filterList(filteredlist)
-            dataSource.setFoodList(filteredlist)
-        }
     }
 
 }

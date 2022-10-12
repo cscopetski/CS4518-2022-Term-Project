@@ -29,9 +29,6 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     }
 
     override fun handleResult(p0: Result?) {
-        /*val intent = Intent(applicationContext, HomeActivity::class.java)
-        intent.putExtra(RESULT, p0.toString())
-        startActivity(intent)*/
         val intent = Intent()
         intent.putExtra(RESULT, p0.toString())
         setResult(CAMERARESULT, intent)

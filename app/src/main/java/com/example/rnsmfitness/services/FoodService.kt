@@ -13,10 +13,6 @@ interface FoodService {
     @GET("$URL_PREFIX/getAll-user")
     fun getAllUserFoods(): Call<List<FoodItem>>
 
-    //can be used for specific details when making individual food pages
-    @GET("$URL_PREFIX/get/{id}")
-    fun getFoodByID(@Path ("id") foodId: Int): Call<FoodItem>
-
     @POST("$URL_PREFIX/insert")
     fun insertFood(@Body food: FoodItemBody): Call<ResponseBody>
 

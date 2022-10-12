@@ -67,7 +67,6 @@ class USDAFoodDetailsActivity() : AppCompatActivity() {
         detailsCalories.text = calories.toString() + " cal"
         detailsName.text = name
 
-        //val detailsList = intent.getStringArrayListExtra("valueList")
         val detailsList = ArrayList<String>()
         detailsList.add(protein)
         detailsList.add(fat)
