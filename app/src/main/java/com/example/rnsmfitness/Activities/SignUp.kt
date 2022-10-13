@@ -628,6 +628,8 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun loginPage(){
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
         finish()
     }
 
