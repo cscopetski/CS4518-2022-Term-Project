@@ -528,10 +528,8 @@ class SignUp : AppCompatActivity() {
         Log.d(SIGNUP, view.id.toString())
         if(view.id == R.id.Male){
             signUpFields.sex = "male"
-            binding.Male.setBackgroundColor(Color.parseColor("#ffffff"))
         } else if(view.id == R.id.Female){
             signUpFields.sex = "female"
-            binding.Female.setBackgroundColor(Color.parseColor("#ffffff"))
         } else{
             signUpFields.sex = null
         }
